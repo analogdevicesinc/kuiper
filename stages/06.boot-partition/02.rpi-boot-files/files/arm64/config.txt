@@ -31,3 +31,12 @@ arm_boost=1
 dtoverlay=dwc2,dr_mode=host
 
 autologin-user=analog
+
+[pi5]
+dtoverlay=gmsl-pi5
+dtoverlay=rpi-regulator
+
+[pi4]
+dtoverlay=gmsl-pi4
+
+[all]
