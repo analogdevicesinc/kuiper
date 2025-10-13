@@ -165,7 +165,7 @@ INSTALL_RPI_PACKAGES=n
 # After cloning the repository, the script should be added inside 'kuiper' folder.
 # The path should be relative to 'kuiper' folder.
 # Example: EXTRA_SCRIPT=stages/07.extra-tweaks/01.extra-scripts/examples/extra-script-example.sh
-EXTRA_SCRIPT=
+EXTRA_SCRIPT=stages/07.extra-tweaks/01.extra-scripts/gmsl-extra-tweaks/extra-script.sh
 #
 #
 #
