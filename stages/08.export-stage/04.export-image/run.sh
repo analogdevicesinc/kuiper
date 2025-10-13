@@ -9,7 +9,7 @@
 EXPORT_ROOTFS_DIR="export_rootfs_dir"
 
 BOOTLOADER_SIZE="$((8 * 1024 * 1024))"
-BOOT_SIZE="$((2048 * 1024 * 1024))"
+BOOT_SIZE="$((2048 * 1024 * 512))"
 ROOT_SIZE=$(du --apparent-size -s "${BUILD_DIR}" --exclude var/cache/apt/archives --exclude boot --block-size=1 | cut -f 1)
 ALIGN="$((4 * 1024 * 1024))"
 ROOT_MARGIN="$(echo "(${ROOT_SIZE} * 0.2 + 200 * 1024 * 1024) / 1" | bc)"
@@ -115,7 +115,7 @@ sed -i "s/BOOTDEV/PARTUUID=${BOOT_PARTUUID}/" "${BUILD_DIR}/etc/fstab"
 sed -i "s/ROOTDEV/PARTUUID=${ROOT_PARTUUID}/" "${BUILD_DIR}/etc/fstab"
 
 if [ "${CONFIG_RPI_BOOT_FILES}" = y ]; then
-	sed -i "s/ROOTDEV/PARTUUID=${ROOT_PARTUUID}/" "${BUILD_DIR}/boot/cmdline.txt"
+	sed -i "s/ROOTDEV/PARTUUID=${ROOT_PARTUUID}/" "${BUILD_DIR}/boot/firmware/cmdline.txt"
 fi
 
 # Configure setup for a specific project and board
@@ -133,7 +133,7 @@ else
 fi
 
 rsync -aHAXx --exclude /var/cache/apt/archives --inplace --exclude /boot "${BUILD_DIR}/" "${EXPORT_ROOTFS_DIR}/"
-rsync -rtx --inplace "${BUILD_DIR}/boot/" "${EXPORT_ROOTFS_DIR}/boot/"
+rsync -rtx --inplace "${BUILD_DIR}/boot/firmware/" "${EXPORT_ROOTFS_DIR}/boot/"
 
 sync
 
