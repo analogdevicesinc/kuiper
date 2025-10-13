@@ -23,9 +23,9 @@ chroot "${BUILD_DIR}" << EOF
 		adduser analog \$GRP
 	done
 
-	# Set the name of the machine to 'analog'
-	echo "analog" > /etc/hostname
-	echo "127.0.1.1 analog" >> /etc/hosts
+	# Set the name of the machine to 'analog-rpi-gmsl'
+	echo "analog-rpi-gmsl" > /etc/hostname
+	echo "127.0.1.1 analog-rpi-gmsl" >> /etc/hosts
 
 	# Set root PATH to all users for the desktop environment
 	echo 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' > /etc/environment
