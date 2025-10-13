@@ -5,7 +5,7 @@
 # This image can be customized by adding one or more of the following libraries and tools.
 #
 # Set the architecture for Kuiper. Options: armhf (for 32 bits), arm64 (for 64 bits).
-TARGET_ARCHITECTURE=armhf
+TARGET_ARCHITECTURE=arm64
 #
 # Set the Debian version for Kuiper. Options: bullseye, bookworm, trixie.
 DEBIAN_VERSION=trixie
@@ -20,7 +20,7 @@ PRESERVE_CONTAINER=n
 #
 # [DESKTOP ENVIRONMENT]
 # Contains XFCE4 desktop environment and X11VNC server.
-CONFIG_DESKTOP=n
+CONFIG_DESKTOP=y
 #
 #
 #
@@ -125,13 +125,18 @@ CONFIG_LINUX_SCRIPTS=n
 #
 #
 # [RASPBERRY PI BOOT FILES]
-# Contains boot files for Raspberry PI installed from the ADI Package Repository.
+# Contains boot files for Raspberry PI.
 CONFIG_RPI_BOOT_FILES=y
+BRANCH_RPI_BOOT_FILES=gmsl/rpi-6.13.y
+USE_ADI_REPO_RPI_BOOT=n
 #
 #
 #
 # [INTEL AND XILINX BOOT FILES]
 # Contains boot files for Intel and Xilinx.
+CONFIG_XILINX_INTEL_BOOT_FILES=n
+RELEASE_XILINX_INTEL_BOOT_FILES=2022_r2
+USE_ADI_REPO_CARRIERS_BOOT=y
 #
 # For armhf:
 CONFIG_ARCH_ZYNQ=y
@@ -156,7 +161,7 @@ CARRIER=
 # [RASPBERRY PI SPECIFIC PACKAGES]
 # Install the following RaspberryPi specific packages: raspi-config, GPIO related (pigpio, python3-gpio, raspi-gpio, python3-rpi.gpio),
 # VideoCore debugging related (vcdbg), sense-hat, sense-emu.
-INSTALL_RPI_PACKAGES=n
+INSTALL_RPI_PACKAGES=y
 #
 #
 #
