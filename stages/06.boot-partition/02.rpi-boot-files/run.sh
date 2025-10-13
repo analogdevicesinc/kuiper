@@ -6,13 +6,10 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_ADI_REPO_RPI_BOOT=y
-
 # Variables used for custom downloads from SWDownloads or Artifactory for testing purposes
 SERVER="https://swdownloads.analog.com"
 RPI_SPATH="cse/linux_rpi"
 RPI_PROPERTIES="rpi_archives_properties.txt"
-BRANCH_RPI_BOOT_FILES="rpi-6.6.y"
 
 if [ "${TARGET_ARCHITECTURE}" = armhf ]; then
 	RPI_MODULES_ARCHIVE_NAME="rpi_modules_32bit.tar.gz"
@@ -25,6 +22,7 @@ fi
 
 if [ "${CONFIG_RPI_BOOT_FILES}" = y ]; then
 	mkdir -p "${BUILD_DIR}"/lib/modules
+	mkdir -p "${BUILD_DIR}"/boot/firmware
 	echo "Download Raspberry Pi boot files"
 
 	# Check if RPI boot files should be downloaded from ADI repository, Artifactory or Software downloads
@@ -36,9 +34,9 @@ chroot "${BUILD_DIR}" << EOF
 EOF
 
 	elif [[ ! -z ${ARTIFACTORY_RPI} ]]; then
-		wget -r -q --progress=bar:force:noscroll -nH --cut-dirs=5 -np -R "index.html*" "-l inf" ${ARTIFACTORY_RPI} -P "${BUILD_DIR}/boot"
-		tar -xf "${BUILD_DIR}/boot/${RPI_MODULES_ARCHIVE_NAME}" -C "${BUILD_DIR}/lib/modules" --no-same-owner
-		rm -rf "${BUILD_DIR}/boot/${RPI_MODULES_ARCHIVE_NAME}"
+		wget -r -q --progress=bar:force:noscroll -nH --cut-dirs=5 -np -R "index.html*" "-l inf" ${ARTIFACTORY_RPI} -P "${BUILD_DIR}/boot/firmware"
+		tar -xf "${BUILD_DIR}/boot/firmware/${RPI_MODULES_ARCHIVE_NAME}" -C "${BUILD_DIR}/lib/modules" --no-same-owner
+		rm -rf "${BUILD_DIR}/boot/firmware/${RPI_MODULES_ARCHIVE_NAME}"
 	else
 		# Get Raspberry Pi properties file corresponding to boot files
 		wget --progress=bar:force:noscroll "$SERVER/$RPI_SPATH/$BRANCH_RPI_BOOT_FILES/$RPI_PROPERTIES"
@@ -76,7 +74,7 @@ EOF
 	
 		# Check if the archives were downloaded correctly and then extract files
 		if [[ $checksum_properties_modules = $checksum_modules && $checksum_properties_boot_files = $checksum_boot_files ]]; then
-			tar -xf $RPI_ARCHIVE_NAME -C "${BUILD_DIR}"/boot --no-same-owner
+			tar -xf $RPI_ARCHIVE_NAME -C "${BUILD_DIR}"/boot/firmware --no-same-owner
 			tar -xf $RPI_MODULES_ARCHIVE_NAME -C "${BUILD_DIR}"/lib/modules --no-same-owner
 		else
 			echo "Something went wrong while downloading the boot files - Aborting."
@@ -84,12 +82,12 @@ EOF
 		fi
 		rm $RPI_ARCHIVE_NAME
 		rm $RPI_MODULES_ARCHIVE_NAME
-		mv $RPI_PROPERTIES "${BUILD_DIR}"/boot
+		mv $RPI_PROPERTIES "${BUILD_DIR}"/boot/firmware
 	fi
 
 	# Add custom files for Raspberry Pi
-	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/cmdline.txt 			 "${BUILD_DIR}/boot/cmdline.txt"
-	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/${TARGET_ARCHITECTURE}/config.txt "${BUILD_DIR}/boot/config.txt"
+	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/cmdline.txt 			 "${BUILD_DIR}/boot/firmware/cmdline.txt"
+	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/${TARGET_ARCHITECTURE}/config.txt "${BUILD_DIR}/boot/firmware/config.txt"
 	
 	# Install Raspberry Pi boot files: start*.elf, fixup*.dat, bootcode.bin and LICENCE.broadcom. 
 	# These files are downloaded as a package from the Raspberry Pi apt repository.

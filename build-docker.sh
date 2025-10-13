@@ -22,12 +22,6 @@ cleanup() {
 # Remove container if build was interrupted or cancelled
 trap cleanup SIGINT SIGTERM
 
-# Check if the script is run as root
-if [ "$(id -u)" != "0" ] ; then
-	echo "This script must be run as root"
-	exit 1
-fi
-
 # Check if Debian version is supported
 if [[ ! ${DEBIAN_VERSION} = bookworm && ! ${DEBIAN_VERSION} = bullseye && ! ${DEBIAN_VERSION} = trixie ]]; then
 	echo "Unsupported Debian version ${DEBIAN_VERSION}"
