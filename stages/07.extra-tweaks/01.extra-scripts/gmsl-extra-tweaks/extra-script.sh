@@ -41,3 +41,6 @@ wget -q -O - "https://api.github.com/repos/analogdevicesinc/linux/contents/arch/
   wget -i -
 
 chown -R analog:analog /home/analog/Workspace
+
+cd /
+apt-get install bluez-firmware
