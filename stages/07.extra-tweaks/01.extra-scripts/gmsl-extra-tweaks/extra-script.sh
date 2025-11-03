@@ -25,7 +25,7 @@ ninja -C build install
 
 # Install pix-utils and pykms
 apt-get install -y python3-pip
-yes | pip3 install --break-system-packages pix-utils git+https://github.com/tomba/pykms.git git+https://github.com/tomba/pixutils.git
+yes | pip3 install --break-system-packages git+https://github.com/tomba/pykms.git git+https://github.com/tomba/pixutils.git
 
 # Install pyv4l2
 mkdir -p /home/analog/Workspace
@@ -42,5 +42,8 @@ wget -q -O - "https://api.github.com/repos/analogdevicesinc/linux/contents/arch/
 
 chown -R analog:analog /home/analog/Workspace
 
-cd /
-apt-get install bluez-firmware
+echo "deb http://archive.raspberrypi.com/debian/ bookworm main" > /etc/apt/sources.list.d/raspi.list
+apt-get update
+
+# Install Bluetooth firmware and the latest Broadcom wireless firmware
+apt-get install -y bluez-firmware firmware-brcm80211
