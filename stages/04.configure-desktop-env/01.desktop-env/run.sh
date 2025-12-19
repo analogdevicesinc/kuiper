@@ -8,6 +8,8 @@
 
 if [ "${CONFIG_DESKTOP}" = y ]; then
 
+	install_packages "${BASH_SOURCE%/run.sh}"
+
 	if [[ "${CONFIG_RPI_BOOT_FILES}" = y && "${TARGET_ARCHITECTURE}" = arm64 ]]; then
 
 		# Use the vc4 card for the display on RPi5

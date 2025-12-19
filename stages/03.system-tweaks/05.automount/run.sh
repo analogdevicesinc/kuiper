@@ -6,6 +6,8 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+install_packages "${BASH_SOURCE%/run.sh}"
+
 # Add udiskie service
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/udiskie.service "${BUILD_DIR}/lib/systemd/system/"
 

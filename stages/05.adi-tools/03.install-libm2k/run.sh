@@ -8,6 +8,7 @@
 
 if [ "${CONFIG_LIBM2K}" = y ]; then
 	if [ "${CONFIG_LIBIIO}" = y ]; then
+		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF
 		cd /usr/local/src
