@@ -8,6 +8,8 @@
 
 if [ "${CONFIG_DESKTOP}" = y ]; then
 
+install_packages "${BASH_SOURCE%/run.sh}"
+
 # Add x11vnc service
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/x11vnc.service "${BUILD_DIR}/lib/systemd/system/"
 

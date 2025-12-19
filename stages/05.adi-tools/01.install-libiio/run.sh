@@ -7,6 +7,8 @@
 # Author: Larisa Radu <larisa.radu@analog.com>
 
 if [ "${CONFIG_LIBIIO}" = y ]; then
+	install_packages "${BASH_SOURCE%/run.sh}"
+
 	# Add iiod service
 	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/iiod.service	"${BUILD_DIR}/lib/systemd/system/"
 

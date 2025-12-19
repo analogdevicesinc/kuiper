@@ -7,6 +7,7 @@
 # Author: Larisa Radu <larisa.radu@analog.com>
 
 if [ "${CONFIG_FRU_TOOLS}" = y ]; then
+	install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF
 	cd /usr/local/src

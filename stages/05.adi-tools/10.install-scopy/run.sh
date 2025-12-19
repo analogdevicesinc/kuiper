@@ -13,6 +13,7 @@ export SCOPY=Scopy-${SCOPY_RELEASE}-Linux-${TARGET_ARCHITECTURE}
 
 if [ "${CONFIG_SCOPY}" = y ]; then
 	if [ "${CONFIG_LIBIIO}" = y ]; then
+		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF
 
