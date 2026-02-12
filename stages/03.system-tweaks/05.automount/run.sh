@@ -14,5 +14,6 @@ chroot "${BUILD_DIR}" << EOF
 	systemctl enable udiskie
 	
 	# Suppress log printing
-	sed -i 's/^#\(kernel\.printk = 3 4 1 3\)/\1/' /etc/sysctl.conf
+	echo "kernel.printk = 3 4 1 3" > /etc/sysctl.d/99-local.conf
+
 EOF
