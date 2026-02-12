@@ -18,11 +18,11 @@ chroot "${BUILD_DIR}" << EOF
 	sed -i "s/Xfce/Adwaita-dark/g" /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 
 	# Set adi-wallpaper to all workspaces
-	rm /usr/share/images/desktop-base/default
-	ln -s /usr/share/adi-wallpaper/wallpaper.png /usr/share/images/desktop-base/default
+	rm /usr/share/backgrounds/xfce/xfce-x.svg
+	ln -s /usr/share/adi-wallpaper/wallpaper.png /usr/share/backgrounds/xfce/xfce-x.svg
 
 	# Disable screen saver
-	sed -i '/exec xfce4-session/i    xset s off -dpms' /etc/xdg/xfce4/xinitrc
+	sed -i '/exec \${XFCE4_SESSION_COMPOSITOR:-xfce4-session}/i xset s off\nxset -dpms\nxset s noblank' /etc/xdg/xfce4/xinitrc
 	
 	# Change menu name
 	sed -i "s/Name=Science/Name=Analog Devices Tools/g" /usr/share/desktop-directories/xfce-science.directory
