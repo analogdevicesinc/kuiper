@@ -8,7 +8,7 @@
 
 source config
 
-DEBIAN_VERSION=${DEBIAN_VERSION:-bookworm}
+DEBIAN_VERSION=${DEBIAN_VERSION:-trixie}
 BASE_IMAGE="debian:${DEBIAN_VERSION}"
 IMAGE_NAME="debian_${DEBIAN_VERSION}_rootfs"
 CONTAINER_NAME=${CONTAINER_NAME:-"${IMAGE_NAME}_container"}
@@ -29,7 +29,7 @@ if [ "$(id -u)" != "0" ] ; then
 fi
 
 # Check if Debian version is supported
-if [[ ! ${DEBIAN_VERSION} = bookworm && ! ${DEBIAN_VERSION} = bullseye ]]; then
+if [[ ! ${DEBIAN_VERSION} = bookworm && ! ${DEBIAN_VERSION} = bullseye && ! ${DEBIAN_VERSION} = trixie ]]; then
 	echo "Unsupported Debian version ${DEBIAN_VERSION}"
 	exit 1
 fi

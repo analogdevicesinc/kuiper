@@ -27,7 +27,7 @@ Whether you're prototyping with an ADI evaluation board, developing embedded app
 
 ### 🔧 Basic Image (Default)
 
-- Debian Bookworm base with boot files for Pi/Xilinx/Intel
+- Debian Trixie base with boot files for Pi/Xilinx/Intel
 - Perfect for headless applications and custom development
 
 ### 🖥️ Full Image
@@ -42,7 +42,7 @@ Whether you're prototyping with an ADI evaluation board, developing embedded app
 
 ## What's Included
 
-- **Core System**: Debian Bookworm optimized for ARM devices
+- **Core System**: Debian Trixie optimized for ARM devices
 - **ADI Libraries**: libiio, pyadi-iio, libm2k, libad9361, libad9166 (optional)
 - **Development Tools**: IIO Oscilloscope, Scopy, GNU Radio (optional)
 - **Hardware Support**: Boot files for Raspberry Pi, Xilinx, and Intel platforms
