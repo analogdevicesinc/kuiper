@@ -29,7 +29,7 @@ if [ "$(id -u)" != "0" ] ; then
 fi
 
 # Check if Debian version is supported
-if [[ ! ${DEBIAN_VERSION} = bookworm && ! ${DEBIAN_VERSION} = bullseye ]]; then
+if [[ ! ${DEBIAN_VERSION} = bookworm && ! ${DEBIAN_VERSION} = bullseye && ! ${DEBIAN_VERSION} = trixie ]]; then
 	echo "Unsupported Debian version ${DEBIAN_VERSION}"
 	exit 1
 fi

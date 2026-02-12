@@ -7,14 +7,14 @@
 # Set the architecture for Kuiper. Options: armhf (for 32 bits), arm64 (for 64 bits).
 TARGET_ARCHITECTURE=armhf
 #
-# Set the Debian version for Kuiper. Options: bullseye, bookworm.
-DEBIAN_VERSION=bookworm
+# Set the Debian version for Kuiper. Options: bullseye, bookworm, trixie.
+DEBIAN_VERSION=trixie
 #
 # Preserve the Docker container.
 PRESERVE_CONTAINER=n
 #
 # Set the name of the Docker container. By default the name of the container will be 'debian_<DEBIAN_VERSION>_rootfs_container'
-#CONTAINER_NAME=debian_bookworm_rootfs_container
+#CONTAINER_NAME=debian_trixie_rootfs_container
 #
 #
 #
