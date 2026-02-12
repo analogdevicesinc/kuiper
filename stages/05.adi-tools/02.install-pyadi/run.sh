@@ -16,7 +16,6 @@ chroot "${BUILD_DIR}" << EOF
 		git clone -b ${BRANCH_PYADI} ${GITHUB_ANALOG_DEVICES}/pyadi-iio.git
 	
 		# Install pyadi
-		# --break-system-packages is needed in Debian 12 Bookworm to install packages with apt and pip in the same environment
 		cd pyadi-iio && yes | pip install . --break-system-packages
 EOF
 
