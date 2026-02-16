@@ -17,6 +17,11 @@ chroot "${BUILD_DIR}" << EOF
 	# Set theme to dark
 	sed -i "s/Xfce/Adwaita-dark/g" /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 
+	# Set terminal theme to dark
+	echo "[org.gnome.Terminal.Legacy.Settings]\ntheme-variant='dark'" > \
+		usr/share/glib-2.0/schemas/90_gnome-terminal.gschema.override
+	glib-compile-schemas /usr/share/glib-2.0/schemas/
+
 	# Set adi-wallpaper to all workspaces
 	rm /usr/share/backgrounds/xfce/xfce-x.svg
 	ln -s /usr/share/adi-wallpaper/wallpaper.png /usr/share/backgrounds/xfce/xfce-x.svg
