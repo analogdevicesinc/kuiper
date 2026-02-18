@@ -22,6 +22,7 @@ fi
 
 # Add adi-repo.list to sources.list
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/adi-repo.list "${BUILD_DIR}/etc/apt/sources.list.d/adi-repo.list"
+install -m 644 "${BASH_SOURCE%%/run.sh}"/files/prefer-adi "${BUILD_DIR}/etc/apt/preferences.d/prefer-adi"
 
 # Add adi-repo.gpg key to use adi-repo.list
 wget https://swdownloads.analog.com/cse/adi-repo/adi-repo-key.public
