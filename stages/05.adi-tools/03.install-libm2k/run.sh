@@ -6,8 +6,21 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+USE_ADI_REPO=y
+CONFIG_LIBM2K_CMAKE_ARGS="-DENABLE_PYTHON=ON \
+			-DENABLE_CSHARP=OFF \
+			-DENABLE_EXAMPLES=ON \
+			-DENABLE_TOOLS=ON \
+			-DINSTALL_UDEV_RULES=ON \
+			-Bbuild -H."
+BRANCH_LIBM2K=main
+
 if [ "${CONFIG_LIBM2K}" = y ]; then
-	if [ "${CONFIG_LIBIIO}" = y ]; then
+
+	if [ "${USE_ADI_REPO}" = y ]; then
+		chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y libm2k libm2k-csharp libm2k-dev libm2k-tools python3-libm2k
+
+	elif [ "${CONFIG_LIBIIO}" = y ]; then
 		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF

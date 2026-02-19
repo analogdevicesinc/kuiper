@@ -6,8 +6,16 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+USE_PIP_REPO=y
+BRANCH_PYADI=main
+
 if [ "${CONFIG_PYADI}" = y ]; then
-	if [ "${CONFIG_LIBIIO}" = y ]; then
+
+	if [ "${USE_PIP_REPO}" = y ]; then
+		chroot "${BUILD_DIR}" apt install python3-numpy -y
+		chroot "${BUILD_DIR}" pip3 install pyadi-iio --break-system-packages
+
+	elif [ "${CONFIG_LIBIIO}" = y ]; then
 		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF
