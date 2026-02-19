@@ -6,8 +6,19 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+USE_ADI_REPO=y
+CONFIG_IIO_OSCILLOSCOPE_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr/local \
+				-DCMAKE_BUILD_TYPE=Release \
+				-DCMAKE_COLOR_MAKEFILE=OFF \
+				-Bbuild -H."
+BRANCH_IIO_OSCILLOSCOPE=v0.18-main
+
 if [ "${CONFIG_IIO_OSCILLOSCOPE}" = y ]; then
-	if [[ "${CONFIG_LIBIIO}" = y && "${CONFIG_LIBAD9361_IIO}" = y && "${CONFIG_LIBAD9166_IIO}" = y ]]; then
+
+	if [ "${USE_ADI_REPO}" = y ]; then
+		chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y iio-oscilloscope
+
+	elif [[ "${CONFIG_LIBIIO}" = y && "${CONFIG_LIBAD9361_IIO}" = y && "${CONFIG_LIBAD9166_IIO}" = y ]]; then
 		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF

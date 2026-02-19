@@ -28,15 +28,6 @@ CONFIG_DESKTOP=n
 # Libiio is an Analog Devices library for interfacing with Linux IIO devices.
 # Github: https://github.com/analogdevicesinc/libiio
 CONFIG_LIBIIO=n
-CONFIG_LIBIIO_CMAKE_ARGS="-DWITH_HWMON=ON \
-			-DWITH_SERIAL_BACKEND=ON \
-			-DWITH_MAN=ON \
-			-DWITH_EXAMPLES=ON \
-			-DPYTHON_BINDINGS=ON \
-			-DCMAKE_BUILD_TYPE=Release \
-			-DCMAKE_COLOR_MAKEFILE=OFF \
-			-Bbuild -H."
-BRANCH_LIBIIO=libiio-v0
 #
 #
 #
@@ -45,7 +36,6 @@ BRANCH_LIBIIO=libiio-v0
 # Github: https://github.com/analogdevicesinc/pyadi-iio
 # *depends on LIBIIO
 CONFIG_PYADI=n
-BRANCH_PYADI=main
 #
 # 
 #
@@ -54,13 +44,6 @@ BRANCH_PYADI=main
 # Github: https://github.com/analogdevicesinc/libm2k
 # *depends on LIBIIO
 CONFIG_LIBM2K=n
-CONFIG_LIBM2K_CMAKE_ARGS="-DENABLE_PYTHON=ON \
-			-DENABLE_CSHARP=OFF \
-			-DENABLE_EXAMPLES=ON \
-			-DENABLE_TOOLS=ON \
-			-DINSTALL_UDEV_RULES=ON \
-			-Bbuild -H."
-BRANCH_LIBM2K=main
 #
 #
 #
@@ -69,13 +52,6 @@ BRANCH_LIBM2K=main
 # Github: https://github.com/analogdevicesinc/libad9166-iio
 # *depends on LIBIIO
 CONFIG_LIBAD9166_IIO=n
-CONFIG_LIBAD9166_IIO_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr \
-				-DCMAKE_BUILD_TYPE=Release \
-				-DCMAKE_COLOR_MAKEFILE=OFF \
-				-DPYTHON_BINDINGS=ON \
-				-DWITH_DOC=OFF \
-				-Bbuild -H."
-BRANCH_LIBAD9166_IIO=libad9166-iio-v0 
 #
 #
 #
@@ -85,13 +61,6 @@ BRANCH_LIBAD9166_IIO=libad9166-iio-v0
 # Github: https://github.com/analogdevicesinc/libad9361-iio
 # *depends on LIBIIO
 CONFIG_LIBAD9361_IIO=n
-CONFIG_LIBAD9361_IIO_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr \
-				-DCMAKE_BUILD_TYPE=Release \
-				-DCMAKE_COLOR_MAKEFILE=OFF \
-				-DPYTHON_BINDINGS=ON \
-				-DWITH_DOC=OFF \
-				-Bbuild -H."
-BRANCH_LIBAD9361_IIO=libad9361-iio-v0
 #
 #
 #
@@ -103,11 +72,6 @@ BRANCH_LIBAD9361_IIO=libad9361-iio-v0
 # *depends on LIBAD9166
 # *depends on LIBAD9361
 CONFIG_IIO_OSCILLOSCOPE=n
-CONFIG_IIO_OSCILLOSCOPE_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr/local \
-				-DCMAKE_BUILD_TYPE=Release \
-				-DCMAKE_COLOR_MAKEFILE=OFF \
-				-Bbuild -H."
-BRANCH_IIO_OSCILLOSCOPE=v0.18-main
 #
 #
 #
@@ -115,7 +79,6 @@ BRANCH_IIO_OSCILLOSCOPE=v0.18-main
 # IIO Fm Radio: simple IIO FM Radio receive example
 # Github: https://github.com/analogdevicesinc/iio-fm-radio
 CONFIG_IIO_FM_RADIO=n
-BRANCH_IIO_FM_RADIO=main
 #
 #
 #
@@ -123,7 +86,6 @@ BRANCH_IIO_FM_RADIO=main
 # Fru tools: tools to display/manipulate FMC FRU info
 # Github: https://github.com/analogdevicesinc/fru_tools
 CONFIG_FRU_TOOLS=n
-BRANCH_FRU_TOOLS=main
 #
 #
 #
@@ -132,10 +94,6 @@ BRANCH_FRU_TOOLS=main
 # Github: https://github.com/analogdevicesinc/jesd-eye-scan-gtk
 # *depends on LIBIIO
 CONFIG_JESD_EYE_SCAN_GTK=n
-CONFIG_JESD_EYE_SCAN_GTK_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr/local \
-				-DUSE_LIBIIO=ON \
-				-Bbuild -H."
-BRANCH_JESD_EYE_SCAN_GTK=main
 #
 #
 #
@@ -144,7 +102,6 @@ BRANCH_JESD_EYE_SCAN_GTK=main
 # Github: https://github.com/analogdevicesinc/colorimeter
 # *depends on LIBIIO
 CONFIG_COLORIMETER=n
-BRANCH_COLORIMETER=main
 #
 #
 #
@@ -169,8 +126,6 @@ CONFIG_GNURADIO=n
 # *depends on LIBM2K
 # *depends on GNURADIO
 CONFIG_GRM2K=n
-CONFIG_GRM2K_CMAKE_ARGS="-Bbuild -H."
-BRANCH_GRM2K=main
 #
 #
 #
@@ -178,7 +133,6 @@ BRANCH_GRM2K=main
 # ADI Scripts for Linux images: semi-random collection of small shell scripts which run on various Linux images (on various platforms) which talk to a varity of different ADI boards and parts
 # Github: https://github.com/analogdevicesinc/linux_image_ADI-scripts
 CONFIG_LINUX_SCRIPTS=n
-BRANCH_LINUX_SCRIPTS=kuiper2.0
 #
 #
 #
