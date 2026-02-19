@@ -6,8 +6,15 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+USE_ADI_REPO=y
+BRANCH_COLORIMETER=main
+
 if [ "${CONFIG_COLORIMETER}" = y ]; then
-	if [ "${CONFIG_LIBIIO}" = y ]; then
+
+	if [ "${USE_ADI_REPO}" = y ]; then
+		chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y colorimeter colorimeter-dbgsym
+
+	elif [ "${CONFIG_LIBIIO}" = y ]; then
 		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF

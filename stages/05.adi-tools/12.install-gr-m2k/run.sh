@@ -6,11 +6,19 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+USE_ADI_REPO=y
+CONFIG_GRM2K_CMAKE_ARGS="-Bbuild -H."
+BRANCH_GRM2K=main
+
 # Temporary Fix: Modify FindGMP.cmake to avoid arm64 compilation issue
 export FINDGMP_PATH="/usr/lib/aarch64-linux-gnu/cmake/gnuradio/FindGMP.cmake"
 
 if [ "${CONFIG_GRM2K}" = y ]; then
-	if [[ "${CONFIG_LIBIIO}" = y  && "${CONFIG_LIBM2K}" = y && "${CONFIG_GNURADIO}" = y ]]; then
+
+	if [ "${USE_ADI_REPO}" = y ]; then
+		chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y gr-m2k gr-m2k-dev python3-gr-m2k
+
+	elif [[ "${CONFIG_LIBIIO}" = y  && "${CONFIG_LIBM2K}" = y && "${CONFIG_GNURADIO}" = y ]]; then
 
 chroot "${BUILD_DIR}" << EOF
 		cd /usr/local/src
