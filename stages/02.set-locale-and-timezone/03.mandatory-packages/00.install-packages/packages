@@ -26,3 +26,4 @@ tree
 bash-completion
 jq
 bsdextrautils
+python3-pip
