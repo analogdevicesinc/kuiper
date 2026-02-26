@@ -6,13 +6,13 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_ADI_REPO_RPI_BOOT=y
+USE_ADI_REPO_RPI_BOOT=n
 
 # Variables used for custom downloads from SWDownloads or Artifactory for testing purposes
 SERVER="https://swdownloads.analog.com"
 RPI_SPATH="cse/linux_rpi"
 RPI_PROPERTIES="rpi_archives_properties.txt"
-BRANCH_RPI_BOOT_FILES="rpi-6.6.y"
+BRANCH_RPI_BOOT_FILES="rpi-6.12.y"
 
 if [ "${TARGET_ARCHITECTURE}" = armhf ]; then
 	RPI_MODULES_ARCHIVE_NAME="rpi_modules_32bit.tar.gz"
