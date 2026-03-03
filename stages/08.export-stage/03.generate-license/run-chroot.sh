@@ -330,6 +330,24 @@ do
 	html_pre_file $license_file $package
 done
 
+if command -v pip3 &> /dev/null; then
+	pip3 list --format=freeze | cut -d'=' -f1 | while read -r package; do
+		pip_info=$(pip3 show "$package" 2>/dev/null)
+
+		if [ $? -eq 0 ]; then
+			version=$(echo "$pip_info" | grep "^Version:" | cut -d' ' -f2)
+			license=$(echo "$pip_info" | grep "^License:" | cut -d' ' -f2- | sed 's/^# *//')
+			source_site=$(echo "$pip_info" | grep "^Home-page:" | cut -d' ' -f2)
+
+			package_table_items $((var++)) "python-$package" "$version" "$license" "$source_site"
+
+			echo "$pip_info" > "/tmp/pip_${package}_info"
+			html_pre_file "/tmp/pip_${package}_info" "python-$package"
+			rm "/tmp/pip_${package}_info"
+		fi
+	done
+  fi
+
 echo "</tbody>" >> ${FILE}
 echo "</table>" >> ${FILE}
 
