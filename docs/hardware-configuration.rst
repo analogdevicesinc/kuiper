@@ -377,7 +377,7 @@ Platform-Specific Manual Steps
 
    If required boot files are missing from your Kuiper image, install
    them using the ADI package repository. See the :doc:`Repositories
-   <repositories>` section for detailed instructions.
+   <package-management>` section for detailed instructions.
 
 AMD/Xilinx Platforms
 ....................
@@ -589,7 +589,7 @@ Device tree manipulation utility
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To manage the Device Tree using the ``dtoverlay`` command-line tool, first
-enable the :ref:`repositories rpi`, then install the ``raspi-utils-dt``
+enable the :ref:`package-management-rpi`, then install the ``raspi-utils-dt``
 package:
 
 .. shell::
