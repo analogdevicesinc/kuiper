@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="This guide will help you get a Kuiper image quickly, either by downloading a pre-built image or building your own with custom settings." name="description" />
+
+    <title>Quick Start &#8212; Kuiper  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=a525f648" />
+    <script async="async" src="_static/app.umd.js?v=fcf3088a"></script>
+    <link rel="icon" href="_static/icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using Kuiper Images" href="use-kuiper-image.html" />
+    <link rel="prev" title="Prerequisites" href="prerequisites.html" />
+   
+  
+  
+  <meta name="repository" content="adi-kuiper-gen">
+  <meta name="version" content="latest">
+  
+    <meta name="page_source_suffix" content=".rst">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs" tabindex="0">Docs</label>
+        
+        <a id="logo" href="index.html">
+          <div>Kuiper</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">Quick Start</a><ul>
+<li><a class="reference internal" href="#choose-your-path">Choose Your Path</a></li>
+<li><a class="reference internal" href="#building-your-own-image">Building Your Own Image</a><ul>
+<li><a class="reference internal" href="#clone-the-repository">Clone the Repository</a></li>
+<li><a class="reference internal" href="#review-default-configuration">Review Default Configuration</a></li>
+<li><a class="reference internal" href="#build-the-image">Build the Image</a></li>
+<li><a class="reference internal" href="#locate-the-output">Locate the Output</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-the-kuiper-image">Using the Kuiper Image</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="index.html">
+      <img class="only-light" src="_static/logo_light.png"/>
+      <img class="only-dark" src="_static/logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Getting Started</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use-kuiper-image.html">Using Kuiper Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware-configuration.html">Hardware Configuration</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Configuration &amp; Building</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kuiper-versions.html">Kuiper Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Advanced Topics</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="package-management.html">Package Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Advanced Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Reference</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb empty"><ol></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="quick-start">
+<span id="id1"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
+<p>This guide will help you get a Kuiper image quickly, either by downloading
+a pre-built image or building your own with custom settings.</p>
+<hr class="docutils" />
+<section id="choose-your-path">
+<h2>Choose Your Path<a class="headerlink" href="#choose-your-path" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><strong>Option A: Download Pre-built Image (5 minutes)</strong></dt><dd><p>Get a ready-to-use basic Kuiper image immediately:</p>
+<ul class="simple">
+<li><p>Download the latest build from <a class="icon git reference external" href="https://github.com/analogdevicesinc/adi-kuiper-gen/actions/workflows/kuiper2_0-build.yml?query=branch:main" target="_blank">GitHub Actions</a></p></li>
+<li><p>Skip to <a class="reference internal" href="use-kuiper-image.html"><span class="doc">Using Kuiper Images</span></a> to write it to an
+SD card</p></li>
+</ul>
+</dd>
+<dt><strong>Option B: Build Custom Image (30-60 minutes)</strong></dt><dd><p>Build your own image with specific configurations:</p>
+<ul class="simple">
+<li><p>Follow the build process below for full customization</p></li>
+<li><p>Configure exactly what tools and features you need</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<hr class="docutils" />
+<section id="building-your-own-image">
+<h2>Building Your Own Image<a class="headerlink" href="#building-your-own-image" title="Link to this heading"></a></h2>
+<p>If you chose Option B above, follow these steps to build a custom Kuiper
+image:</p>
+<section id="clone-the-repository">
+<h3>Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading"></a></h3>
+<p>After ensuring your build environment meets the <a class="reference internal" href="prerequisites.html"><span class="doc">prerequisites</span></a>, clone the repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/analogdevicesinc/adi-kuiper-gen
+<span class="nb">cd</span><span class="w"> </span>adi-kuiper-gen
+</pre></div>
+</div>
+</section>
+<section id="review-default-configuration">
+<h3>Review Default Configuration<a class="headerlink" href="#review-default-configuration" title="Link to this heading"></a></h3>
+<p>The default configuration will build a basic 32-bit (armhf) Debian Trixie image
+with Raspberry Pi boot files. For most users, this is sufficient to get started:</p>
+<ul class="simple">
+<li><p>Target architecture: <code class="docutils literal notranslate"><span class="pre">armhf</span></code> (32-bit)</p></li>
+<li><p>Debian version: <code class="docutils literal notranslate"><span class="pre">trixie</span></code></p></li>
+<li><p>Essential boot files included: Yes</p></li>
+<li><p>Desktop environment: No</p></li>
+<li><p>ADI tools: None (can be enabled as needed)</p></li>
+</ul>
+<p>This configuration creates what we call the “Basic Image” that includes only
+essential components. For details on exactly what stages and components are
+included in this basic build, see <a class="reference internal" href="kuiper-versions.html#kuiper-versions-basic-image"><span class="std std-ref">Basic Image (Default)</span></a>.</p>
+<p>For ADI evaluation boards, you can configure your target hardware now by
+setting <code class="docutils literal notranslate"><span class="pre">ADI_EVAL_BOARD</span></code> and <code class="docutils literal notranslate"><span class="pre">CARRIER</span></code> in the config file, or configure
+later after deployment. See <a class="reference internal" href="hardware-configuration.html#hardware-configuration-adi-eval-boards"><span class="std std-ref">ADI Evaluation Boards Configuration</span></a> for further information.</p>
+<p>For customization options, see the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a>
+section.</p>
+</section>
+<section id="build-the-image">
+<h3>Build the Image<a class="headerlink" href="#build-the-image" title="Link to this heading"></a></h3>
+<p>Run the build script with sudo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./build-docker.sh
+</pre></div>
+</div>
+<p>The build process will:</p>
+<ol class="arabic simple">
+<li><p>Create a Docker container with the necessary build environment</p></li>
+<li><p>Set up a minimal Debian system</p></li>
+<li><p>Configure system settings</p></li>
+<li><p>Install selected components based on your configuration</p></li>
+<li><p>Create a bootable image</p></li>
+</ol>
+<p>This process typically takes 30-60 minutes depending on your system and
+internet speed.</p>
+</section>
+<section id="locate-the-output">
+<h3>Locate the Output<a class="headerlink" href="#locate-the-output" title="Link to this heading"></a></h3>
+<p>After a successful build, your Kuiper image will be available as a zip file
+in the <code class="docutils literal notranslate"><span class="pre">kuiper-volume/</span></code> directory within the repository. The filename will
+follow the pattern <code class="docutils literal notranslate"><span class="pre">image_YYYY-MM-DD-ADI-Kuiper-Linux-[arch].zip</span></code>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="using-the-kuiper-image">
+<h2>Using the Kuiper Image<a class="headerlink" href="#using-the-kuiper-image" title="Link to this heading"></a></h2>
+<p>Now that you obtained a bootable image, you can follow the steps in <a class="reference internal" href="use-kuiper-image.html"><span class="doc">Using
+Kuiper Images</span></a> section in order to write the image to an SD
+card and boot your device.</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="prerequisites.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Prerequisites</a>
+    <a href="use-kuiper-image.html" title="Next document (Alt+Shift+RightArrow)" class="next">Using Kuiper Images</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2025, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>
