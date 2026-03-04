@@ -1,0 +1,126 @@
+name: GMSL Kuiper Image Build
+
+on:
+  repository_dispatch:
+    types: [kernel-build-complete]
+  workflow_dispatch:
+    inputs:
+      linux_run_id:
+        description: 'Run ID of the linux kernel build workflow'
+        required: true
+        type: string
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: gmsl-rpi-6.13.y
+
+    - name: Set run ID
+      id: set-run-id
+      run: |
+        if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+          echo "run_id=${{ github.event.client_payload.run_id }}" >> $GITHUB_OUTPUT
+          echo "sha=${{ github.event.client_payload.sha }}" >> $GITHUB_OUTPUT
+        else
+          echo "run_id=${{ inputs.linux_run_id }}" >> $GITHUB_OUTPUT
+          echo "sha=manual" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Download boot tarball from linux repo
+      uses: actions/download-artifact@v4
+      with:
+        name: rpi_boot_64bit
+        path: boot-artifacts/
+        github-token: ${{ secrets.CROSS_REPO_PAT }}
+        repository: analogdevicesinc/linux
+        run-id: ${{ steps.set-run-id.outputs.run_id }}
+
+    - name: Download modules tarball from linux repo
+      uses: actions/download-artifact@v4
+      with:
+        name: rpi_modules_64bit
+        path: boot-artifacts/
+        github-token: ${{ secrets.CROSS_REPO_PAT }}
+        repository: analogdevicesinc/linux
+        run-id: ${{ steps.set-run-id.outputs.run_id }}
+
+    - name: Verify artifacts
+      run: |
+        echo "Boot artifacts downloaded:"
+        ls -la boot-artifacts/
+        test -f boot-artifacts/rpi_latest_boot_64bit.tar.gz || { echo "Missing boot tarball"; exit 1; }
+        test -f boot-artifacts/rpi_modules_64bit.tar.gz || { echo "Missing modules tarball"; exit 1; }
+        echo "Kernel commit SHA: ${{ steps.set-run-id.outputs.sha }}"
+
+    - name: Install prerequisites
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y qemu-user-static
+
+    - name: Clean any leftover containers
+      run: |
+        CONTAINER_NAME=$(grep -m1 -oP '^[#]?CONTAINER_NAME=\K.*' ./config || echo "debian_bookworm_rootfs_container")
+        if [ "$(docker ps -a -q -f name=^/${CONTAINER_NAME}$)" ]; then
+            docker rm -fv "$CONTAINER_NAME"
+        fi
+
+    - name: Build Kuiper image
+      run: |
+        export BOOT_ARTIFACTS_DIR=$(realpath boot-artifacts)
+        sudo -E bash build-docker.sh
+        ls kuiper-volume/*.zip >/dev/null 2>&1 && echo "Build successful" || { echo "Build failed - no zip found"; exit 1; }
+
+    - name: Upload Kuiper image
+      uses: actions/upload-artifact@v4
+      with:
+        name: gmsl-kuiper-image
+        path: ${{ github.workspace }}/kuiper-volume/*.zip
+        retention-days: 30
+
+    - name: Upload build metadata
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: gmsl-kuiper-meta
+        path: |
+          ${{ github.workspace }}/kuiper-volume
+          !${{ github.workspace }}/kuiper-volume/*.zip
+
+    - name: Deploy to PXE server
+      if: success()
+      env:
+        PXE_SSH_KEY: ${{ secrets.PXE_SSH_KEY }}
+        PXE_HOST: ${{ secrets.PXE_HOST }}
+        PXE_USER: ${{ secrets.PXE_USER }}
+        PXE_DEPLOY_PATH: ${{ secrets.PXE_DEPLOY_PATH }}
+      run: |
+        # Skip deployment if secrets are not configured
+        if [ -z "$PXE_HOST" ]; then
+          echo "PXE_HOST secret not set, skipping deployment"
+          exit 0
+        fi
+
+        # Extract the .img from the .zip
+        cd kuiper-volume
+        unzip -o *.zip
+        IMG_FILE=$(ls *.img | head -1)
+        echo "Deploying image: $IMG_FILE"
+
+        # Set up SSH key
+        mkdir -p ~/.ssh
+        echo "$PXE_SSH_KEY" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        SSH_OPTS="-o StrictHostKeyChecking=no -i ~/.ssh/deploy_key"
+
+        # SCP the image to the PXE server
+        scp $SSH_OPTS "$IMG_FILE" "${PXE_USER}@${PXE_HOST}:${PXE_DEPLOY_PATH}/kuiper_image.img"
+
+        # SSH: stop container, setup new image, restart
+        ssh $SSH_OPTS "${PXE_USER}@${PXE_HOST}" \
+          "cd ${PXE_DEPLOY_PATH} && sudo ./run.sh stop && sudo ./run.sh setup && sudo ./run.sh start"
+
+        echo "Deployment complete"
