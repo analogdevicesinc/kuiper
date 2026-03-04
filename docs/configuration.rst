@@ -44,9 +44,9 @@ These options control the fundamental aspects of your Kuiper image:
      - ``armhf``
      - Target architecture: ``armhf`` (32-bit) or ``arm64`` (64-bit)
    * - ``DEBIAN_VERSION``
-     - ``bookworm``
-     - Debian version to use (e.g., ``bookworm``, ``bullseye``). Other 
-       versions may have missing functionalities or unsupported tools
+     - ``trixie``
+     - Debian version to use (e.g., ``trixie``, ``bookworm``, ``bullseye``).
+       Versions other than the default may have limited support
 
 ----
 
@@ -94,7 +94,8 @@ Desktop Environment
 ADI Libraries and Tools
 -----------------------
 
-These options control which ADI libraries and tools are included in the image:
+These options control which ADI libraries and tools are included in the image.
+Libraries are installed from Analog Devices' package repository.
 
 .. list-table::
    :header-rows: 1
@@ -106,60 +107,24 @@ These options control which ADI libraries and tools are included in the image:
    * - ``CONFIG_LIBIIO``
      - ``n``
      - Install Libiio library (``y``/``n``)
-   * - ``CONFIG_LIBIIO_CMAKE_ARGS``
-     - *(see config file)*
-     - CMake build arguments for Libiio
-   * - ``BRANCH_LIBIIO``
-     - ``libiio-v0``
-     - Git branch to use for Libiio
    * - ``CONFIG_PYADI``
      - ``n``
      - Install Pyadi library (``y``/``n``). Requires Libiio
-   * - ``BRANCH_PYADI``
-     - ``main``
-     - Git branch to use for Pyadi
    * - ``CONFIG_LIBM2K``
      - ``n``
      - Install Libm2k library (``y``/``n``). Requires Libiio
-   * - ``CONFIG_LIBM2K_CMAKE_ARGS``
-     - *(see config file)*
-     - CMake build arguments for Libm2k
-   * - ``BRANCH_LIBM2K``
-     - ``main``
-     - Git branch to use for Libm2k
    * - ``CONFIG_LIBAD9166_IIO``
      - ``n``
      - Install Libad9166 library (``y``/``n``). Requires Libiio
-   * - ``CONFIG_LIBAD9166_IIO_CMAKE_ARGS``
-     - *(see config file)*
-     - CMake build arguments for Libad9166
-   * - ``BRANCH_LIBAD9166_IIO``
-     - ``libad9166-iio-v0``
-     - Git branch to use for Libad9166
    * - ``CONFIG_LIBAD9361_IIO``
      - ``n``
      - Install Libad9361 library (``y``/``n``). Requires Libiio
-   * - ``CONFIG_LIBAD9361_IIO_CMAKE_ARGS``
-     - *(see config file)*
-     - CMake build arguments for Libad9361
-   * - ``BRANCH_LIBAD9361_IIO``
-     - ``libad9361-iio-v0``
-     - Git branch to use for Libad9361
    * - ``CONFIG_GRM2K``
      - ``n``
      - Install GRM2K (``y``/``n``). Requires Libiio, Libm2k, and Gnuradio
-   * - ``CONFIG_GRM2K_CMAKE_ARGS``
-     - *(see config file)*
-     - CMake build arguments for GRM2K
-   * - ``BRANCH_GRM2K``
-     - ``main``
-     - Git branch to use for GRM2K
    * - ``CONFIG_LINUX_SCRIPTS``
      - ``n``
      - Install ADI Linux scripts (``y``/``n``)
-   * - ``BRANCH_LINUX_SCRIPTS``
-     - ``kuiper2.0``
-     - Git branch to use for Linux scripts
 
 ----
 
@@ -177,41 +142,20 @@ These options control which ADI applications are included in the image:
      - Description
    * - ``CONFIG_IIO_OSCILLOSCOPE``
      - ``n``
-     - Install IIO Oscilloscope (``y``/``n``). Requires Libiio, 
+     - Install IIO Oscilloscope (``y``/``n``). Requires Libiio,
        Libad9166_IIO, and Libad9361_IIO
-   * - ``CONFIG_IIO_OSCILLOSCOPE_CMAKE_ARGS``
-     - *(see config file)*
-     - CMake build arguments for IIO Oscilloscope
-   * - ``BRANCH_IIO_OSCILLOSCOPE``
-     - ``v0.18-main``
-     - Git branch to use for IIO Oscilloscope
    * - ``CONFIG_IIO_FM_RADIO``
      - ``n``
      - Install IIO FM Radio (``y``/``n``)
-   * - ``BRANCH_IIO_FM_RADIO``
-     - ``main``
-     - Git branch to use for IIO FM Radio
    * - ``CONFIG_FRU_TOOLS``
      - ``n``
      - Install FRU tools (``y``/``n``)
-   * - ``BRANCH_FRU_TOOLS``
-     - ``main``
-     - Git branch to use for FRU tools
    * - ``CONFIG_JESD_EYE_SCAN_GTK``
      - ``n``
      - Install JESD Eye Scan GTK (``y``/``n``)
-   * - ``CONFIG_JESD_EYE_SCAN_GTK_CMAKE_ARGS``
-     - *(see config file)*
-     - CMake build arguments for JESD Eye Scan GTK
-   * - ``BRANCH_JESD_EYE_SCAN_GTK``
-     - ``main``
-     - Git branch to use for JESD Eye Scan GTK
    * - ``CONFIG_COLORIMETER``
      - ``n``
      - Install Colorimeter (``y``/``n``). Requires Libiio
-   * - ``BRANCH_COLORIMETER``
-     - ``main``
-     - Git branch to use for Colorimeter
    * - ``CONFIG_SCOPY``
      - ``n``
      - Install Scopy (``y``/``n``)

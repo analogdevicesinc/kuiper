@@ -22,25 +22,15 @@ system configuration.
 Quick Start
 -----------
 
-Get up and running with Kuiper:
+Get up and running with Kuiper in two simple steps:
 
-#. :doc:`Check prerequisites <prerequisites>` (Ubuntu 22.04 + Docker for 
-   building)
-#. Get Kuiper image:
-
-   - **Quick option**: Download pre-built from :git-kuiper:`GitHub 
-     Actions <actions/workflows/kuiper2_0-build.yml?query=branch:main+>`
-   - **Custom option**: Clone repository and build your own
-
-   .. code-block:: bash
-
-      git clone --depth 1 https://github.com/analogdevicesinc/kuiper
-      cd kuiper
-      sudo ./build-docker.sh
-
-   For detailed instructions, see the :doc:`Quick Start <quick-start>` section.
+#. Download a tested release image (Basic or Full) from
+   `ADI Kuiper Releases <RELEASE_LINK_PLACEHOLDER>`_
 
 #. :doc:`Write the image to an SD card and boot your device <use-kuiper-image>`
+
+For other options including latest development builds or custom builds, see
+the :doc:`Quick Start <quick-start>` guide.
 
 ----
 
@@ -51,7 +41,7 @@ Kuiper provides a configurable development environment tailored for ADI
 hardware:
 
 **Core System**
-   Debian Bookworm base with optimized configurations for ARM devices
+   Debian Trixie base with optimized configurations for ARM devices
 
 **ADI Libraries (Optional)**
    libiio, pyadi-iio, libm2k, libad9361, libad9166 for hardware communication
@@ -85,7 +75,7 @@ Basic Image (Default)
 
 **What's included:**
 
-- Debian Bookworm base system with essential utilities
+- Debian Trixie base system with essential utilities
 - Boot files for Raspberry Pi, Xilinx, and Intel platforms
 - User account setup (analog/analog) with sudo access
 - Network configuration and SSH access
@@ -171,9 +161,9 @@ Documentation
    :maxdepth: 2
    :caption: Advanced Topics
 
-   stage-reference
+   package-management
    customization
-   repositories
+   stage-reference
 
 .. toctree::
    :maxdepth: 2
