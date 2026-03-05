@@ -11,6 +11,7 @@ source config
 
 # Declare ANSI escape codes to color the output in the terminal
 MAGENTA="`tput setaf 5`"
+LIGHT_BLUE="`tput setaf 6`"
 RESET="`tput sgr0`"
 
 export LOG_FILE="kuiper-volume/build.log"
