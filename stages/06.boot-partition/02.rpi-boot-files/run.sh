@@ -30,7 +30,7 @@ if [ "${CONFIG_RPI_BOOT_FILES}" = y ]; then
 	# Check if RPI boot files should be downloaded from ADI repository, Artifactory or Software downloads
 	if [ "${USE_ADI_REPO_RPI_BOOT}" == y ]; then
 
-		# install package from adi-repo
+		# install package from adi-kuiper package repository
 chroot "${BUILD_DIR}" << EOF
 		apt-get install adi-rpi-boot
 EOF
