@@ -13,7 +13,7 @@ fi
 mkdir "${BUILD_DIR}"
 debootstrap --arch=${TARGET_ARCHITECTURE} \
 			--components "main,non-free,non-free-firmware" \
-			--include=ca-certificates,curl,gnupg \
+			--include=ca-certificates,curl,gnupg,wget \
 			--keyring "/usr/share/keyrings/debian-archive-"${DEBIAN_VERSION}"-stable.gpg" "${DEBIAN_VERSION}" "${BUILD_DIR}"
 
 if [[ "$(uname -m)" != "aarch64" && "$(uname -m)" != "arm*" ]]; then
@@ -23,9 +23,6 @@ fi
 # Add adi-repo.list to sources.list
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/prefer-adi "${BUILD_DIR}/etc/apt/preferences.d/prefer-adi"
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/adi-libraries "${BUILD_DIR}/etc/apt/preferences.d/adi-libraries"
-
-# Add adi-kuiper package repository
-wget -qO- https://dl.cloudsmith.io/public/adi/kuiper/setup.deb.sh | bash
 
 if [ "${CONFIG_RPI_BOOT_FILES}" = y ]; then
 	# Add raspi.list to sources.list
@@ -41,6 +38,10 @@ fi
 chroot "${BUILD_DIR}" << EOF
 	apt-get update
 	apt-get dist-upgrade -y
+	apt-get install curl -y
+	
+	# Add adi-kuiper package repository
+	wget -qO- https://dl.cloudsmith.io/public/adi/kuiper/setup.deb.sh | bash
 EOF
 
 mkdir "${BUILD_DIR}"/stages

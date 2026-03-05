@@ -14,7 +14,7 @@ SERVER="https://swdownloads.analog.com"
 XILINX_INTEL_SPATH="cse/boot_partition_files"
 XILINX_INTEL_ARCHIVE_NAME="latest_boot_partition.tar.gz"
 XILINX_INTEL_PROPERTIES="latest_boot.txt"
-RELEASE_XILINX_INTEL_BOOT_FILES="2023_r2"
+RELEASE_XILINX_INTEL_BOOT_FILES="2026_r1"
 
 if [ "${USE_ADI_REPO_CARRIERS_BOOT}" == y ]; then
 		
