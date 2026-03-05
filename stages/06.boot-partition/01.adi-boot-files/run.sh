@@ -18,7 +18,7 @@ RELEASE_XILINX_INTEL_BOOT_FILES="2023_r2"
 
 if [ "${USE_ADI_REPO_CARRIERS_BOOT}" == y ]; then
 		
-# Install packages from adi-repo
+# Install packages from adi-kuiper package repository
 chroot "${BUILD_DIR}" << EOF
 	# Install only boot files packages for the architectures that are enabled
 	# Look through environment variables, find those starting with 'CONFIG_ARCH_' and set to '=y'
