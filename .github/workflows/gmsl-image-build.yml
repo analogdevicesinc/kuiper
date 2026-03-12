@@ -1,0 +1,15 @@
+name: GMSL Kuiper Image Build
+
+  on:
+    workflow_dispatch:
+      inputs:
+        linux_run_id:
+          description: 'Run ID of the linux kernel build workflow'
+          required: true
+          type: string
+
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - run: echo "Start Kuiper Image Build."
