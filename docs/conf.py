@@ -5,7 +5,7 @@ import os
 
 # -- Project information ------------------------------------------------------
 
-repository = 'adi-kuiper-gen'
+repository = 'kuiper'
 project = 'Kuiper'
 copyright = '2025, Analog Devices, Inc.'
 author = 'Analog Devices, Inc.'
