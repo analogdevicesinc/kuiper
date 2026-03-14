@@ -1,0 +1,9 @@
+# Force use of custom ADI libad9361 package instead of Debian's libad9361-0
+
+Package: libad9361-0
+Pin: release *
+Pin-Priority: -1
+
+Package: libad9361
+Pin: version *
+Pin-Priority: 1001

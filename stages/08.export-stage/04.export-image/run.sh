@@ -8,7 +8,7 @@
 
 EXPORT_ROOTFS_DIR="export_rootfs_dir"
 
-BOOTLOADER_SIZE="$((8 * 1024 * 1024))"
+BOOTLOADER_SIZE="$((20 * 1024 * 1024))"
 BOOT_SIZE="$((2048 * 1024 * 1024))"
 ROOT_SIZE=$(du --apparent-size -s "${BUILD_DIR}" --exclude var/cache/apt/archives --exclude boot --block-size=1 | cut -f 1)
 ALIGN="$((4 * 1024 * 1024))"
@@ -120,13 +120,7 @@ fi
 
 # Configure setup for a specific project and board
 # Pass parameter BOOTLOADER_DEV because for Intel projects the bootloader partition needs to be written
-# The current directory is set in the parent script, so in order to find the path to the configuration script we need to do the following:
-# - get the path of the current script: BASH_SOURCE
-# - remove the name of the current script: %%/run.sh
-# - concatenate with the configuration script (because it is at the same level as the current one): /configure-setup.sh
-# Run script inside chroot is variables are set
-
-install -m 755 "${BASH_SOURCE%%/run.sh}"/files/configure-setup.sh "${BUILD_DIR}/usr/bin"
+install -m 755 "${BASH_SOURCE%/run.sh}"/files/configure-setup.sh "${BUILD_DIR}/usr/bin"
 
 if [[ ! -z "${ADI_EVAL_BOARD}"  && ! -z "${CARRIER}" ]]; then
 

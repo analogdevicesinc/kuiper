@@ -22,6 +22,8 @@ fi
 
 # Add adi-repo.list to sources.list
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/adi-repo.list "${BUILD_DIR}/etc/apt/sources.list.d/adi-repo.list"
+install -m 644 "${BASH_SOURCE%%/run.sh}"/files/prefer-adi "${BUILD_DIR}/etc/apt/preferences.d/prefer-adi"
+install -m 644 "${BASH_SOURCE%%/run.sh}"/files/adi-libraries "${BUILD_DIR}/etc/apt/preferences.d/adi-libraries"
 
 # Add adi-repo.gpg key to use adi-repo.list
 wget https://swdownloads.analog.com/cse/adi-repo/adi-repo-key.public
@@ -33,14 +35,15 @@ if [ "${CONFIG_RPI_BOOT_FILES}" = y ]; then
 	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/raspi.list "${BUILD_DIR}/etc/apt/sources.list.d/raspi.list"
 
 	# Add raspberrypi.gpg key to use raspi.list
-	wget -O raspberrypi.gpg.key https://archive.raspberrypi.org/debian/raspberrypi.gpg.key
-	cat raspberrypi.gpg.key | gpg --dearmor > "${BUILD_DIR}/etc/apt/trusted.gpg.d/raspberrypi-archive-stable.gpg"
-	rm raspberrypi.gpg.key
+	gpg --dearmor \
+    < "${BASH_SOURCE%%/run.sh}"/files/raspberrypi-archive-keyring.pgp \
+    > "${BUILD_DIR}/etc/apt/trusted.gpg.d/raspberrypi-archive-stable.gpg"
+
 fi
 
 chroot "${BUILD_DIR}" << EOF
 	apt-get update
-	apt-get dist-upgrade
+	apt-get dist-upgrade -y
 EOF
 
 mkdir "${BUILD_DIR}"/stages

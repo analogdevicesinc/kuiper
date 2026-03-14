@@ -6,13 +6,13 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_ADI_REPO_RPI_BOOT=y
+USE_ADI_REPO_RPI_BOOT=n
 
 # Variables used for custom downloads from SWDownloads or Artifactory for testing purposes
 SERVER="https://swdownloads.analog.com"
 RPI_SPATH="cse/linux_rpi"
 RPI_PROPERTIES="rpi_archives_properties.txt"
-BRANCH_RPI_BOOT_FILES="rpi-6.6.y"
+BRANCH_RPI_BOOT_FILES="rpi-6.12.y"
 
 if [ "${TARGET_ARCHITECTURE}" = armhf ]; then
 	RPI_MODULES_ARCHIVE_NAME="rpi_modules_32bit.tar.gz"
@@ -93,20 +93,24 @@ EOF
 	
 	# Install Raspberry Pi boot files: start*.elf, fixup*.dat, bootcode.bin and LICENCE.broadcom. 
 	# These files are downloaded as a package from the Raspberry Pi apt repository.
-	sed -i 's/deb /#deb /' "${BUILD_DIR}/etc/apt/sources.list"
 	sed -i 's/#deb /deb /' "${BUILD_DIR}/etc/apt/sources.list.d/raspi.list"
 
+	mv ${BUILD_DIR}/usr/bin/ischroot ${BUILD_DIR}/usr/bin/ischroot.original
+	ln -s /usr/bin/true ${BUILD_DIR}/usr/bin/ischroot
+
 chroot "${BUILD_DIR}" << EOF
 	 apt-get update
-	 apt-get install -y raspberrypi-bootloader --no-install-recommends
+	 apt-get install -y raspi-firmware --no-install-recommends
 EOF
 
+	mv "${BUILD_DIR}"/usr/bin/ischroot.original "${BUILD_DIR}"/usr/bin/ischroot
 	sed -i 's/deb /#deb /' "${BUILD_DIR}/etc/apt/sources.list.d/raspi.list"
-	sed -i 's/#deb /deb /' "${BUILD_DIR}/etc/apt/sources.list"
 
 chroot "${BUILD_DIR}" << EOF
 	 apt-get update
 EOF
+
+	cp -r ${BUILD_DIR}/boot/firmware/* ${BUILD_DIR}/boot
 
 else
 	echo "Raspberry Pi boot files won't be installed because CONFIG_RPI_BOOT_FILES is set to 'n'."

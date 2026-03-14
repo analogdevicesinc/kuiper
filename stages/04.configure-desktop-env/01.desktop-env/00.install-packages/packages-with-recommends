@@ -12,6 +12,7 @@ network-manager-gnome
 wpasupplicant
 wireless-tools
 tumbler
-policykit-1
+polkitd
+pkexec
 plymouth
 chromium
