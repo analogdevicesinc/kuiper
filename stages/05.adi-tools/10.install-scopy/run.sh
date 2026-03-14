@@ -6,7 +6,7 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-export SCOPY_RELEASE=v2.0.0-beta-rc2
+export SCOPY_RELEASE=v2.1.0
 export SCOPY_ARCHIVE=Scopy-${SCOPY_RELEASE}-Linux-${TARGET_ARCHITECTURE}-AppImage.zip
 export SCOPY_PATH=https://github.com/analogdevicesinc/scopy/releases/download/${SCOPY_RELEASE}/${SCOPY_ARCHIVE}
 export SCOPY=Scopy-${SCOPY_RELEASE}-Linux-${TARGET_ARCHITECTURE}
@@ -18,7 +18,7 @@ chroot "${BUILD_DIR}" << EOF
 
 			# Install Scopy 2
 			wget -q ${SCOPY_PATH}
-			unzip ${SCOPY_ARCHIVE} && mv ${SCOPY}/* . && rm ${SCOPY_ARCHIVE}
+			unzip ${SCOPY_ARCHIVE} && rm ${SCOPY_ARCHIVE}
 			chmod +x ${SCOPY}.AppImage
 			mv ${SCOPY}.AppImage /usr/local/bin
 

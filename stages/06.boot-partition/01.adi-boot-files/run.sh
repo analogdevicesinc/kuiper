@@ -8,13 +8,13 @@
 
 # Variable that selects if the boot files should be installed from the ADI APT Package Repository or from other source
 # For normal use this variable will be left on 'y'
-USE_ADI_REPO_CARRIERS_BOOT=y
+USE_ADI_REPO_CARRIERS_BOOT=n
 
 SERVER="https://swdownloads.analog.com"
 XILINX_INTEL_SPATH="cse/boot_partition_files"
 XILINX_INTEL_ARCHIVE_NAME="latest_boot_partition.tar.gz"
 XILINX_INTEL_PROPERTIES="latest_boot.txt"
-RELEASE_XILINX_INTEL_BOOT_FILES="2023_r2"
+RELEASE_XILINX_INTEL_BOOT_FILES="2025_r1"
 
 if [ "${USE_ADI_REPO_CARRIERS_BOOT}" == y ]; then
 		
@@ -37,7 +37,7 @@ chroot "${BUILD_DIR}" << EOF
 EOF
 
 elif [[ ! -z ${ARTIFACTORY_XILINX_INTEL} ]]; then
-	wget -r -q --progress=bar:force:noscroll -nH --cut-dirs=5 -np -R "index.html*" "-l inf" ${ARTIFACTORY_XILINX_INTEL} -P "${BUILD_DIR}/boot"
+	wget -r -q --progress=bar:force:noscroll -nH --cut-dirs=6 -np -R "index.html*" "-l inf" ${ARTIFACTORY_XILINX_INTEL} -P "${BUILD_DIR}/boot"
 else
 	# Get Xilinx and Intel boot files
 	wget --progress=bar:force:noscroll "$SERVER/$XILINX_INTEL_SPATH/$RELEASE_XILINX_INTEL_BOOT_FILES/$XILINX_INTEL_ARCHIVE_NAME"
