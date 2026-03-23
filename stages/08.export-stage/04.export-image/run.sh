@@ -118,10 +118,6 @@ if [ "${CONFIG_RPI_BOOT_FILES}" = y ]; then
 	sed -i "s/ROOTDEV/PARTUUID=${ROOT_PARTUUID}/" "${BUILD_DIR}/boot/cmdline.txt"
 fi
 
-# Configure setup for a specific project and board
-# Pass parameter BOOTLOADER_DEV because for Intel projects the bootloader partition needs to be written
-install -m 755 "${BASH_SOURCE%/run.sh}"/files/configure-setup.sh "${BUILD_DIR}/usr/bin"
-
 if [[ ! -z "${ADI_EVAL_BOARD}"  && ! -z "${CARRIER}" ]]; then
 
 chroot "${BUILD_DIR}" << EOF
