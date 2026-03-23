@@ -9,12 +9,10 @@
 USE_ADI_REPO=y
 BRANCH_LINUX_SCRIPTS=kuiper2.0
 
-if [ "${CONFIG_LINUX_SCRIPTS}" = y ]; then
+if [ "${USE_ADI_REPO}" = y ]; then
+	chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y adi-scripts
 
-	if [ "${USE_ADI_REPO}" = y ]; then
-		chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y adi-scripts
-
-	else
+else
 chroot "${BUILD_DIR}" << EOF
 	cd /usr/local/src
 
@@ -24,8 +22,4 @@ chroot "${BUILD_DIR}" << EOF
 	# Install linux_image_ADI-scripts
 	cd linux_image_ADI-scripts && make -j $NUM_JOBS
 EOF
-	fi
-
-else
-	echo "linux_image_ADI-scripts won't be installed because CONFIG_LINUX_SCRIPTS is set to 'n'."
 fi

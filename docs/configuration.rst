@@ -122,9 +122,6 @@ Libraries are installed from Analog Devices' package repository.
    * - ``CONFIG_GRM2K``
      - ``n``
      - Install GRM2K (``y``/``n``). Requires Libiio, Libm2k, and Gnuradio
-   * - ``CONFIG_LINUX_SCRIPTS``
-     - ``n``
-     - Install ADI Linux scripts (``y``/``n``)
 
 ----
 
