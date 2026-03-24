@@ -7,7 +7,7 @@
 # Author: Larisa Radu <larisa.radu@analog.com>
 
 # Check if the system has a display output
-if dmesg | grep -q "\[drm\]"; then
+if grep -q "^connected$" /sys/class/drm/*/status; then
 	# Remove dummy display
 	rm -f /usr/share/X11/xorg.conf.d/xorg.conf
 else
@@ -21,7 +21,7 @@ else
 	chmod 644 /home/analog/.xinitrc
 
 	# Start an X server as user 'analog'
-	su - analog -c "startx -- :0"
+	su - analog -c "startx -- :0 &"
 	
 	# Export the display port
 	export DISPLAY=:0
