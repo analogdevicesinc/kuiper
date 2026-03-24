@@ -1,10 +1,11 @@
 [Unit]
 Description=ADI X Server
-Wants=display-manager.service
-After=display-manager.service
+After=systemd-udev-settle.service
+Before=display-manager.service
 
 [Service]
 Type=oneshot
+RemainAfterExit=yes
 ExecStart=/usr/bin/adi-xserver.sh
 
 [Install]
