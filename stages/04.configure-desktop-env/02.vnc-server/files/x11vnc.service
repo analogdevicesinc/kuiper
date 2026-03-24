@@ -1,11 +1,9 @@
 [Unit]
 Description=VNC Server for X11
-Wants=display-manager.service
-After=display-manager.service
+After=xserver.service
 
 [Service]
 Type=forking
-ExecStartPre=/bin/sleep 30
 ExecStart=/usr/bin/x11vnc -nap -wait 50 -noxdamage -rfbauth /home/analog/.vnc/passwd -display :0 -forever -bg
 Restart=on-failure
 RestartSec=10
