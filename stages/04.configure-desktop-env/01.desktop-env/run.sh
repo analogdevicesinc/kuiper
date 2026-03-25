@@ -18,6 +18,9 @@ if [ "${CONFIG_DESKTOP}" = y ]; then
 	fi
 
 chroot "${BUILD_DIR}" << EOF
+	# Remove unwanted packages
+	apt purge -y xiccd colord colord-data
+
 	# Enable autologin for analog user
 	sed -i "s/#autologin-user=/autologin-user=analog/g" /etc/lightdm/lightdm.conf
 	sed -i "s/#autologin-user-timeout=0/autologin-user-timeout=0/g" /etc/lightdm/lightdm.conf
