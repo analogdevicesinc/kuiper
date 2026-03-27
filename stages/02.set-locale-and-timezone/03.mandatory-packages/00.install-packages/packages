@@ -5,8 +5,6 @@ net-tools
 build-essential 
 git 
 fake-hwclock 
-curl 
-wget
 nano
 htpdate
 zip
@@ -26,3 +24,4 @@ tree
 bash-completion
 jq
 bsdextrautils
+python3-pip

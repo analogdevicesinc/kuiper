@@ -82,60 +82,30 @@ exec > >(TZ=UTC-3 ts '[%b %d %H:%M:%S]' | tee -ia "${LOG_FILE}") 2>&1
 
 echo "${LIGHT_BLUE}Building Kuiper with Debian ${DEBIAN_VERSION} for architecture ${TARGET_ARCHITECTURE}${RESET}"
 
-# Install packages considering config file and the name of the files containing the packages
-# 'packages-*' installs without the recommended packages (by adding '-no-install-recommends')
-# 'packages-*-with-recommends' installs with the recommended packages
-# If a substage has both types of packages (with and without recommended packages)
-# any of them can be used in the 'if' statement and both will be installed
+# Install packages for a stage
+# Usage: install_packages <script_dir>
+# Looks for 'packages' and 'packages-with-recommends' in <script_dir>/00.install-packages/
 install_packages() {
-chroot "${BUILD_DIR}" << EOF
-	if [ -e "${1}"/packages ]
-	then
-		xargs -a "${1}"/packages apt-get install --no-install-recommends -y
-	elif ([ -e "${1}"/packages-desktop-with-recommends ] && [ "${CONFIG_DESKTOP}" = y ])
-	then
-		xargs -a "${1}"/packages-desktop-with-recommends apt-get install -y
-	elif ([ -e "${1}"/packages-libiio ] && [ "${CONFIG_LIBIIO}" = y ])
-	then
-		xargs -a "${1}"/packages-libiio-with-recommends apt-get install -y
-		xargs -a "${1}"/packages-libiio apt-get install --no-install-recommends -y
-	elif ([ -e "${1}"/packages-pyadi ] && [ "${CONFIG_PYADI}" = y ])
-	then
-		xargs -a "${1}"/packages-pyadi-with-recommends apt-get install -y
-		xargs -a "${1}"/packages-pyadi apt-get install --no-install-recommends -y
-	elif ([ -e "${1}"/packages-iio-oscilloscope ] && [ "${CONFIG_IIO_OSCILLOSCOPE}" = y ])
-	then
-		xargs -a "${1}"/packages-iio-oscilloscope apt-get install --no-install-recommends -y
-	elif ([ -e "${1}"/packages-scopy ] && [ "${CONFIG_SCOPY}" = y ])
-	then
-		xargs -a "${1}"/packages-scopy apt-get install -y
-	elif ([ -e "${1}"/packages-libm2k ] && [ "${CONFIG_LIBM2K}" = y ])
-	then
-		xargs -a "${1}"/packages-libm2k apt-get install --no-install-recommends -y
-	elif ([ -e "${1}"/packages-fru-tools ] && [ "${CONFIG_FRU_TOOLS}" = y ])
-	then
-		xargs -a "${1}"/packages-fru-tools apt-get install --no-install-recommends -y
-	elif ([ -e "${1}"/packages-jesd-eye-scan-gtk ] && [ "${CONFIG_JESD_EYE_SCAN_GTK}" = y ])
-	then
-		xargs -a "${1}"/packages-jesd-eye-scan-gtk apt-get install --no-install-recommends -y
-	elif ([ -e "${1}"/packages-colorimeter ] && [ "${CONFIG_COLORIMETER}" = y ])
-	then
-		xargs -a "${1}"/packages-colorimeter apt-get install --no-install-recommends -y
+	local script_dir="$1"
+	local packages_dir="${script_dir}/00.install-packages"
+
+	if [ -e "${packages_dir}/packages" ]; then
+		chroot "${BUILD_DIR}" xargs -a "${packages_dir}/packages" \
+			apt-get install --no-install-recommends -y
 	fi
-EOF
+
+	if [ -e "${packages_dir}/packages-with-recommends" ]; then
+		chroot "${BUILD_DIR}" xargs -a "${packages_dir}/packages-with-recommends" \
+			apt-get install -y
+	fi
 }
 export -f install_packages
 
-# Run every 'run.sh' script inside 'stages' directory and install corresponding packages.
-# 'find' command is used to search in every directory inside 'stages' and locate every 'run.sh' in alphanumeric order.
-# The packages are located in '00.install-packages' directory in every substage.
+# Run every 'run.sh' script inside 'stages' directory in alphanumeric order.
+# Each stage is responsible for installing its own packages using
+# install_packages.
 for script in $(find stages -type f -name run.sh | sort); do
 	echo "${MAGENTA}Start stage ${script:7:-7}${RESET}"
-
-	if [ -e "${script%%/run.sh}"/00.install-packages ]; then
-		install_packages "${script%%/run.sh}"/00.install-packages
-	fi
-
 	bash -e ${script}
 	echo "End stage ${script:7:-7}"
 done

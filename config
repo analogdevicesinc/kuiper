@@ -7,14 +7,14 @@
 # Set the architecture for Kuiper. Options: armhf (for 32 bits), arm64 (for 64 bits).
 TARGET_ARCHITECTURE=armhf
 #
-# Set the Debian version for Kuiper. Options: bullseye, bookworm.
-DEBIAN_VERSION=bookworm
+# Set the Debian version for Kuiper. Options: bullseye, bookworm, trixie.
+DEBIAN_VERSION=trixie
 #
 # Preserve the Docker container.
 PRESERVE_CONTAINER=n
 #
 # Set the name of the Docker container. By default the name of the container will be 'debian_<DEBIAN_VERSION>_rootfs_container'
-#CONTAINER_NAME=debian_bookworm_rootfs_container
+#CONTAINER_NAME=debian_trixie_rootfs_container
 #
 #
 #
@@ -28,54 +28,27 @@ CONFIG_DESKTOP=n
 # Libiio is an Analog Devices library for interfacing with Linux IIO devices.
 # Github: https://github.com/analogdevicesinc/libiio
 CONFIG_LIBIIO=n
-CONFIG_LIBIIO_CMAKE_ARGS="-DWITH_HWMON=ON \
-			-DWITH_SERIAL_BACKEND=ON \
-			-DWITH_MAN=ON \
-			-DWITH_EXAMPLES=ON \
-			-DPYTHON_BINDINGS=ON \
-			-DCMAKE_BUILD_TYPE=Release \
-			-DCMAKE_COLOR_MAKEFILE=OFF \
-			-Bbuild -H."
-BRANCH_LIBIIO=libiio-v0
 #
 #
 #
 # [PYADI]*
 # Pyadi: Analog Devices python interfaces for hardware with Industrial I/O drivers.
 # Github: https://github.com/analogdevicesinc/pyadi-iio
-# *depends on LIBIIO
 CONFIG_PYADI=n
-BRANCH_PYADI=main
 #
 # 
 #
 # [LIBM2K]*
 # Libm2k: library for interfacing with the ADALM2000.
 # Github: https://github.com/analogdevicesinc/libm2k
-# *depends on LIBIIO
 CONFIG_LIBM2K=n
-CONFIG_LIBM2K_CMAKE_ARGS="-DENABLE_PYTHON=ON \
-			-DENABLE_CSHARP=OFF \
-			-DENABLE_EXAMPLES=ON \
-			-DENABLE_TOOLS=ON \
-			-DINSTALL_UDEV_RULES=ON \
-			-Bbuild -H."
-BRANCH_LIBM2K=main
 #
 #
 #
 # [LIBAD9166 IIO]*
 # Libad9166-iio: library used for userspace, which applies calibration gain and offset for a user-given frequency.
 # Github: https://github.com/analogdevicesinc/libad9166-iio
-# *depends on LIBIIO
 CONFIG_LIBAD9166_IIO=n
-CONFIG_LIBAD9166_IIO_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr \
-				-DCMAKE_BUILD_TYPE=Release \
-				-DCMAKE_COLOR_MAKEFILE=OFF \
-				-DPYTHON_BINDINGS=ON \
-				-DWITH_DOC=OFF \
-				-Bbuild -H."
-BRANCH_LIBAD9166_IIO=libad9166-iio-v0 
 #
 #
 #
@@ -83,15 +56,7 @@ BRANCH_LIBAD9166_IIO=libad9166-iio-v0
 # Libad9361-iio: library used for userspace, which manages multi-chip sync (on platforms (FMCOMMS5) 
 # where multiple AD9361 devices are use) and can create AD9361 specific FIR filters on the fly
 # Github: https://github.com/analogdevicesinc/libad9361-iio
-# *depends on LIBIIO
 CONFIG_LIBAD9361_IIO=n
-CONFIG_LIBAD9361_IIO_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr \
-				-DCMAKE_BUILD_TYPE=Release \
-				-DCMAKE_COLOR_MAKEFILE=OFF \
-				-DPYTHON_BINDINGS=ON \
-				-DWITH_DOC=OFF \
-				-Bbuild -H."
-BRANCH_LIBAD9361_IIO=libad9361-iio-v0
 #
 #
 #
@@ -99,15 +64,7 @@ BRANCH_LIBAD9361_IIO=libad9361-iio-v0
 # The IIO Oscilloscope is a GTK+ application, which demonstrates how to interface various IIO devices 
 # to different visualization methods within a Linux system. 
 # Github: https://github.com/analogdevicesinc/iio-oscilloscope
-# *depends on LIBIIO
-# *depends on LIBAD9166
-# *depends on LIBAD9361
 CONFIG_IIO_OSCILLOSCOPE=n
-CONFIG_IIO_OSCILLOSCOPE_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr/local \
-				-DCMAKE_BUILD_TYPE=Release \
-				-DCMAKE_COLOR_MAKEFILE=OFF \
-				-Bbuild -H."
-BRANCH_IIO_OSCILLOSCOPE=v0.18-main
 #
 #
 #
@@ -115,7 +72,6 @@ BRANCH_IIO_OSCILLOSCOPE=v0.18-main
 # IIO Fm Radio: simple IIO FM Radio receive example
 # Github: https://github.com/analogdevicesinc/iio-fm-radio
 CONFIG_IIO_FM_RADIO=n
-BRANCH_IIO_FM_RADIO=main
 #
 #
 #
@@ -123,28 +79,20 @@ BRANCH_IIO_FM_RADIO=main
 # Fru tools: tools to display/manipulate FMC FRU info
 # Github: https://github.com/analogdevicesinc/fru_tools
 CONFIG_FRU_TOOLS=n
-BRANCH_FRU_TOOLS=main
 #
 #
 #
 # [JESD EYE SCAN GTK]*
 # JESD Eye Scan Gtk: JESD204 Eye Scan Visualization Utility
 # Github: https://github.com/analogdevicesinc/jesd-eye-scan-gtk
-# *depends on LIBIIO
 CONFIG_JESD_EYE_SCAN_GTK=n
-CONFIG_JESD_EYE_SCAN_GTK_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr/local \
-				-DUSE_LIBIIO=ON \
-				-Bbuild -H."
-BRANCH_JESD_EYE_SCAN_GTK=main
 #
 #
 #
 # [COLORIMETER]*
 # Colorimeter: Application to be used with the EVAL-CN0363-PMDZ
 # Github: https://github.com/analogdevicesinc/colorimeter
-# *depends on LIBIIO
 CONFIG_COLORIMETER=n
-BRANCH_COLORIMETER=main
 #
 #
 #
@@ -165,12 +113,7 @@ CONFIG_GNURADIO=n
 # [GRM2K]*
 # Grm2k: GNU Radio blocks for ADALM-2000.
 # Github: https://github.com/analogdevicesinc/gr-m2k
-# *depends on LIBIIO
-# *depends on LIBM2K
-# *depends on GNURADIO
 CONFIG_GRM2K=n
-CONFIG_GRM2K_CMAKE_ARGS="-Bbuild -H."
-BRANCH_GRM2K=main
 #
 #
 #
@@ -178,7 +121,6 @@ BRANCH_GRM2K=main
 # ADI Scripts for Linux images: semi-random collection of small shell scripts which run on various Linux images (on various platforms) which talk to a varity of different ADI boards and parts
 # Github: https://github.com/analogdevicesinc/linux_image_ADI-scripts
 CONFIG_LINUX_SCRIPTS=n
-BRANCH_LINUX_SCRIPTS=kuiper2.0
 #
 #
 #
@@ -203,8 +145,9 @@ CONFIG_ARCH_VERSAL=n
 #
 #
 # [PREPARE BOOT FILES]*
-# Prepare boot partition with carriers boot files at build time by setting the ADI_EVAL_BOARD and the CARRIER.
-# *depends on INTEL AND XILINX BOOT FILES
+# Prepare boot partition with carriers boot files at build time by setting the
+# ADI_EVAL_BOARD and the CARRIER. Corresponding boot file package must be
+# enabled.
 ADI_EVAL_BOARD=
 CARRIER=
 #

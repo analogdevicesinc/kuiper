@@ -5,4 +5,6 @@ libfftw3-dev
 libavahi-common-dev 
 libcurl4-openssl-dev 
 libjansson-dev 
-policykit-1-gnome
+libxml2-dev
+pkexec
+polkitd

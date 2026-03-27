@@ -6,8 +6,17 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+USE_PIP_REPO=y
+BRANCH_PYADI=main
+
 if [ "${CONFIG_PYADI}" = y ]; then
-	if [ "${CONFIG_LIBIIO}" = y ]; then
+
+	if [ "${USE_PIP_REPO}" = y ]; then
+		chroot "${BUILD_DIR}" apt install python3-numpy -y
+		chroot "${BUILD_DIR}" pip3 install pyadi-iio --break-system-packages
+
+	elif [ "${CONFIG_LIBIIO}" = y ]; then
+		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF
 		cd /usr/local/src
@@ -16,7 +25,6 @@ chroot "${BUILD_DIR}" << EOF
 		git clone -b ${BRANCH_PYADI} ${GITHUB_ANALOG_DEVICES}/pyadi-iio.git
 	
 		# Install pyadi
-		# --break-system-packages is needed in Debian 12 Bookworm to install packages with apt and pip in the same environment
 		cd pyadi-iio && yes | pip install . --break-system-packages
 EOF
 

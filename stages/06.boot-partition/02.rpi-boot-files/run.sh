@@ -30,7 +30,7 @@ if [ "${CONFIG_RPI_BOOT_FILES}" = y ]; then
 	# Check if RPI boot files should be downloaded from ADI repository, Artifactory or Software downloads
 	if [ "${USE_ADI_REPO_RPI_BOOT}" == y ]; then
 
-		# install package from adi-repo
+		# install package from adi-kuiper package repository
 chroot "${BUILD_DIR}" << EOF
 		apt-get install adi-rpi-boot
 EOF
@@ -93,20 +93,24 @@ EOF
 	
 	# Install Raspberry Pi boot files: start*.elf, fixup*.dat, bootcode.bin and LICENCE.broadcom. 
 	# These files are downloaded as a package from the Raspberry Pi apt repository.
-	sed -i 's/deb /#deb /' "${BUILD_DIR}/etc/apt/sources.list"
 	sed -i 's/#deb /deb /' "${BUILD_DIR}/etc/apt/sources.list.d/raspi.list"
 
+	mv ${BUILD_DIR}/usr/bin/ischroot ${BUILD_DIR}/usr/bin/ischroot.original
+	ln -s /usr/bin/true ${BUILD_DIR}/usr/bin/ischroot
+
 chroot "${BUILD_DIR}" << EOF
 	 apt-get update
-	 apt-get install -y raspberrypi-bootloader --no-install-recommends
+	 apt-get install -y raspi-firmware --no-install-recommends
 EOF
 
+	mv "${BUILD_DIR}"/usr/bin/ischroot.original "${BUILD_DIR}"/usr/bin/ischroot
 	sed -i 's/deb /#deb /' "${BUILD_DIR}/etc/apt/sources.list.d/raspi.list"
-	sed -i 's/#deb /deb /' "${BUILD_DIR}/etc/apt/sources.list"
 
 chroot "${BUILD_DIR}" << EOF
 	 apt-get update
 EOF
+
+	cp -r ${BUILD_DIR}/boot/firmware/* ${BUILD_DIR}/boot
 
 else
 	echo "Raspberry Pi boot files won't be installed because CONFIG_RPI_BOOT_FILES is set to 'n'."

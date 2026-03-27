@@ -8,6 +8,8 @@
 
 if [ "${CONFIG_DESKTOP}" = y ]; then
 
+	install_packages "${BASH_SOURCE%/run.sh}"
+
 	if [[ "${CONFIG_RPI_BOOT_FILES}" = y && "${TARGET_ARCHITECTURE}" = arm64 ]]; then
 
 		# Use the vc4 card for the display on RPi5
@@ -16,6 +18,9 @@ if [ "${CONFIG_DESKTOP}" = y ]; then
 	fi
 
 chroot "${BUILD_DIR}" << EOF
+	# Remove unwanted packages
+	apt purge -y xiccd colord colord-data
+
 	# Enable autologin for analog user
 	sed -i "s/#autologin-user=/autologin-user=analog/g" /etc/lightdm/lightdm.conf
 	sed -i "s/#autologin-user-timeout=0/autologin-user-timeout=0/g" /etc/lightdm/lightdm.conf
