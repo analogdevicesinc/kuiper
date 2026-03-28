@@ -6,6 +6,8 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+install_packages "${BASH_SOURCE%/run.sh}"
+
 # Add udiskie service
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/udiskie.service "${BUILD_DIR}/lib/systemd/system/"
 
@@ -14,5 +16,6 @@ chroot "${BUILD_DIR}" << EOF
 	systemctl enable udiskie
 	
 	# Suppress log printing
-	sed -i 's/^#\(kernel\.printk = 3 4 1 3\)/\1/' /etc/sysctl.conf
+	echo "kernel.printk = 3 4 1 3" > /etc/sysctl.d/99-local.conf
+
 EOF

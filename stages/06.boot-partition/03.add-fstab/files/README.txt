@@ -34,13 +34,12 @@ For Arria10 SoC projects, copy these files to the root of the BOOT FAT32 partiti
     socfpga_arria10_common/zImage - Kernel image
 Create an extlinux folder in the boot partition and copy socfpga_arria10_common/extlinux.conf into it
 Write the preloader (replace mmcblkXp3 with your actual device):
-    'sudo dd if=<target>/fit_spl_fpga.itb of=/dev/mmcblk0p3 status=progress'
+    'sudo dd if=<target>/u-boot-splx4.sfp of=/dev/mmcblk0p3 status=progress'
 
 For Cyclone5 projects, copy these files to the root of the BOOT FAT32 partition:
     <target>/soc_system.rbf - FPGA bitstream
     <target>/socfpga.dtb - Device tree
     <target>/u-boot.scr - U-Boot script
-    <target>/u-boot-with-spl.sfp - SPL and U-Boot combined
     socfpga_cyclone5_common/zImage - Kernel image
 Create an extlinux folder in the boot partition and copy socfpga_cyclone5_common/extlinux.conf into it
 Write the preloader (replace mmcblkXp3 with your actual device):

@@ -6,8 +6,19 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+USE_ADI_REPO=y
+CONFIG_JESD_EYE_SCAN_GTK_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr/local \
+				-DUSE_LIBIIO=ON \
+				-Bbuild -H."
+BRANCH_JESD_EYE_SCAN_GTK=main
+
 if [ "${CONFIG_JESD_EYE_SCAN_GTK}" = y ]; then
-	if [ "${CONFIG_LIBIIO}" = y ]; then
+
+	if [ "${USE_ADI_REPO}" = y ]; then
+		chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y jesd-eye-scan-gtk jesd-eye-scan-gtk-dbgsym
+
+	elif [ "${CONFIG_LIBIIO}" = y ]; then
+		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF
 		cd /usr/local/src

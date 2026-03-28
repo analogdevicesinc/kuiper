@@ -1,11 +1,11 @@
-ARG BASE_IMAGE=debian:bookworm
+ARG BASE_IMAGE=debian:trixie
 FROM ${BASE_IMAGE}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y update && \
     apt-get -y install --no-install-recommends \
-        parted moreutils \
+        parted moreutils e2fsprogs\
         coreutils qemu-user-static debootstrap zip dosfstools \
         rsync grep xxd kmod bc udev jq \
         build-essential gcc-arm-linux-gnueabihf \
