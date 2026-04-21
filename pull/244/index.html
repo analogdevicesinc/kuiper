@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="ADI Kuiper Linux - A specialized Debian distribution for Analog Devices hardware with pre-configured libraries, tools, and applications for seamless development" name="description" />
+
+    <title>ADI Kuiper Linux &#8212; Kuiper  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=833c9372" />
+    <script async="async" src="_static/app.umd.js?v=f78f54ff"></script>
+    <link rel="icon" href="_static/icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Prerequisites" href="prerequisites.html" />
+   
+  
+  
+  <meta name="repository" content="kuiper">
+  <meta name="version" content="latest">
+  
+    <meta name="page_source_suffix" content=".rst">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        
+        <a id="logo" href="#">
+          <div>Kuiper</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">ADI Kuiper Linux</a><ul>
+<li><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li><a class="reference internal" href="#what-s-included">What’s Included</a></li>
+<li><a class="reference internal" href="#build-configurations">Build Configurations</a><ul>
+<li><a class="reference internal" href="#basic-image-default">Basic Image (Default)</a></li>
+<li><a class="reference internal" href="#full-image">Full Image</a></li>
+<li><a class="reference internal" href="#custom-image">Custom Image</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#community-and-support">Community and Support</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#documentation">Documentation</a><ul>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="#">
+      <img class="only-light" src="_static/logo_light.png"/>
+      <img class="only-dark" src="_static/logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Getting Started</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use-kuiper-image.html">Using Kuiper Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware-configuration.html">Hardware Configuration</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Configuration &amp; Building</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kuiper-versions.html">Kuiper Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Advanced Topics</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Custom Script Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Reference</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb empty"><ol></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="adi-kuiper-linux">
+<h1>ADI Kuiper Linux<a class="headerlink" href="#adi-kuiper-linux" title="Link to this heading"></a></h1>
+<p>Kuiper is a specialized Debian-based Linux distribution designed specifically
+for Analog Devices hardware and evaluation boards. It provides a complete,
+ready-to-use environment with ADI libraries, tools, and applications
+pre-configured for seamless hardware integration.</p>
+<p>Whether you’re prototyping with an ADI evaluation board, developing embedded
+applications, or building software-defined radio solutions, Kuiper gives you
+a solid foundation to start immediately without the complexity of manual
+system configuration.</p>
+<hr class="docutils" />
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<p>Get up and running with Kuiper:</p>
+<ol class="arabic">
+<li><p><a class="reference internal" href="prerequisites.html"><span class="doc">Check prerequisites</span></a> (Ubuntu 22.04 + Docker for
+building)</p></li>
+<li><p>Get Kuiper image:</p>
+<ul class="simple">
+<li><p><strong>Quick option</strong>: Download pre-built from <a class="icon git reference external" href="https://github.com/analogdevicesinc/kuiper/actions/workflows/kuiper2_0-build.yml?query=branch:main" target="_blank">GitHub
+Actions</a></p></li>
+<li><p><strong>Custom option</strong>: Clone repository and build your own</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/analogdevicesinc/kuiper
+<span class="nb">cd</span><span class="w"> </span>kuiper
+sudo<span class="w"> </span>./build-docker.sh
+</pre></div>
+</div>
+<p>For detailed instructions, see the <a class="reference internal" href="quick-start.html"><span class="doc">Quick Start</span></a> section.</p>
+</li>
+<li><p><a class="reference internal" href="use-kuiper-image.html"><span class="doc">Write the image to an SD card and boot your device</span></a></p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="what-s-included">
+<h2>What’s Included<a class="headerlink" href="#what-s-included" title="Link to this heading"></a></h2>
+<p>Kuiper provides a configurable development environment tailored for ADI
+hardware:</p>
+<dl class="simple">
+<dt><strong>Core System</strong></dt><dd><p>Debian Bookworm base with optimized configurations for ARM devices</p>
+</dd>
+<dt><strong>ADI Libraries (Optional)</strong></dt><dd><p>libiio, pyadi-iio, libm2k, libad9361, libad9166 for hardware communication</p>
+</dd>
+<dt><strong>Development Tools (Optional)</strong></dt><dd><p>IIO Oscilloscope, Scopy, GNU Radio, and specialized ADI applications</p>
+</dd>
+<dt><strong>Hardware Support</strong></dt><dd><p>Boot files and configurations for Raspberry Pi, Xilinx, and Intel platforms</p>
+</dd>
+<dt><strong>Desktop Environment (Optional)</strong></dt><dd><p>XFCE desktop with VNC access for graphical applications</p>
+</dd>
+</dl>
+<p>All optional components are configurable - build exactly what you need for your
+project.</p>
+</section>
+<hr class="docutils" />
+<section id="build-configurations">
+<h2>Build Configurations<a class="headerlink" href="#build-configurations" title="Link to this heading"></a></h2>
+<p>Kuiper offers three main configurations to suit different needs. You can either
+download pre-built images or create custom builds using the configuration
+system.</p>
+<p>For detailed stage breakdowns and component lists, see <a class="reference internal" href="kuiper-versions.html"><span class="doc">Kuiper Versions</span></a>.</p>
+<section id="basic-image-default">
+<h3>Basic Image (Default)<a class="headerlink" href="#basic-image-default" title="Link to this heading"></a></h3>
+<p><strong>What’s included:</strong></p>
+<ul class="simple">
+<li><p>Debian Bookworm base system with essential utilities</p></li>
+<li><p>Boot files for Raspberry Pi, Xilinx, and Intel platforms</p></li>
+<li><p>User account setup (analog/analog) with sudo access</p></li>
+<li><p>Network configuration and SSH access</p></li>
+</ul>
+<p><strong>Perfect for:</strong> Headless applications, foundation for custom development,
+resource-constrained environments</p>
+<p><strong>Get it:</strong> Download pre-built from <a class="icon git reference external" href="https://github.com/analogdevicesinc/kuiper/actions/workflows/kuiper2_0-build.yml?query=branch:main" target="_blank">GitHub Actions</a> or build using the
+default config file.</p>
+</section>
+<section id="full-image">
+<h3>Full Image<a class="headerlink" href="#full-image" title="Link to this heading"></a></h3>
+<p><strong>What’s included:</strong></p>
+<ul class="simple">
+<li><p>Everything from Basic Image</p></li>
+<li><p>XFCE desktop environment with VNC server</p></li>
+<li><p>Complete ADI library suite (libiio, pyadi-iio, libm2k, libad9361, libad9166)</p></li>
+<li><p>ADI applications (IIO Oscilloscope, Scopy), GNU Radio</p></li>
+<li><p>Development tools and utilities</p></li>
+</ul>
+<p><strong>Perfect for:</strong> Complete development workstations, evaluation and testing,
+learning ADI ecosystem</p>
+<p><strong>Get it:</strong> Download pre-built from <a class="icon git reference external" href="https://github.com/analogdevicesinc/kuiper/actions/workflows/kuiper2_0-build.yml?query=branch:main" target="_blank">GitHub Actions</a> or enable all
+options in the config file.</p>
+</section>
+<section id="custom-image">
+<h3>Custom Image<a class="headerlink" href="#custom-image" title="Link to this heading"></a></h3>
+<p><strong>What’s included:</strong></p>
+<ul class="simple">
+<li><p>Configurable combination of any available components</p></li>
+<li><p>Choose specific ADI libraries and tools for your needs</p></li>
+<li><p>Optional desktop environment and development packages</p></li>
+<li><p>Tailored boot configuration for your target hardware</p></li>
+</ul>
+<p><strong>Perfect for:</strong> Production deployments, specialized applications, specific
+tool combinations</p>
+<p><strong>Get it:</strong> Modify the <a class="reference internal" href="configuration.html"><span class="doc">config file</span></a> and run the build
+process locally.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="community-and-support">
+<h2>Community and Support<a class="headerlink" href="#community-and-support" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt><strong>Issues and Bug Reports</strong></dt><dd><p>Report problems on <a class="icon git reference external" href="https://github.com/analogdevicesinc/kuiper/issues" target="_blank">GitHub Issues</a></p>
+</dd>
+<dt><strong>Source Code</strong></dt><dd><p>View and contribute at <a class="icon git reference external" href="https://github.com/analogdevicesinc/kuiper/tree/main/" target="_blank">ADI kuiper repository</a></p>
+</dd>
+<dt><strong>ADI Community</strong></dt><dd><p>Connect with other developers at <a class="icon ez reference external" href="https://ez.analog.com/linux-software-drivers" target="_blank">EngineerZone</a></p>
+</dd>
+</dl>
+</section>
+</section>
+<hr class="docutils" />
+<section id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html#build-environment">Build Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html#required-software">Required Software</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#choose-your-path">Choose Your Path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#building-your-own-image">Building Your Own Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quick-start.html#using-the-kuiper-image">Using the Kuiper Image</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="use-kuiper-image.html">Using Kuiper Images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="use-kuiper-image.html#extracting-the-image">Extracting the Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-kuiper-image.html#writing-the-image-to-an-sd-card">Writing the Image to an SD Card</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-kuiper-image.html#before-you-boot-platform-specific-requirements">Before You Boot: Platform-Specific Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-kuiper-image.html#booting-your-device">Booting Your Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-kuiper-image.html#login-information">Login Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-kuiper-image.html#accessing-your-kuiper-system">Accessing Your Kuiper System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-kuiper-image.html#verifying-your-installation">Verifying Your Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use-kuiper-image.html#change-the-hostname-and-mac-address">Change the hostname and MAC address</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hardware-configuration.html">Hardware Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hardware-configuration.html#adi-evaluation-boards">ADI Evaluation Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware-configuration.html#raspberry-pi">Raspberry Pi</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Configuration &amp; Building</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#how-to-configure">How to Configure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#system-configuration">System Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#build-process-options">Build Process Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#desktop-environment">Desktop Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#adi-libraries-and-tools">ADI Libraries and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#adi-applications">ADI Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#non-adi-applications">Non-ADI Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#boot-files-configuration">Boot Files Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#hardware-targeting-configuration">Hardware Targeting Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#platform-specific-packages">Platform-Specific Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#customization">Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#common-configuration-examples">Common Configuration Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kuiper-versions.html">Kuiper Versions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kuiper-versions.html#basic-image-default">Basic Image (Default)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kuiper-versions.html#optional-components">Optional Components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build-flow.html#docker-build-environment">Docker Build Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build-flow.html#stage-based-build-process">Stage-Based Build Process</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stage-reference.html#stage-01-bootstrap">Stage 01: Bootstrap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage-reference.html#stage-02-set-locale-and-timezone">Stage 02: Set Locale and Timezone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage-reference.html#stage-03-system-tweaks">Stage 03: System Tweaks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage-reference.html#stage-04-configure-desktop-environment">Stage 04: Configure Desktop Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage-reference.html#stage-05-adi-tools">Stage 05: ADI Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage-reference.html#stage-06-boot-partition">Stage 06: Boot Partition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage-reference.html#stage-07-extra-tweaks">Stage 07: Extra Tweaks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage-reference.html#stage-08-export-stage">Stage 08: Export Stage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Custom Script Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="customization.html#using-the-example-script">Using the Example Script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customization.html#using-your-own-custom-script">Using Your Own Custom Script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="repositories.html#adi-repository">ADI Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repositories.html#raspberry-pi-repository">Raspberry Pi Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repositories.html#install-packages">Install Packages</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#cross-architecture-build-issues">Cross-Architecture Build Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#docker-permission-issues">Docker Permission Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#build-path-issues">Build Path Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#other-issues">Other Issues</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <div></div>
+    <a href="prerequisites.html" title="Next document (Alt+Shift+RightArrow)" class="next">Prerequisites</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2025, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

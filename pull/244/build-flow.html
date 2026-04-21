@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="The Kuiper build process uses Docker to create a controlled environment for building Debian-based images for Analog Devices products. The build follows these high-level steps:" name="description" />
+
+    <title>Build Flow &#8212; Kuiper  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=833c9372" />
+    <script async="async" src="_static/app.umd.js?v=f78f54ff"></script>
+    <link rel="icon" href="_static/icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Stage Reference" href="stage-reference.html" />
+    <link rel="prev" title="Kuiper Versions" href="kuiper-versions.html" />
+   
+  
+  
+  <meta name="repository" content="kuiper">
+  <meta name="version" content="latest">
+  
+    <meta name="page_source_suffix" content=".rst">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        
+        <a id="logo" href="index.html">
+          <div>Kuiper</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">Build Flow</a><ul>
+<li><a class="reference internal" href="#docker-build-environment">Docker Build Environment</a><ul>
+<li><a class="reference internal" href="#running-the-build">Running the Build</a></li>
+<li><a class="reference internal" href="#docker-container-configuration">Docker Container Configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stage-based-build-process">Stage-Based Build Process</a><ul>
+<li><a class="reference internal" href="#how-stages-are-processed">How Stages Are Processed</a></li>
+<li><a class="reference internal" href="#key-stages-overview">Key Stages Overview</a></li>
+<li><a class="reference internal" href="#stage-execution-logic">Stage Execution Logic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="index.html">
+      <img class="only-light" src="_static/logo_light.png"/>
+      <img class="only-dark" src="_static/logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Getting Started</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use-kuiper-image.html">Using Kuiper Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware-configuration.html">Hardware Configuration</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Configuration &amp; Building</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kuiper-versions.html">Kuiper Versions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Build Flow</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Advanced Topics</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Custom Script Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Reference</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb empty"><ol></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="build-flow">
+<span id="id1"></span><h1>Build Flow<a class="headerlink" href="#build-flow" title="Link to this heading"></a></h1>
+<p>The Kuiper build process uses Docker to create a controlled environment for
+building Debian-based images for Analog Devices products. The build follows
+these high-level steps:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">build-docker.sh</span></code> creates a Docker container with all necessary build
+dependencies</p></li>
+<li><p>Inside the container, <code class="docutils literal notranslate"><span class="pre">kuiper-stages.sh</span></code> orchestrates a series of build
+stages</p></li>
+<li><p>Each stage performs specific tasks like system configuration, tool
+installation, and boot setup</p></li>
+<li><p>The final image is exported as a zip file to the <code class="docutils literal notranslate"><span class="pre">kuiper-volume</span></code>
+directory on your host machine</p></li>
+</ol>
+<p>This approach ensures consistent builds across different host systems while
+allowing full customization through the <code class="docutils literal notranslate"><span class="pre">config</span></code> file.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">config</span></code> file is first read by <code class="docutils literal notranslate"><span class="pre">build-docker.sh</span></code> on the host system
+to set up environment variables and Docker options. It is then copied into
+the container where <code class="docutils literal notranslate"><span class="pre">kuiper-stages.sh</span></code> reads it again to determine which
+stages to execute and how to configure them.</p>
+<div class="svg align-center"><svg viewBox="0 0 800 650" class="kuiper-build-flow-diagram" xmlns="http://www.w3.org/2000/svg">
+<defs>
+      <!-- Arrow marker -->
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto" fill="#667eea">
+      <polygon points="0 0, 10 3.5, 0 7" />
+      </marker>
+      
+      <!-- Gradient for containers -->
+      <linearGradient id="hostGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+      </linearGradient>
+      
+      <linearGradient id="containerGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bbdefb;stop-opacity:1" />
+      </linearGradient>
+      
+      <linearGradient id="outputGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f5e8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c8e6c9;stop-opacity:1" />
+      </linearGradient>
+</defs>
+
+<!-- 🖥️ Host System -->
+<rect x="100" y="50" width="560" height="560" rx="8" 
+      fill="url(#hostGradient)" stroke="#6c757d" stroke-width="2"/>
+<text x="650" y="80" text-anchor="end" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">
+      🖥️ Host System
+</text>
+
+<!-- build-docker.sh -->
+<rect x="170" y="100" width="140" height="60" rx="4" 
+      fill="white" stroke="#adb5bd" stroke-width="1"/>
+<text x="240" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">🐳 build-docker.sh</text>
+<text x="240" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#666">Reads config,</text>
+<text x="240" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#666">creates container</text>
+
+<!-- Config file -->
+<rect x="450" y="100" width="140" height="60" rx="4" 
+      fill="white" stroke="#adb5bd" stroke-width="1"/>
+<text x="520" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">📄 config</text>
+<text x="520" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">Build configuration</text>
+
+<!-- Arrow from config to build-docker.sh -->
+<line x1="450" y1="130" x2="310" y2="130" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+<!-- 🐳 Docker Container -->
+<rect x="130" y="180" width="500" height="250" rx="6" 
+      fill="url(#containerGradient)" stroke="#2196f3" stroke-width="2"/>
+<text x="620" y="205" text-anchor="end" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1976d2">
+      🐳 Docker Container
+</text>
+
+<!-- kuiper-stages.sh -->
+<rect x="280" y="220" width="120" height="50" rx="3" 
+      fill="white" stroke="#90a4ae" stroke-width="1"/>
+<text x="340" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">⚙️ kuiper-stages.sh</text>
+<text x="340" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Orchestrates build</text>
+<text x="340" y="262" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">stages</text>
+
+<!-- Config copy -->
+<rect x="460" y="220" width="120" height="50" rx="3" 
+      fill="white" stroke="#90a4ae" stroke-width="1"/>
+<text x="520" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">📄 config (copy)</text>
+<text x="520" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Configuration copy</text>
+
+<!-- Stage Execution -->
+<rect x="280" y="290" width="120" height="50" rx="3" 
+      fill="white" stroke="#90a4ae" stroke-width="1"/>
+<text x="340" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">🔧 Stage Execution</text>
+<text x="340" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Processes all</text>
+<text x="340" y="337" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">build stages</text>
+
+<!-- Image Creation -->
+<rect x="280" y="360" width="120" height="50" rx="3" 
+      fill="white" stroke="#90a4ae" stroke-width="1"/>
+<text x="340" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">💿 Image Creation</text>
+<text x="340" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">Generates</text>
+<text x="340" y="407" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666">final image</text>
+
+<!-- Arrows within Docker container -->
+<!-- config copy to kuiper-stages.sh -->
+<line x1="460" y1="245" x2="400" y2="245" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+<!-- kuiper-stages.sh to Stage Execution -->
+<line x1="340" y1="270" x2="340" y2="290" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+<!-- Stage Execution to Image Creation -->
+<line x1="340" y1="340" x2="340" y2="360" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+<!-- Arrow from build-docker.sh to docker container -->
+<line x1="240" y1="160" x2="240" y2="180" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+<text x="250" y="172" font-family="Arial, sans-serif" font-size="10" fill="#666" font-style="italic">Creates Docker container</text>
+
+<!-- 📁 kuiper-volume -->
+<rect x="200" y="460" width="350" height="120" rx="8" 
+      fill="url(#outputGradient)" stroke="#4caf50" stroke-width="2"/>
+<text x="350" y="485" text-anchor="end" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2e7d32">
+      📁 kuiper-volume/
+</text>
+
+<!-- Build Artifacts -->
+<text x="220" y="510" font-family="Arial, sans-serif" font-size="12" fill="#333">├──image_YYYY-MM-DD-ADI-Kuiper-Linux-[arch].zip</text>
+<text x="220" y="525" font-family="Arial, sans-serif" font-size="12" fill="#333">├──build.log</text>
+<text x="220" y="540" font-family="Arial, sans-serif" font-size="12" fill="#333">├──ADI_repos_git_info.txt</text>
+<text x="220" y="554" font-family="Arial, sans-serif" font-size="12" fill="#333">├──licensing/</text>
+<text x="220" y="568" font-family="Arial, sans-serif" font-size="12" fill="#333">└──sources/</text>
+
+<!-- Arrow from docker container to output -->
+<line x1="340" y1="430" x2="340" y2="460" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+<text x="350" y="447" font-family="Arial, sans-serif" font-size="10" fill="#666" font-style="italic">Outputs to host</text>
+
+</svg>
+</div><hr class="docutils" />
+<section id="docker-build-environment">
+<h2>Docker Build Environment<a class="headerlink" href="#docker-build-environment" title="Link to this heading"></a></h2>
+<p>Docker is used to perform the build inside a container, which partially
+isolates the build from the host system. This allows the script to work on
+non-Debian based systems (e.g., Fedora Linux). The isolation is not total
+due to the need to use some kernel-level services for ARM emulation (binfmt)
+and loop devices (losetup).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">build-docker.sh</span></code> script handles:</p>
+<ul class="simple">
+<li><p>Checking prerequisites and permissions</p></li>
+<li><p>Building a Docker image with all necessary dependencies</p></li>
+<li><p>Running a Docker container with appropriate options</p></li>
+<li><p>Mounting volumes to share data between the host and container</p></li>
+<li><p>Setting environment variables based on the <code class="docutils literal notranslate"><span class="pre">config</span></code> file</p></li>
+<li><p>Starting the internal build process by calling <code class="docutils literal notranslate"><span class="pre">kuiper-stages.sh</span></code></p></li>
+<li><p>Cleaning up the container after completion (if <code class="docutils literal notranslate"><span class="pre">PRESERVE_CONTAINER=n</span></code>)</p></li>
+</ul>
+<section id="running-the-build">
+<h3>Running the Build<a class="headerlink" href="#running-the-build" title="Link to this heading"></a></h3>
+<p>To build:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./build-docker.sh
+</pre></div>
+</div>
+<p>Your Kuiper image will be in the <code class="docutils literal notranslate"><span class="pre">kuiper-volume/</span></code> folder inside the cloned
+repository on your machine as a zip file named
+<code class="docutils literal notranslate"><span class="pre">image_YYYY-MM-DD-ADI-Kuiper-Linux-[arch].zip</span></code>. After successful build,
+the Docker image and the build container are removed if
+<code class="docutils literal notranslate"><span class="pre">PRESERVE_CONTAINER=n</span></code>.</p>
+<p>If needed, you can remove the build container with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>rm<span class="w"> </span>-v<span class="w"> </span>debian_&lt;DEBIAN_VERSION&gt;_rootfs_container
+</pre></div>
+</div>
+<p>If you choose to preserve the Docker container, you can access the Kuiper
+root filesystem by copying it from the container to your machine with this
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONTAINER_ID</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s2">&quot;{{.Id}}&quot;</span><span class="w"> </span>debian_&lt;DEBIAN_VERSION&gt;_rootfs_container<span class="k">)</span>
+sudo<span class="w"> </span>docker<span class="w"> </span>cp<span class="w"> </span><span class="nv">$CONTAINER_ID</span>:&lt;TARGET_ARCHITECTURE&gt;_rootfs<span class="w"> </span>.
+</pre></div>
+</div>
+<p>You need to replace <code class="docutils literal notranslate"><span class="pre">&lt;DEBIAN_VERSION&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;TARGET_ARCHITECTURE&gt;</span></code> with
+the ones in the configuration file.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONTAINER_ID</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s2">&quot;{{.Id}}&quot;</span><span class="w"> </span>debian_bookworm_rootfs_container<span class="k">)</span>
+sudo<span class="w"> </span>docker<span class="w"> </span>cp<span class="w"> </span><span class="nv">$CONTAINER_ID</span>:armhf_rootfs<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="docker-container-configuration">
+<h3>Docker Container Configuration<a class="headerlink" href="#docker-container-configuration" title="Link to this heading"></a></h3>
+<p>When the Docker container is run, various required command line arguments
+are provided:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-t</span></code>: Allocates a pseudo-TTY allowing interaction with container’s shell</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--privileged</span></code>: Provides elevated privileges required by the chroot
+command</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">/dev:/dev</span></code>: Mounts the host system’s device directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">/lib/modules:/lib/modules</span></code>: Mounts kernel modules from the host</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">./kuiper-volume:/kuiper-volume</span></code>: Creates a shared volume for the
+output</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">&quot;DEBIAN_VERSION={value}&quot;</span></code>: Sets environment variables from the config
+file</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">--name</span></code> and <code class="docutils literal notranslate"><span class="pre">--privileged</span></code> options are already set by the script and
+should not be redefined.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="stage-based-build-process">
+<h2>Stage-Based Build Process<a class="headerlink" href="#stage-based-build-process" title="Link to this heading"></a></h2>
+<p>Inside the Docker container, <code class="docutils literal notranslate"><span class="pre">kuiper-stages.sh</span></code> orchestrates the entire
+build process. This script reads the <code class="docutils literal notranslate"><span class="pre">config</span></code> file, sets up environment
+variables, and executes a series of stages in a specific order.</p>
+<section id="how-stages-are-processed">
+<h3>How Stages Are Processed<a class="headerlink" href="#how-stages-are-processed" title="Link to this heading"></a></h3>
+<p>The build process follows these steps inside the Docker container:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">kuiper-stages.sh</span></code> loops through the <code class="docutils literal notranslate"><span class="pre">stages</span></code> directory in
+alphanumeric order</p></li>
+<li><p>Within each stage, it processes subdirectories in alphanumeric order</p></li>
+<li><p>For each subdirectory, it runs the following files if they exist:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">run.sh</span></code> - A shell script executed in the Docker container’s context</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run-chroot.sh</span></code> - A shell script executed within the Kuiper image
+using chroot</p></li>
+<li><p>Package installation files:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">packages-[*]</span></code> - Lists packages to install with
+<code class="docutils literal notranslate"><span class="pre">--no-install-recommends</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">packages-[*]-with-recommends</span></code> - Lists packages to install with
+their recommended dependencies</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>The package installation files (<code class="docutils literal notranslate"><span class="pre">packages-[*]</span></code>) are processed if the
+corresponding configuration option is enabled. For example,
+<code class="docutils literal notranslate"><span class="pre">packages-desktop</span></code> is only processed if <code class="docutils literal notranslate"><span class="pre">CONFIG_DESKTOP=y</span></code> in the config
+file.</p>
+</section>
+<section id="key-stages-overview">
+<h3>Key Stages Overview<a class="headerlink" href="#key-stages-overview" title="Link to this heading"></a></h3>
+<p>The build process is divided into several stages for logical clarity and
+modularity:</p>
+<ul class="simple">
+<li><p><strong>01.bootstrap</strong> - Creates a usable filesystem using <code class="docutils literal notranslate"><span class="pre">debootstrap</span></code></p></li>
+<li><p><strong>02.set-locale-and-timezone</strong> - Configures system locale and timezone
+settings</p></li>
+<li><p><strong>03.system-tweaks</strong> - Sets up users, passwords, and system configuration</p></li>
+<li><p><strong>04.configure-desktop-env</strong> - Installs and configures desktop environment
+(if enabled)</p></li>
+<li><p><strong>05.adi-tools</strong> - Installs Analog Devices libraries and tools (based on
+config)</p></li>
+<li><p><strong>06.boot-partition</strong> - Adds boot files for different platforms</p></li>
+<li><p><strong>07.extra-tweaks</strong> - Applies custom scripts and additional configurations</p></li>
+<li><p><strong>08.export-stage</strong> - Creates and exports the final image</p></li>
+</ul>
+<p>Each stage contains multiple substages that handle specific aspects of the
+build process. The stages are designed to be modular, allowing for easy
+customization and extension.</p>
+<p>For a more detailed description of each stage and its purpose, see the
+<a class="reference internal" href="stage-reference.html"><span class="doc">Stage Reference</span></a> section.</p>
+</section>
+<section id="stage-execution-logic">
+<h3>Stage Execution Logic<a class="headerlink" href="#stage-execution-logic" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">kuiper-stages.sh</span></code> script contains a helper function called
+<code class="docutils literal notranslate"><span class="pre">install_packages</span></code> that handles package installation for each stage. This
+function:</p>
+<ol class="arabic simple">
+<li><p>Checks if package files exist for the current stage</p></li>
+<li><p>Verifies if the corresponding configuration option is enabled</p></li>
+<li><p>Installs the packages using the appropriate apt-get command</p></li>
+</ol>
+<p>The script then executes each stage’s <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script, which may perform
+additional configuration steps, compile software from source, or prepare
+files for the final image.</p>
+<p>This modular approach allows users to easily customize the build process by
+modifying existing stages or adding new ones.</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="kuiper-versions.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Kuiper Versions</a>
+    <a href="stage-reference.html" title="Next document (Alt+Shift+RightArrow)" class="next">Stage Reference</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2025, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>
