@@ -65,7 +65,7 @@ for LOOP_DEV in ${LOOP_DEVICES}; do
 done
 
 
-# Save info about adi-kuiper-gen repository in log file
+# Save info about kuiper repository in log file
 echo -e "\nADI Kuiper Linux:" >> "kuiper-volume/ADI_repos_git_info.txt"
 echo "Repo   : $(git remote get-url origin)" >> "kuiper-volume/ADI_repos_git_info.txt"
 echo "Branch : $(git branch | cut -d' ' -f2)" >> "kuiper-volume/ADI_repos_git_info.txt"

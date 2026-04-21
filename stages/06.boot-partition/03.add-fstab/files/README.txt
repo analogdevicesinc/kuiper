@@ -1,5 +1,5 @@
 INFO: If you are already booting the image on a hardware platfom, run 'sudo configure-setup.sh --help' and follow the steps for automatic preparation of the boot partition.
-Check this link for more informations: https://analogdevicesinc.github.io/adi-kuiper-gen/hardware-configuration.html
+Check this link for more informations: https://analogdevicesinc.github.io/kuiper/hardware-configuration.html
 If not, check the manual steps below:
 
 Platform-Specific Manual Steps
@@ -59,5 +59,5 @@ Overlays binaries (*.dtbo) can be found in /boot/overlays.
 INFO: After editing the config.txt file you need to reboot you device so that the changes are loaded.
 
 Documentation:
-    https://analogdevicesinc.github.io/adi-kuiper-gen/
+    https://analogdevicesinc.github.io/kuiper/
     https://analog.com/en/design-center/evaluation-hardware-and-software/software/kuiper-linux.html

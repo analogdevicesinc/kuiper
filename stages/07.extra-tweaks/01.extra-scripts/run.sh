@@ -7,7 +7,7 @@
 # Author: Larisa Radu <larisa.radu@analog.com>
 
 # Variable EXTRA_SCRIPT should contain the path to the extra script. 
-# The script must be placed inside 'adi-kuiper-gen' directory and the path should be relative to that directory.
+# The script must be placed inside 'kuiper' directory and the path should be relative to that directory.
 # Example: EXTRA_SCRIPT=stages/07.extra-tweaks/01.extra-scripts/examples/extra-script-example.sh and file 'extra-script-example.sh' is placed in stages/07.extra-tweaks/01.extra-scripts/examples directory.
 
 if [ ! -z "${EXTRA_SCRIPT}" ]; then
