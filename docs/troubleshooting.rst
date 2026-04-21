@@ -81,5 +81,5 @@ Other Issues
 ------------
 
 For other issues not covered here, please check the 
-:git-adi-kuiper-gen:`GitHub Issues <issues+>`
+:git-kuiper:`GitHub Issues <issues+>`
 page or open a new issue with details about your problem.

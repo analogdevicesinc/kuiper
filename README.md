@@ -4,24 +4,24 @@ Kuiper is a specialized Debian-based Linux distribution designed specifically fo
 
 Whether you're prototyping with an ADI evaluation board, developing embedded applications, or building software-defined radio solutions, Kuiper gives you a solid foundation to start immediately without the complexity of manual system configuration.
 
-📖 **[Complete Documentation](https://analogdevicesinc.github.io/adi-kuiper-gen/)** | 📥 **[Pre-built Images](https://github.com/analogdevicesinc/adi-kuiper-gen/actions/workflows/kuiper2_0-build.yml)** | 🐛 **[Issues](https://github.com/analogdevicesinc/adi-kuiper-gen/issues)** | 💬 **[Community](https://ez.analog.com/linux-software-drivers)**
+📖 **[Complete Documentation](https://analogdevicesinc.github.io/kuiper/)** | 📥 **[Pre-built Images](https://github.com/analogdevicesinc/kuiper/actions/workflows/kuiper2_0-build.yml)** | 🐛 **[Issues](https://github.com/analogdevicesinc/kuiper/issues)** | 💬 **[Community](https://ez.analog.com/linux-software-drivers)**
 
 ## Quick Start
 
-1. **Check prerequisites** ([see details](https://analogdevicesinc.github.io/adi-kuiper-gen/prerequisites.html)): Ubuntu 22.04 + Docker
+1. **Check prerequisites** ([see details](https://analogdevicesinc.github.io/kuiper/prerequisites.html)): Ubuntu 22.04 + Docker
 2. **Get Kuiper image**:
-   - **Quick option**: Download pre-built from [GitHub Actions](https://github.com/analogdevicesinc/adi-kuiper-gen/actions/workflows/kuiper2_0-build.yml?query=branch:main)
+   - **Quick option**: Download pre-built from [GitHub Actions](https://github.com/analogdevicesinc/kuiper/actions/workflows/kuiper2_0-build.yml?query=branch:main)
    - **Custom option**: Clone and build your own
 
    ```bash
-   git clone --depth 1 https://github.com/analogdevicesinc/adi-kuiper-gen
-   cd adi-kuiper-gen
+   git clone --depth 1 https://github.com/analogdevicesinc/kuiper
+   cd kuiper
    sudo ./build-docker.sh
    ```
 
-   For more details, see the [quick start guide](https://analogdevicesinc.github.io/adi-kuiper-gen/quick-start.html).
+   For more details, see the [quick start guide](https://analogdevicesinc.github.io/kuiper/quick-start.html).
 
-3. **Write the image** to an SD card and boot your device ([see Using Kuiper Images](https://analogdevicesinc.github.io/adi-kuiper-gen/use-kuiper-image.html))
+3. **Write the image** to an SD card and boot your device ([see Using Kuiper Images](https://analogdevicesinc.github.io/kuiper/use-kuiper-image.html))
 
 ## Build Configurations
 

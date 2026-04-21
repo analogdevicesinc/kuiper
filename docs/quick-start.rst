@@ -14,7 +14,7 @@ Choose Your Path
 **Option A: Download Pre-built Image (5 minutes)**
    Get a ready-to-use basic Kuiper image immediately:
 
-   - Download the latest build from :git-adi-kuiper-gen:`GitHub Actions 
+   - Download the latest build from :git-kuiper:`GitHub Actions 
      <actions/workflows/kuiper2_0-build.yml?query=branch:main+>`
    - Skip to :doc:`Using Kuiper Images <use-kuiper-image>` to write it to an 
      SD card
@@ -41,8 +41,8 @@ After ensuring your build environment meets the :doc:`prerequisites
 
 .. code-block:: bash
 
-   git clone --depth 1 https://github.com/analogdevicesinc/adi-kuiper-gen
-   cd adi-kuiper-gen
+   git clone --depth 1 https://github.com/analogdevicesinc/kuiper
+   cd kuiper
 
 Review Default Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

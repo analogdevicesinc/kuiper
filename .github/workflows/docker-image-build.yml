@@ -43,7 +43,7 @@ jobs:
           workflow: kuiper2_0-build.yml
           branch: main
           name: ${{ matrix.kuiper_artifact }}_image
-          repo: analogdevicesinc/adi-kuiper-gen
+          repo: analogdevicesinc/kuiper
 
       - name: Create .tar file
         run: |
@@ -81,4 +81,4 @@ jobs:
           platforms: ${{ matrix.arch }}
           tags: |
             aandrisa/${{ matrix.kuiper_artifact }}:latest
-            ghcr.io/analogdevicesinc/adi-kuiper-gen/${{ matrix.kuiper_artifact }}:latest
+            ghcr.io/analogdevicesinc/kuiper/${{ matrix.kuiper_artifact }}:latest
