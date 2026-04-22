@@ -28,14 +28,14 @@ Get up and running with Kuiper:
    building)
 #. Get Kuiper image:
 
-   - **Quick option**: Download pre-built from :git-adi-kuiper-gen:`GitHub 
+   - **Quick option**: Download pre-built from :git-kuiper:`GitHub 
      Actions <actions/workflows/kuiper2_0-build.yml?query=branch:main+>`
    - **Custom option**: Clone repository and build your own
 
    .. code-block:: bash
 
-      git clone --depth 1 https://github.com/analogdevicesinc/adi-kuiper-gen
-      cd adi-kuiper-gen
+      git clone --depth 1 https://github.com/analogdevicesinc/kuiper
+      cd kuiper
       sudo ./build-docker.sh
 
    For detailed instructions, see the :doc:`Quick Start <quick-start>` section.
@@ -93,7 +93,7 @@ Basic Image (Default)
 **Perfect for:** Headless applications, foundation for custom development, 
 resource-constrained environments
 
-**Get it:** Download pre-built from :git-adi-kuiper-gen:`GitHub Actions 
+**Get it:** Download pre-built from :git-kuiper:`GitHub Actions 
 <actions/workflows/kuiper2_0-build.yml?query=branch:main+>` or build using the
 default config file.
 
@@ -111,7 +111,7 @@ Full Image
 **Perfect for:** Complete development workstations, evaluation and testing, 
 learning ADI ecosystem
 
-**Get it:** Download pre-built from :git-adi-kuiper-gen:`GitHub Actions 
+**Get it:** Download pre-built from :git-kuiper:`GitHub Actions 
 <actions/workflows/kuiper2_0-build.yml?query=branch:main+>` or enable all
 options in the config file.
 
@@ -137,10 +137,10 @@ Community and Support
 ---------------------
 
 **Issues and Bug Reports**
-   Report problems on :git-adi-kuiper-gen:`GitHub Issues <issues+>`
+   Report problems on :git-kuiper:`GitHub Issues <issues+>`
 
 **Source Code**
-   View and contribute at :git-adi-kuiper-gen:`/`
+   View and contribute at :git-kuiper:`/`
 
 **ADI Community** 
    Connect with other developers at :ez:`linux-software-drivers`
