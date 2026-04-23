@@ -6,12 +6,11 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-# Create an uncommented deb-src line in sources.list
+# Create an uncommented deb-src line in sources.list and raspi.list
 sed -i 's/deb .*/&\n&/g' /etc/apt/sources.list
 sed -i '$ s/deb /deb-src /' /etc/apt/sources.list
 
-# Comment package installation from sources.list
-sed -i 's/deb /#deb /' /etc/apt/sources.list
+sed -i 's/#deb-src /deb-src /' /etc/apt/sources.list.d/raspi.list
 
 apt update
 cd /deb-src
@@ -26,8 +25,8 @@ find . -not -name "deb-src.zip" -delete
 # Comment sources installation from sources.list
 sed -i 's/deb-src /#deb-src /' /etc/apt/sources.list
 
-# Uncomment package installation from sources.list
-sed -i 's/#deb /deb /' /etc/apt/sources.list
+# Comment sources installation from raspi.list
+sed -i 's/deb-src /#deb-src /' /etc/apt/sources.list.d/raspi.list
 
 apt update
 
