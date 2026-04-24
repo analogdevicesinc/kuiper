@@ -24,17 +24,13 @@ Quick Start
 
 Get up and running with Kuiper in two simple steps:
 
-#. **Get a Kuiper image**
-
-   **Recommended**: Download a tested release image (Basic or Full) from
+#. Download a tested release image (Basic or Full) from
    `ADI Kuiper Releases <RELEASE_LINK_PLACEHOLDER>`_
 
-   For other options including latest development builds or custom builds, see
-   the :doc:`Quick Start <quick-start>` guide.
+#. :doc:`Write the image to an SD card and boot your device <use-kuiper-image>`
 
-#. **Write and boot**
-
-   :doc:`Write the image to an SD card and boot your device <use-kuiper-image>`
+For other options including latest development builds or custom builds, see
+the :doc:`Quick Start <quick-start>` guide.
 
 ----
 
@@ -87,7 +83,7 @@ Basic Image (Default)
 **Perfect for:** Headless applications, foundation for custom development, 
 resource-constrained environments
 
-**Get it:** Download pre-built from :git-adi-kuiper-gen:`GitHub Actions 
+**Get it:** Download pre-built from :git-kuiper:`GitHub Actions 
 <actions/workflows/kuiper2_0-build.yml?query=branch:main+>` or build using the
 default config file.
 
@@ -105,7 +101,7 @@ Full Image
 **Perfect for:** Complete development workstations, evaluation and testing, 
 learning ADI ecosystem
 
-**Get it:** Download pre-built from :git-adi-kuiper-gen:`GitHub Actions 
+**Get it:** Download pre-built from :git-kuiper:`GitHub Actions 
 <actions/workflows/kuiper2_0-build.yml?query=branch:main+>` or enable all
 options in the config file.
 
@@ -131,10 +127,10 @@ Community and Support
 ---------------------
 
 **Issues and Bug Reports**
-   Report problems on :git-adi-kuiper-gen:`GitHub Issues <issues+>`
+   Report problems on :git-kuiper:`GitHub Issues <issues+>`
 
 **Source Code**
-   View and contribute at :git-adi-kuiper-gen:`/`
+   View and contribute at :git-kuiper:`/`
 
 **ADI Community** 
    Connect with other developers at :ez:`linux-software-drivers`

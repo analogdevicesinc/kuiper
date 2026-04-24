@@ -9,16 +9,16 @@ packages on your Kuiper system.
 
 ----
 
-.. _package-management-adi:
+.. _package-management-kuiper:
 
-ADI Repository
---------------
+Kuiper Repository
+-----------------
 
-The ADI APT repository provides Debian packages for Analog Devices libraries,
+The Kuiper APT repository provides Debian packages for Analog Devices libraries,
 applications, and boot files. All packages are pre-built, tested, and optimized
 for Kuiper.
 
-**Advantages of using the ADI repository:**
+**Advantages of using the Kuiper repository:**
 
 - Easy installation, removal, and upgrading of packages (``apt install``,
   ``apt remove``, ``apt upgrade``)

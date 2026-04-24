@@ -44,7 +44,7 @@ Download the most recent automated builds from the main branch. These include
 the latest changes and improvements but may have less testing than official
 releases.
 
-**Download**: :git-adi-kuiper-gen:`GitHub Actions
+**Download**: :git-kuiper:`GitHub Actions
 <actions/workflows/kuiper2_0-build.yml?query=branch:main+>`
 
 After downloading, skip to :ref:`quick-start-next-steps`.
@@ -78,8 +78,8 @@ Clone the repository:
 
 .. code-block:: bash
 
-   git clone --depth 1 https://github.com/analogdevicesinc/adi-kuiper-gen
-   cd adi-kuiper-gen
+   git clone --depth 1 https://github.com/analogdevicesinc/kuiper
+   cd kuiper
 
 Review Default Configuration
 +++++++++++++++++++++++++++++

@@ -293,7 +293,7 @@ Customization
      - Description
    * - ``EXTRA_SCRIPT``
      - *(empty)*
-     - Path to a custom script inside the adi-kuiper-gen directory to run 
+     - Path to a custom script inside the kuiper directory to run 
        during build for additional customization
 
 ----
