@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Kuiper uses package repositories to install and manage software. This page explains the available repositories and how to install, update, and manage packages on your Kuiper system." name="description" />
+
+    <title>Package Management &#8212; Kuiper  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=833c9372" />
+    <script async="async" src="_static/app.umd.js?v=f78f54ff"></script>
+    <link rel="icon" href="_static/icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Advanced Customization" href="customization.html" />
+    <link rel="prev" title="Build Flow" href="build-flow.html" />
+   
+  
+  
+  <meta name="repository" content="kuiper">
+  <meta name="version" content="latest">
+  
+    <meta name="page_source_suffix" content=".rst">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        
+        <a id="logo" href="index.html">
+          <div>Kuiper</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">Package Management</a><ul>
+<li><a class="reference internal" href="#kuiper-repository">Kuiper Repository</a><ul>
+<li><a class="reference internal" href="#available-packages">Available Packages</a><ul>
+<li><a class="reference internal" href="#adi-libraries">ADI Libraries</a></li>
+<li><a class="reference internal" href="#adi-applications">ADI Applications</a></li>
+<li><a class="reference internal" href="#boot-files">Boot Files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#discovering-packages">Discovering Packages</a></li>
+<li><a class="reference internal" href="#installing-and-updating-packages">Installing and Updating Packages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#raspberry-pi-repository">Raspberry Pi Repository</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="index.html">
+      <img class="only-light" src="_static/logo_light.png"/>
+      <img class="only-dark" src="_static/logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Getting Started</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use-kuiper-image.html">Using Kuiper Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware-configuration.html">Hardware Configuration</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Configuration &amp; Building</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kuiper-versions.html">Kuiper Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Advanced Topics</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Package Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Advanced Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Reference</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb empty"><ol></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="package-management">
+<span id="id1"></span><h1>Package Management<a class="headerlink" href="#package-management" title="Link to this heading"></a></h1>
+<p>Kuiper uses package repositories to install and manage software. This page
+explains the available repositories and how to install, update, and manage
+packages on your Kuiper system.</p>
+<hr class="docutils" />
+<section id="kuiper-repository">
+<span id="package-management-kuiper"></span><h2>Kuiper Repository<a class="headerlink" href="#kuiper-repository" title="Link to this heading"></a></h2>
+<p>The Kuiper APT repository provides Debian packages for Analog Devices libraries,
+applications, and boot files. All packages are pre-built, tested, and optimized
+for Kuiper.</p>
+<p><strong>Advantages of using the Kuiper repository:</strong></p>
+<ul class="simple">
+<li><p>Easy installation, removal, and upgrading of packages (<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span></code>,
+<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">remove</span></code>, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">upgrade</span></code>)</p></li>
+<li><p>Automatic dependency resolution and conflict detection</p></li>
+<li><p>Simplified version management</p></li>
+<li><p>Debug symbol packages available for most packages (<code class="docutils literal notranslate"><span class="pre">*-dbgsym</span></code>)</p></li>
+</ul>
+<section id="available-packages">
+<h3>Available Packages<a class="headerlink" href="#available-packages" title="Link to this heading"></a></h3>
+<section id="adi-libraries">
+<h4>ADI Libraries<a class="headerlink" href="#adi-libraries" title="Link to this heading"></a></h4>
+<div class="table-wrapper bold-header docutils container">
+<table class="bold-header docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Additional Packages</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libiio0</span></code></p></td>
+<td><p>Library for interfacing with Linux IIO devices</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">libiio-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libiio-utils</span></code>, <code class="docutils literal notranslate"><span class="pre">python3-libiio</span></code>, <code class="docutils literal notranslate"><span class="pre">iiod</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">libm2k</span></code></p></td>
+<td><p>Library for interfacing with the ADALM2000</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">libm2k-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libm2k-tools</span></code>, <code class="docutils literal notranslate"><span class="pre">python3-libm2k</span></code>, <code class="docutils literal notranslate"><span class="pre">libm2k-csharp</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">libad9361</span></code></p></td>
+<td><p>Library for managing multi-chip sync and FIR filters for AD9361</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">libad9361-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">python3-libad9361</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">libad9166</span></code></p></td>
+<td><p>Library for calibration gain and offset for AD9166</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">libad9166-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">python3-libad9166</span></code>, <code class="docutils literal notranslate"><span class="pre">libad9166-dbgsym</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="adi-applications">
+<h4>ADI Applications<a class="headerlink" href="#adi-applications" title="Link to this heading"></a></h4>
+<div class="table-wrapper bold-header docutils container">
+<table class="bold-header docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iio-oscilloscope</span></code></p></td>
+<td><p>GTK+ application for interfacing with IIO devices</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scopy</span></code></p></td>
+<td><p>Software oscilloscope and signal analysis toolset</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">colorimeter</span></code></p></td>
+<td><p>Application for the EVAL-CN0363-PMDZ (with <code class="docutils literal notranslate"><span class="pre">colorimeter-dbgsym</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">jesd-eye-scan-gtk</span></code></p></td>
+<td><p>JESD204 Eye Scan visualization utility (with <code class="docutils literal notranslate"><span class="pre">jesd-eye-scan-gtk-dbgsym</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iio-fm-radio</span></code></p></td>
+<td><p>Simple IIO FM Radio receiver (with <code class="docutils literal notranslate"><span class="pre">iio-fm-radio-dbgsym</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fru-tools</span></code></p></td>
+<td><p>Tools to display/manipulate FMC FRU info (with <code class="docutils literal notranslate"><span class="pre">fru-tools-dbgsym</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gr-m2k</span></code></p></td>
+<td><p>GNU Radio blocks for ADALM-2000 (with <code class="docutils literal notranslate"><span class="pre">gr-m2k-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">python3-gr-m2k</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">adi-scripts</span></code></p></td>
+<td><p>ADI scripts for Linux images</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="boot-files">
+<h4>Boot Files<a class="headerlink" href="#boot-files" title="Link to this heading"></a></h4>
+<p>Boot files are organized by processor architecture:</p>
+<div class="table-wrapper bold-header docutils container">
+<table class="bold-header docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Hardware Platform Examples</p></th>
+<th class="head"><p>Package</p></th>
+<th class="head"><p>Architecture</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ZedBoard, ZC702, ZC706, Cora Z7s, ADRV9361-Z7035, ADRV9364-Z7020</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adi-zynq-boot</span></code></p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>ZCU102, ADRV9009-ZU11EG, Jupiter SDR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adi-zynqmp-boot</span></code></p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>VCK190, VPK180, VHK158</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adi-versal-boot</span></code></p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>Arria10 SoC Development Kit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adi-arria10-boot</span></code></p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>Cyclone 5 SoC Kit, DE10-Nano, Arradio board</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adi-cyclone5-boot</span></code></p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>Raspberry Pi</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adi-rpi-boot</span></code></p></td>
+<td><p>armhf, arm64</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="discovering-packages">
+<h3>Discovering Packages<a class="headerlink" href="#discovering-packages" title="Link to this heading"></a></h3>
+<p>Search for all ADI packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>search<span class="w"> </span>adi
+</pre></div>
+</div>
+<p>Search for specific package types:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>search<span class="w"> </span>libiio
+apt<span class="w"> </span>search<span class="w"> </span><span class="s2">&quot;adi-.*-boot&quot;</span>
+</pre></div>
+</div>
+<p>View detailed package information:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt<span class="w"> </span>show<span class="w"> </span>libiio0
+apt<span class="w"> </span>show<span class="w"> </span>iio-oscilloscope
+</pre></div>
+</div>
+</section>
+<section id="installing-and-updating-packages">
+<h3>Installing and Updating Packages<a class="headerlink" href="#installing-and-updating-packages" title="Link to this heading"></a></h3>
+<p>Install a package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libiio0
+</pre></div>
+</div>
+<p>Install with development and Python bindings:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libiio0<span class="w"> </span>libiio-dev<span class="w"> </span>python3-libiio
+</pre></div>
+</div>
+<p>Install with debug symbols:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>iio-oscilloscope<span class="w"> </span>iio-oscilloscope-dbgsym
+</pre></div>
+</div>
+<p>Upgrade all installed packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+</pre></div>
+</div>
+<p>Upgrade a specific package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>libiio0
+</pre></div>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+<section id="raspberry-pi-repository">
+<span id="package-management-rpi"></span><h2>Raspberry Pi Repository<a class="headerlink" href="#raspberry-pi-repository" title="Link to this heading"></a></h2>
+<p>By default, the Kuiper image includes the official Raspberry Pi package
+repository in <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/raspi.list</span></code>. This repository
+provides access to Pi-specific packages and optimizations.</p>
+<p><strong>Using the Raspberry Pi repository:</strong></p>
+<ol class="arabic simple">
+<li><p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/raspi.list</span></code> and uncomment the first line</p></li>
+<li><p>Update the package lists: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update</span></code></p></li>
+<li><p>Install packages as needed: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">&lt;package-name&gt;</span></code></p></li>
+</ol>
+<p>This gives you access to RPI-specific packages such as GPIO libraries,
+VideoCore tools, and other hardware-specific packages.</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="build-flow.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Build Flow</a>
+    <a href="customization.html" title="Next document (Alt+Shift+RightArrow)" class="next">Advanced Customization</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2025, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>

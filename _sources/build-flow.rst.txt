@@ -85,7 +85,7 @@ Example:
 
 .. code-block:: bash
 
-   CONTAINER_ID=$(docker inspect --format="{{.Id}}" debian_bookworm_rootfs_container)
+   CONTAINER_ID=$(docker inspect --format="{{.Id}}" debian_trixie_rootfs_container)
    sudo docker cp $CONTAINER_ID:armhf_rootfs .
 
 Docker Container Configuration

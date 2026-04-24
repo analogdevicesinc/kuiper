@@ -4,17 +4,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Kuiper allows you to run additional scripts during the build process to customize the resulting image. This feature enables advanced customization beyond the standard configuration options." name="description" />
+<meta content="This guide covers advanced customization options for developers and advanced users who need to extend the build process beyond standard configuration options." name="description" />
 
-    <title>Custom Script Integration &#8212; Kuiper  documentation</title>
+    <title>Advanced Customization &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
     <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=833c9372" />
     <script async="async" src="_static/app.umd.js?v=f78f54ff"></script>
     <link rel="icon" href="_static/icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Repositories" href="repositories.html" />
-    <link rel="prev" title="Stage Reference" href="stage-reference.html" />
+    <link rel="next" title="Stage Reference" href="stage-reference.html" />
+    <link rel="prev" title="Package Management" href="package-management.html" />
    
   
   
@@ -94,9 +94,17 @@
         </div>
         <nav>
           <ul>
-<li><a class="reference internal" href="#">Custom Script Integration</a><ul>
+<li><a class="reference internal" href="#">Advanced Customization</a><ul>
+<li><a class="reference internal" href="#custom-script-integration">Custom Script Integration</a><ul>
 <li><a class="reference internal" href="#using-the-example-script">Using the Example Script</a></li>
 <li><a class="reference internal" href="#using-your-own-custom-script">Using Your Own Custom Script</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-from-source">Building from Source</a><ul>
+<li><a class="reference internal" href="#how-to-enable-source-builds">How to Enable Source Builds</a></li>
+<li><a class="reference internal" href="#library-dependencies">Library Dependencies</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -151,9 +159,9 @@ Content on this topic
 </p>
 
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="package-management.html">Package Management</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Customization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Custom Script Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
 </ul>
 
 <p class="caption" role="heading">
@@ -177,14 +185,19 @@ Content on this topic
 </div>
           <div class="body" role="main">
             
-  <section id="custom-script-integration">
-<span id="customization"></span><h1>Custom Script Integration<a class="headerlink" href="#custom-script-integration" title="Link to this heading"></a></h1>
+  <section id="advanced-customization">
+<span id="customization"></span><h1>Advanced Customization<a class="headerlink" href="#advanced-customization" title="Link to this heading"></a></h1>
+<p>This guide covers advanced customization options for developers and advanced
+users who need to extend the build process beyond standard configuration
+options.</p>
+<hr class="docutils" />
+<section id="custom-script-integration">
+<h2>Custom Script Integration<a class="headerlink" href="#custom-script-integration" title="Link to this heading"></a></h2>
 <p>Kuiper allows you to run additional scripts during the build process to
 customize the resulting image. This feature enables advanced customization
 beyond the standard configuration options.</p>
-<hr class="docutils" />
 <section id="using-the-example-script">
-<h2>Using the Example Script<a class="headerlink" href="#using-the-example-script" title="Link to this heading"></a></h2>
+<h3>Using the Example Script<a class="headerlink" href="#using-the-example-script" title="Link to this heading"></a></h3>
 <p>To use the provided example script:</p>
 <ol class="arabic">
 <li><p>In the <code class="docutils literal notranslate"><span class="pre">config</span></code> file, set the <code class="docutils literal notranslate"><span class="pre">EXTRA_SCRIPT</span></code> variable to:</p>
@@ -197,9 +210,8 @@ the line where it sources the config file in the example script.</p></li>
 <li><p>Add your custom commands to the example script file.</p></li>
 </ol>
 </section>
-<hr class="docutils" />
 <section id="using-your-own-custom-script">
-<h2>Using Your Own Custom Script<a class="headerlink" href="#using-your-own-custom-script" title="Link to this heading"></a></h2>
+<h3>Using Your Own Custom Script<a class="headerlink" href="#using-your-own-custom-script" title="Link to this heading"></a></h3>
 <p>To use your own custom script:</p>
 <ol class="arabic simple">
 <li><p>Place your script file inside the <code class="docutils literal notranslate"><span class="pre">kuiper/stages</span></code> directory.</p></li>
@@ -212,13 +224,98 @@ during the build process, allowing you to install additional packages, modify
 system files, or perform any other customization.</p>
 </section>
 </section>
+<hr class="docutils" />
+<section id="building-from-source">
+<h2>Building from Source<a class="headerlink" href="#building-from-source" title="Link to this heading"></a></h2>
+<p>By default, ADI libraries are installed from Analog Devices’ package
+repository. For development, testing unreleased features, or custom builds,
+you can build libraries from source by modifying the stage scripts.</p>
+<section id="how-to-enable-source-builds">
+<h3>How to Enable Source Builds<a class="headerlink" href="#how-to-enable-source-builds" title="Link to this heading"></a></h3>
+<p>Library installation is controlled by stage scripts in <code class="docutils literal notranslate"><span class="pre">stages/05.adi-tools/</span></code>.
+Each script has a <code class="docutils literal notranslate"><span class="pre">USE_ADI_REPO</span></code> variable that controls the installation
+method:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">USE_ADI_REPO=y</span></code> - Install from package repository (default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USE_ADI_REPO=n</span></code> - Build from source using git</p></li>
+</ul>
+<p><strong>Example: Building libiio from source</strong></p>
+<p>Edit <code class="docutils literal notranslate"><span class="pre">stages/05.adi-tools/01.install-libiio/run.sh</span></code> and set:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">USE_ADI_REPO</span><span class="o">=</span>n
+</pre></div>
+</div>
+<p>You can also customize the git branch and CMake arguments:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">BRANCH_LIBIIO</span><span class="o">=</span>libiio-v0
+<span class="nv">CONFIG_LIBIIO_CMAKE_ARGS</span><span class="o">=</span><span class="s2">&quot;-DWITH_HWMON=ON \</span>
+<span class="s2">                          -DWITH_SERIAL_BACKEND=ON \</span>
+<span class="s2">                          -DWITH_MAN=ON \</span>
+<span class="s2">                          -DWITH_EXAMPLES=ON \</span>
+<span class="s2">                          -DPYTHON_BINDINGS=ON \</span>
+<span class="s2">                          -DCMAKE_BUILD_TYPE=Release \</span>
+<span class="s2">                          -DCMAKE_COLOR_MAKEFILE=OFF \</span>
+<span class="s2">                          -Bbuild -H.&quot;</span>
+</pre></div>
+</div>
+<p>The same pattern applies to other libraries (<code class="docutils literal notranslate"><span class="pre">libm2k</span></code>, <code class="docutils literal notranslate"><span class="pre">libad9361-iio</span></code>,
+<code class="docutils literal notranslate"><span class="pre">libad9166-iio</span></code>, etc.) and applications (<code class="docutils literal notranslate"><span class="pre">iio-oscilloscope</span></code>,
+<code class="docutils literal notranslate"><span class="pre">jesd-eye-scan-gtk</span></code>, <code class="docutils literal notranslate"><span class="pre">gr-m2k</span></code>, etc.). Each has corresponding <code class="docutils literal notranslate"><span class="pre">BRANCH_</span></code>
+and <code class="docutils literal notranslate"><span class="pre">CMAKE_ARGS</span></code> variables in their respective stage scripts.</p>
+</section>
+<section id="library-dependencies">
+<h3>Library Dependencies<a class="headerlink" href="#library-dependencies" title="Link to this heading"></a></h3>
+<p>When building from source, dependencies must be satisfied. Enable required
+dependencies in the <code class="docutils literal notranslate"><span class="pre">config</span></code> file:</p>
+<div class="table-wrapper bold-header docutils container">
+<table class="bold-header docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Library/Application</p></th>
+<th class="head"><p>Required Dependencies</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_PYADI</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBM2K</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBAD9166_IIO</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBAD9361_IIO</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_IIO_OSCILLOSCOPE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_LIBAD9166_IIO</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_LIBAD9361_IIO</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_COLORIMETER</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_JESD_EYE_SCAN_GTK</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_GRM2K</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_LIBM2K</span></code>, <code class="docutils literal notranslate"><span class="pre">CONFIG_GNURADIO</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dependencies are handled automatically when using package installation
+(the default). Manual dependency management is only needed when building
+from source.</p>
+</div>
+</section>
+</section>
+</section>
 
 
           </div>
               <div class="related">
                 &nbsp;
-    <a href="stage-reference.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Stage Reference</a>
-    <a href="repositories.html" title="Next document (Alt+Shift+RightArrow)" class="next">Repositories</a>
+    <a href="package-management.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Package Management</a>
+    <a href="stage-reference.html" title="Next document (Alt+Shift+RightArrow)" class="next">Stage Reference</a>
               </div>
           
         </div>

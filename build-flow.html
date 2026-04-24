@@ -13,7 +13,7 @@
     <link rel="icon" href="_static/icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Stage Reference" href="stage-reference.html" />
+    <link rel="next" title="Package Management" href="package-management.html" />
     <link rel="prev" title="Kuiper Versions" href="kuiper-versions.html" />
    
   
@@ -160,9 +160,9 @@ Content on this topic
 </p>
 
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="package-management.html">Package Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Advanced Customization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customization.html">Custom Script Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
 </ul>
 
 <p class="caption" role="heading">
@@ -365,7 +365,7 @@ sudo<span class="w"> </span>docker<span class="w"> </span>cp<span class="w"> </s
 <p>You need to replace <code class="docutils literal notranslate"><span class="pre">&lt;DEBIAN_VERSION&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;TARGET_ARCHITECTURE&gt;</span></code> with
 the ones in the configuration file.</p>
 <p>Example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONTAINER_ID</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s2">&quot;{{.Id}}&quot;</span><span class="w"> </span>debian_bookworm_rootfs_container<span class="k">)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONTAINER_ID</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s2">&quot;{{.Id}}&quot;</span><span class="w"> </span>debian_trixie_rootfs_container<span class="k">)</span>
 sudo<span class="w"> </span>docker<span class="w"> </span>cp<span class="w"> </span><span class="nv">$CONTAINER_ID</span>:armhf_rootfs<span class="w"> </span>.
 </pre></div>
 </div>
@@ -470,7 +470,7 @@ modifying existing stages or adding new ones.</p>
               <div class="related">
                 &nbsp;
     <a href="kuiper-versions.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Kuiper Versions</a>
-    <a href="stage-reference.html" title="Next document (Alt+Shift+RightArrow)" class="next">Stage Reference</a>
+    <a href="package-management.html" title="Next document (Alt+Shift+RightArrow)" class="next">Package Management</a>
               </div>
           
         </div>

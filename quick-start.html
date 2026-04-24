@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="This guide will help you get a Kuiper image quickly, either by downloading a pre-built image or building your own with custom settings." name="description" />
+<meta content="This guide will help you get a Kuiper image. Choose from three options depending on your needs: download a tested release, get the latest development build, or create a custom build with your own configuration." name="description" />
 
     <title>Quick Start &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
@@ -95,15 +95,20 @@
         <nav>
           <ul>
 <li><a class="reference internal" href="#">Quick Start</a><ul>
-<li><a class="reference internal" href="#choose-your-path">Choose Your Path</a></li>
-<li><a class="reference internal" href="#building-your-own-image">Building Your Own Image</a><ul>
+<li><a class="reference internal" href="#getting-a-kuiper-image">Getting a Kuiper Image</a><ul>
+<li><a class="reference internal" href="#release-images-recommended">Release Images (Recommended)</a></li>
+<li><a class="reference internal" href="#latest-development-builds">Latest Development Builds</a></li>
+<li><a class="reference internal" href="#build-custom-image">Build Custom Image</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a class="reference internal" href="#clone-the-repository">Clone the Repository</a></li>
 <li><a class="reference internal" href="#review-default-configuration">Review Default Configuration</a></li>
 <li><a class="reference internal" href="#build-the-image">Build the Image</a></li>
 <li><a class="reference internal" href="#locate-the-output">Locate the Output</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#using-the-kuiper-image">Using the Kuiper Image</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
@@ -158,9 +163,9 @@ Content on this topic
 </p>
 
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="package-management.html">Package Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Advanced Customization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customization.html">Custom Script Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
 </ul>
 
 <p class="caption" role="heading">
@@ -186,48 +191,71 @@ Content on this topic
             
   <section id="quick-start">
 <span id="id1"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
-<p>This guide will help you get a Kuiper image quickly, either by downloading
-a pre-built image or building your own with custom settings.</p>
+<p>This guide will help you get a Kuiper image. Choose from three options
+depending on your needs: download a tested release, get the latest development
+build, or create a custom build with your own configuration.</p>
 <hr class="docutils" />
-<section id="choose-your-path">
-<h2>Choose Your Path<a class="headerlink" href="#choose-your-path" title="Link to this heading"></a></h2>
-<dl class="simple">
-<dt><strong>Option A: Download Pre-built Image (5 minutes)</strong></dt><dd><p>Get a ready-to-use basic Kuiper image immediately:</p>
+<section id="getting-a-kuiper-image">
+<h2>Getting a Kuiper Image<a class="headerlink" href="#getting-a-kuiper-image" title="Link to this heading"></a></h2>
+<section id="release-images-recommended">
+<h3>Release Images (Recommended)<a class="headerlink" href="#release-images-recommended" title="Link to this heading"></a></h3>
+<p><strong>Best for</strong>: Production use, evaluation, getting started quickly</p>
+<p><strong>Time</strong>: ~5 minutes (download only)</p>
+<p>Download a tested and stable Kuiper release. Two versions are available:</p>
 <ul class="simple">
-<li><p>Download the latest build from <a class="icon git reference external" href="https://github.com/analogdevicesinc/kuiper/actions/workflows/kuiper2_0-build.yml?query=branch:main" target="_blank">GitHub Actions</a></p></li>
-<li><p>Skip to <a class="reference internal" href="use-kuiper-image.html"><span class="doc">Using Kuiper Images</span></a> to write it to an
-SD card</p></li>
+<li><p><strong>Basic Image</strong>: Minimal system with essential boot files, no desktop
+environment or ADI tools</p></li>
+<li><p><strong>Full Image</strong>: Complete system with XFCE desktop, ADI libraries and
+applications, development tools</p></li>
 </ul>
-</dd>
-<dt><strong>Option B: Build Custom Image (30-60 minutes)</strong></dt><dd><p>Build your own image with specific configurations:</p>
-<ul class="simple">
-<li><p>Follow the build process below for full customization</p></li>
-<li><p>Configure exactly what tools and features you need</p></li>
-</ul>
-</dd>
-</dl>
+<p>For detailed information about what’s included in each version, see
+<a class="reference internal" href="kuiper-versions.html"><span class="doc">Kuiper Versions</span></a>.</p>
+<p><strong>Download</strong>: <a class="reference external" href="RELEASE_LINK_PLACEHOLDER">ADI Kuiper Releases</a></p>
+<p>After downloading, skip to <a class="reference internal" href="#quick-start-next-steps"><span class="std std-ref">Next Steps</span></a>.</p>
 </section>
-<hr class="docutils" />
-<section id="building-your-own-image">
-<h2>Building Your Own Image<a class="headerlink" href="#building-your-own-image" title="Link to this heading"></a></h2>
-<p>If you chose Option B above, follow these steps to build a custom Kuiper
-image:</p>
+<section id="latest-development-builds">
+<h3>Latest Development Builds<a class="headerlink" href="#latest-development-builds" title="Link to this heading"></a></h3>
+<p><strong>Best for</strong>: Testing latest features, development work, early access</p>
+<p><strong>Time</strong>: ~5 minutes (download only)</p>
+<p>Download the most recent automated builds from the main branch. These include
+the latest changes and improvements but may have less testing than official
+releases.</p>
+<p><strong>Download</strong>: <a class="icon git reference external" href="https://github.com/analogdevicesinc/kuiper/actions/workflows/kuiper2_0-build.yml?query=branch:main" target="_blank">GitHub Actions</a></p>
+<p>After downloading, skip to <a class="reference internal" href="#quick-start-next-steps"><span class="std std-ref">Next Steps</span></a>.</p>
+</section>
+<section id="build-custom-image">
+<h3>Build Custom Image<a class="headerlink" href="#build-custom-image" title="Link to this heading"></a></h3>
+<p><strong>Best for</strong>: Custom configurations, specific tool combinations, specialized
+deployments</p>
+<p><strong>Time</strong>: 30-60 minutes (build time)</p>
+<p>Build your own image with complete control over included components and
+configuration.</p>
+<section id="prerequisites">
+<h4>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h4>
+<p>Ensure your build environment meets the <a class="reference internal" href="prerequisites.html"><span class="doc">prerequisites</span></a>
+before starting:</p>
+<ul class="simple">
+<li><p>Ubuntu 22.04 LTS (recommended)</p></li>
+<li><p>Docker installed and configured</p></li>
+<li><p>At least 10GB free disk space</p></li>
+<li><p>Repository cloned to a path without spaces</p></li>
+</ul>
+</section>
 <section id="clone-the-repository">
-<h3>Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading"></a></h3>
-<p>After ensuring your build environment meets the <a class="reference internal" href="prerequisites.html"><span class="doc">prerequisites</span></a>, clone the repository:</p>
+<h4>Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading"></a></h4>
+<p>Clone the repository:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/analogdevicesinc/kuiper
 <span class="nb">cd</span><span class="w"> </span>kuiper
 </pre></div>
 </div>
 </section>
 <section id="review-default-configuration">
-<h3>Review Default Configuration<a class="headerlink" href="#review-default-configuration" title="Link to this heading"></a></h3>
-<p>The default configuration will build a basic 32-bit (armhf) Debian Bookworm
-image with Raspberry Pi boot files. For most users, this is sufficient to get
-started:</p>
+<h4>Review Default Configuration<a class="headerlink" href="#review-default-configuration" title="Link to this heading"></a></h4>
+<p>The default configuration will build a basic 32-bit (armhf) Debian Trixie image
+with Raspberry Pi boot files. For most users, this is sufficient to get started:</p>
 <ul class="simple">
 <li><p>Target architecture: <code class="docutils literal notranslate"><span class="pre">armhf</span></code> (32-bit)</p></li>
-<li><p>Debian version: <code class="docutils literal notranslate"><span class="pre">bookworm</span></code></p></li>
+<li><p>Debian version: <code class="docutils literal notranslate"><span class="pre">trixie</span></code></p></li>
 <li><p>Essential boot files included: Yes</p></li>
 <li><p>Desktop environment: No</p></li>
 <li><p>ADI tools: None (can be enabled as needed)</p></li>
@@ -242,7 +270,7 @@ later after deployment. See <a class="reference internal" href="hardware-configu
 section.</p>
 </section>
 <section id="build-the-image">
-<h3>Build the Image<a class="headerlink" href="#build-the-image" title="Link to this heading"></a></h3>
+<h4>Build the Image<a class="headerlink" href="#build-the-image" title="Link to this heading"></a></h4>
 <p>Run the build script with sudo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./build-docker.sh
 </pre></div>
@@ -259,18 +287,19 @@ section.</p>
 internet speed.</p>
 </section>
 <section id="locate-the-output">
-<h3>Locate the Output<a class="headerlink" href="#locate-the-output" title="Link to this heading"></a></h3>
+<h4>Locate the Output<a class="headerlink" href="#locate-the-output" title="Link to this heading"></a></h4>
 <p>After a successful build, your Kuiper image will be available as a zip file
 in the <code class="docutils literal notranslate"><span class="pre">kuiper-volume/</span></code> directory within the repository. The filename will
 follow the pattern <code class="docutils literal notranslate"><span class="pre">image_YYYY-MM-DD-ADI-Kuiper-Linux-[arch].zip</span></code>.</p>
-</section>
-</section>
 <hr class="docutils" />
-<section id="using-the-kuiper-image">
-<h2>Using the Kuiper Image<a class="headerlink" href="#using-the-kuiper-image" title="Link to this heading"></a></h2>
-<p>Now that you obtained a bootable image, you can follow the steps in <a class="reference internal" href="use-kuiper-image.html"><span class="doc">Using
-Kuiper Images</span></a> section in order to write the image to an SD
-card and boot your device.</p>
+</section>
+</section>
+</section>
+<section id="next-steps">
+<span id="quick-start-next-steps"></span><h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Now that you have a Kuiper image (from release, latest build, or custom build),
+proceed to <a class="reference internal" href="use-kuiper-image.html"><span class="doc">Using Kuiper Images</span></a> to write the image to
+an SD card and boot your device.</p>
 </section>
 </section>
 
