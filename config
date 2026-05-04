@@ -20,14 +20,14 @@ PRESERVE_CONTAINER=n
 #
 # [DESKTOP ENVIRONMENT]
 # Contains XFCE4 desktop environment and X11VNC server.
-CONFIG_DESKTOP=n
+CONFIG_DESKTOP=y
 #
 #
 #
 # [LIBIIO]
 # Libiio is an Analog Devices library for interfacing with Linux IIO devices.
 # Github: https://github.com/analogdevicesinc/libiio
-CONFIG_LIBIIO=n
+CONFIG_LIBIIO=y
 #
 #
 #
@@ -48,7 +48,7 @@ CONFIG_LIBM2K=n
 # [LIBAD9166 IIO]*
 # Libad9166-iio: library used for userspace, which applies calibration gain and offset for a user-given frequency.
 # Github: https://github.com/analogdevicesinc/libad9166-iio
-CONFIG_LIBAD9166_IIO=n
+CONFIG_LIBAD9166_IIO=y
 #
 #
 #
@@ -56,7 +56,7 @@ CONFIG_LIBAD9166_IIO=n
 # Libad9361-iio: library used for userspace, which manages multi-chip sync (on platforms (FMCOMMS5) 
 # where multiple AD9361 devices are use) and can create AD9361 specific FIR filters on the fly
 # Github: https://github.com/analogdevicesinc/libad9361-iio
-CONFIG_LIBAD9361_IIO=n
+CONFIG_LIBAD9361_IIO=y
 #
 #
 #
@@ -64,21 +64,21 @@ CONFIG_LIBAD9361_IIO=n
 # The IIO Oscilloscope is a GTK+ application, which demonstrates how to interface various IIO devices 
 # to different visualization methods within a Linux system. 
 # Github: https://github.com/analogdevicesinc/iio-oscilloscope
-CONFIG_IIO_OSCILLOSCOPE=n
+CONFIG_IIO_OSCILLOSCOPE=y
 #
 #
 #
 # [IIO FM RADIO]
 # IIO Fm Radio: simple IIO FM Radio receive example
 # Github: https://github.com/analogdevicesinc/iio-fm-radio
-CONFIG_IIO_FM_RADIO=n
+CONFIG_IIO_FM_RADIO=y
 #
 #
 #
 # [FRU TOOLS]
 # Fru tools: tools to display/manipulate FMC FRU info
 # Github: https://github.com/analogdevicesinc/fru_tools
-CONFIG_FRU_TOOLS=n
+CONFIG_FRU_TOOLS=y
 #
 #
 #
@@ -99,14 +99,14 @@ CONFIG_COLORIMETER=n
 # [SCOPY]
 # Scopy: a software oscilloscope and signal analysis toolset.
 # Github: https://github.com/analogdevicesinc/scopy
-CONFIG_SCOPY=n
+CONFIG_SCOPY=y
 #
 #
 #
 # [GNURADIO]
 # Gnuradio: software development toolkit that provides signal processing blocks to implement software radios.
 # Github: https://github.com/gnuradio/gnuradio
-CONFIG_GNURADIO=n
+CONFIG_GNURADIO=y
 #
 #
 #
@@ -132,8 +132,8 @@ CONFIG_ARCH_ARRIA10=y
 CONFIG_ARCH_CYCLONE5=y
 #
 # For arm64:
-CONFIG_ARCH_ZYNQMP=n
-CONFIG_ARCH_VERSAL=n
+CONFIG_ARCH_ZYNQMP=y
+CONFIG_ARCH_VERSAL=y
 #
 #
 #

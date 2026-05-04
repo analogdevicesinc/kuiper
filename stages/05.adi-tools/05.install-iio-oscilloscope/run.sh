@@ -6,12 +6,12 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_ADI_REPO=y
+USE_ADI_REPO=n
 CONFIG_IIO_OSCILLOSCOPE_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr/local \
 				-DCMAKE_BUILD_TYPE=Release \
 				-DCMAKE_COLOR_MAKEFILE=OFF \
 				-Bbuild -H."
-BRANCH_IIO_OSCILLOSCOPE=v0.18-main
+BRANCH_IIO_OSCILLOSCOPE=main
 
 if [ "${CONFIG_IIO_OSCILLOSCOPE}" = y ]; then
 
