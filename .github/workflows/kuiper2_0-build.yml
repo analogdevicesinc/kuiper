@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - 'custom/**'
     paths-ignore:
       - 'docs/**'
       - 'README.md'
@@ -110,7 +111,7 @@ jobs:
   Trigger_workflow:
     needs: Build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
       - name: Trigger docker build
