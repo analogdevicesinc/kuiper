@@ -1,0 +1,56 @@
+name: Custom Kuiper Build
+on:
+  push:
+    branches:
+      - 'custom/**'
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+
+jobs:
+  Build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        arch: [32, 64]
+        include:
+          - arch: 32
+            target_arch: armhf
+            os: ubuntu-24.04-arm
+          - arch: 64
+            target_arch: arm64
+            os: ubuntu-24.04-arm
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set env variables
+        run: |
+          echo ARTIFACT_NAME=kuiper_custom_"${{ matrix.arch }}" >> $GITHUB_ENV
+      - name: Build image
+        run: |
+          if [[ "$(uname -m)" != "aarch64" ]]; then
+            sudo apt-get update
+            sudo apt-get install -y qemu-user-static
+          fi
+          # remove container if already exists
+          CONTAINER_NAME=$(grep -m1 -oP '^[#]?CONTAINER_NAME=\K.*' ./config)
+          if [ "$(docker ps -a -q -f name=^/${CONTAINER_NAME}$)" ]; then
+              docker rm -fv "$CONTAINER_NAME"
+          fi
+
+          ci/modify_config.sh ./config "TARGET_ARCHITECTURE=${{ matrix.target_arch }}"
+          sudo bash build-docker.sh
+          ls kuiper-volume/*.zip >/dev/null 2>&1 && exit 0 || exit 2
+      - name: Upload image
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}_image
+          path: ${{ github.workspace }}/kuiper-volume/*.zip
+      - name: Upload meta
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}_meta
+          path: |
+            ${{ github.workspace }}/kuiper-volume
+            !${{ github.workspace }}/kuiper-volume/*.zip
