@@ -6,14 +6,14 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_ADI_REPO=y
+USE_ADI_REPO=n
 CONFIG_LIBAD9166_IIO_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr \
 				-DCMAKE_BUILD_TYPE=Release \
 				-DCMAKE_COLOR_MAKEFILE=OFF \
 				-DPYTHON_BINDINGS=ON \
 				-DWITH_DOC=OFF \
 				-Bbuild -H."
-BRANCH_LIBAD9166_IIO=libad9166-iio-v0
+BRANCH_LIBAD9166_IIO=staging/libiio1-support
 
 CONFIG_LIBAD9361_IIO_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr \
 				-DCMAKE_BUILD_TYPE=Release \
@@ -21,7 +21,7 @@ CONFIG_LIBAD9361_IIO_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr \
 				-DPYTHON_BINDINGS=ON \
 				-DWITH_DOC=OFF \
 				-Bbuild -H."
-BRANCH_LIBAD9361_IIO=libad9361-iio-v0
+BRANCH_LIBAD9361_IIO=staging/libiio1-support
 
 if [ "${CONFIG_LIBAD9361_IIO}" = y ]; then
 

@@ -6,7 +6,7 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_ADI_REPO=y
+USE_ADI_REPO=n
 CONFIG_LIBIIO_CMAKE_ARGS="-DWITH_HWMON=ON \
 			-DWITH_SERIAL_BACKEND=ON \
 			-DWITH_MAN=ON \
@@ -15,7 +15,7 @@ CONFIG_LIBIIO_CMAKE_ARGS="-DWITH_HWMON=ON \
 			-DCMAKE_BUILD_TYPE=Release \
 			-DCMAKE_COLOR_MAKEFILE=OFF \
 			-Bbuild -H."
-BRANCH_LIBIIO=libiio-v0
+BRANCH_LIBIIO=main
 
 
 if [ "${CONFIG_LIBIIO}" = y ]; then
