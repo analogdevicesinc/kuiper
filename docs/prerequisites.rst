@@ -31,7 +31,7 @@ Required Software
    - These packages are necessary to build ARM-based images on x86 systems:
 
      - ``qemu-user-static``: For emulating ARM architecture
-     - ``binfmt_misc``: Kernel module to run binaries from different 
+     - ``binfmt-support``: To enable execution of binaries from different
        architectures
 
    You can install them on Debian/Ubuntu with:
@@ -39,16 +39,8 @@ Required Software
    .. code-block:: bash
 
       sudo apt-get update
-      sudo apt-get install qemu-user-static binfmt-support
+      sudo apt-get install qemu-user-binfmt binfmt-support
 
-   To ensure the binfmt_misc module is loaded:
-
-   .. code-block:: bash
-
-      sudo modprobe binfmt_misc
-
-   If using WSL, you may need to enable the service:
-
-   .. code-block:: bash
-
-      sudo update-binfmts --enable
+   **Note**: The build script automatically registers QEMU emulation handlers
+   when building ARM images on x86 systems. This requires Docker to run with
+   privileged access (using ``sudo`` as shown in the build instructions).
