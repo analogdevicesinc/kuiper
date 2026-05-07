@@ -38,7 +38,7 @@ on x86 systems. If you encounter the errors above:
 
 
 
-3. Make sure you're running the build script with ``sudo`` to allow Docker
+2. Make sure you're running the build script with ``sudo`` to allow Docker
    privileged access for automatic QEMU registration.
 
 4. If the automatic registration fails, you can manually register QEMU handlers:
