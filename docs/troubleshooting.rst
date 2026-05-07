@@ -35,7 +35,6 @@ on x86 systems. If you encounter the errors above:
 
       sudo apt-get install qemu-user-binfmt binfmt-support
 
-2. Verify that ``qemu-user-static`` is properly installed:
 
    .. code-block:: bash
 
