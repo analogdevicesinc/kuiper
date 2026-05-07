@@ -16,10 +16,6 @@ debootstrap --arch=${TARGET_ARCHITECTURE} \
 			--include=ca-certificates,curl,gnupg,wget \
 			--keyring "/usr/share/keyrings/debian-archive-"${DEBIAN_VERSION}"-stable.gpg" "${DEBIAN_VERSION}" "${BUILD_DIR}"
 
-if [[ "$(uname -m)" != "aarch64" && "$(uname -m)" != "arm*" ]]; then
-	cp /usr/bin/qemu-arm-static "${BUILD_DIR}"/usr/bin
-fi
-
 # Add adi-repo.list to sources.list
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/prefer-adi "${BUILD_DIR}/etc/apt/preferences.d/prefer-adi"
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/adi-libraries "${BUILD_DIR}/etc/apt/preferences.d/adi-libraries"
