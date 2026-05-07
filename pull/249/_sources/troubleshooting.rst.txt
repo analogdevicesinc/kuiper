@@ -37,7 +37,6 @@ on x86 systems. If you encounter the errors above:
 
 
 
-      ls /usr/bin/qemu-arm-static
 
 3. Make sure you're running the build script with ``sudo`` to allow Docker
    privileged access for automatic QEMU registration.
