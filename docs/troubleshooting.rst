@@ -8,17 +8,11 @@ Troubleshooting
 Cross-Architecture Build Issues
 -------------------------------
 
-If you encounter errors related to ARM emulation, first ensure you've properly 
-set up the prerequisites as described in the 
+If you encounter errors related to ARM emulation, first ensure you've properly
+set up the prerequisites as described in the
 :doc:`Prerequisites section <prerequisites>`.
 
 Common error messages and their solutions:
-
-.. code-block:: text
-
-   update-binfmts: warning: Couldn't load the binfmt_misc module.
-
-OR
 
 .. code-block:: text
 
@@ -32,19 +26,26 @@ OR
 
 **Solution**:
 
-1. Verify these specific files exist on your system:
+The build script automatically registers QEMU emulation handlers when building
+on x86 systems. If you encounter the errors above:
+
+1. Ensure the required packages are installed:
 
    .. code-block:: bash
 
-      /lib/modules/$(uname -r)/kernel/fs/binfmt_misc.ko
-      /usr/bin/qemu-arm-static
+      sudo apt-get install qemu-user-binfmt binfmt-support
 
-2. If necessary, install the missing packages and load the module:
+
+
+
+2. Make sure you're running the build script with ``sudo`` to allow Docker
+   privileged access for automatic QEMU registration.
+
+3. If the automatic registration fails, you can manually register QEMU handlers:
 
    .. code-block:: bash
 
-      sudo apt-get install qemu-user-static binfmt-support
-      sudo modprobe binfmt_misc
+      docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
 ----
 
