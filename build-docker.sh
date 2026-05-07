@@ -34,6 +34,10 @@ if [[ ! ${DEBIAN_VERSION} = bookworm && ! ${DEBIAN_VERSION} = bullseye && ! ${DE
 	exit 1
 fi
 
+if [[ "$(uname -m)" != "aarch64" && "$(uname -m)" != "arm*" ]]; then
+	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+fi
+
 # Build docker image
 docker build --build-arg BASE_IMAGE="${BASE_IMAGE}" -t ${IMAGE_NAME} .
 
