@@ -8,8 +8,8 @@
 
     <title>Troubleshooting &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=833c9372" />
-    <script async="async" src="_static/app.umd.js?v=f78f54ff"></script>
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=ac863bf0" />
+    <script async="async" src="_static/app.umd.js?v=09b0c6bc"></script>
     <link rel="icon" href="_static/icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -187,10 +187,6 @@ Content on this topic
 set up the prerequisites as described in the
 <a class="reference internal" href="prerequisites.html"><span class="doc">Prerequisites section</span></a>.</p>
 <p>Common error messages and their solutions:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>update-binfmts: warning: Couldn&#39;t load the binfmt_misc module.
-</pre></div>
-</div>
-<p>OR</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>W: Failure trying to run: chroot chroot &quot;//armhf_rootfs&quot; /bin/true
 </pre></div>
 </div>
@@ -199,16 +195,18 @@ set up the prerequisites as described in the
 </pre></div>
 </div>
 <p><strong>Solution</strong>:</p>
+<p>The build script automatically registers QEMU emulation handlers when building
+on x86 systems. If you encounter the errors above:</p>
 <ol class="arabic">
-<li><p>Verify these specific files exist on your system:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/lib/modules/<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>/kernel/fs/binfmt_misc.ko
-/usr/bin/qemu-arm-static
+<li><p>Ensure the required packages are installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>qemu-user-binfmt<span class="w"> </span>binfmt-support
 </pre></div>
 </div>
 </li>
-<li><p>If necessary, install the missing packages and load the module:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>qemu-user-static<span class="w"> </span>binfmt-support
-sudo<span class="w"> </span>modprobe<span class="w"> </span>binfmt_misc
+<li><p>Make sure you’re running the build script with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to allow Docker
+privileged access for automatic QEMU registration.</p></li>
+<li><p>If the automatic registration fails, you can manually register QEMU handlers:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
 </pre></div>
 </div>
 </li>

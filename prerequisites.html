@@ -8,8 +8,8 @@
 
     <title>Prerequisites &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=833c9372" />
-    <script async="async" src="_static/app.umd.js?v=f78f54ff"></script>
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=ac863bf0" />
+    <script async="async" src="_static/app.umd.js?v=09b0c6bc"></script>
     <link rel="icon" href="_static/icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -206,25 +206,20 @@ Paths with spaces are not supported by debootstrap.</p></li>
 <ul class="simple">
 <li><p>These packages are necessary to build ARM-based images on x86 systems:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">qemu-user-static</span></code>: For emulating ARM architecture</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">binfmt_misc</span></code>: Kernel module to run binaries from different
+<li><p><code class="docutils literal notranslate"><span class="pre">qemu-user-binfmt</span></code>: For emulating ARM architecture</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">binfmt-support</span></code>: To enable execution of binaries from different
 architectures</p></li>
 </ul>
 </li>
 </ul>
 <p>You can install them on Debian/Ubuntu with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>qemu-user-static<span class="w"> </span>binfmt-support
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>qemu-user-binfmt<span class="w"> </span>binfmt-support
 </pre></div>
 </div>
-<p>To ensure the binfmt_misc module is loaded:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>modprobe<span class="w"> </span>binfmt_misc
-</pre></div>
-</div>
-<p>If using WSL, you may need to enable the service:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-binfmts<span class="w"> </span>--enable
-</pre></div>
-</div>
+<p><strong>Note</strong>: The build script automatically registers QEMU emulation handlers
+when building ARM images on x86 systems. This requires Docker to run with
+privileged access (using <code class="docutils literal notranslate"><span class="pre">sudo</span></code> as shown in the build instructions).</p>
 </li>
 </ol>
 </section>
