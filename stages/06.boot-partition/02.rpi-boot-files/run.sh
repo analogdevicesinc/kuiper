@@ -10,6 +10,7 @@
 SERVER="https://swdownloads.analog.com"
 RPI_SPATH="cse/linux_rpi"
 RPI_PROPERTIES="rpi_archives_properties.txt"
+RPI_BOOT_DEB="adi-gmsl-rpi-boot_06-05-2026_arm64.deb"
 
 if [ "${TARGET_ARCHITECTURE}" = armhf ]; then
 	RPI_MODULES_ARCHIVE_NAME="rpi_modules_32bit.tar.gz"
@@ -37,6 +38,14 @@ EOF
 		wget -r -q --progress=bar:force:noscroll -nH --cut-dirs=5 -np -R "index.html*" "-l inf" ${ARTIFACTORY_RPI} -P "${BUILD_DIR}/boot/firmware"
 		tar -xf "${BUILD_DIR}/boot/firmware/${RPI_MODULES_ARCHIVE_NAME}" -C "${BUILD_DIR}/lib/modules" --no-same-owner
 		rm -rf "${BUILD_DIR}/boot/firmware/${RPI_MODULES_ARCHIVE_NAME}"
+
+	elif [ "${GMSL_DEB}" = y ]; then
+
+		# install package from adi-kuiper package repository
+chroot "${BUILD_DIR}" << EOF
+		apt-get install -y adi-gmsl-rpi-boot
+EOF
+
 	else
 		# Get Raspberry Pi properties file corresponding to boot files
 		wget --progress=bar:force:noscroll "$SERVER/$RPI_SPATH/$BRANCH_RPI_BOOT_FILES/$RPI_PROPERTIES"

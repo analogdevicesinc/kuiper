@@ -72,6 +72,8 @@ export ADI_EVAL_BOARD=${ADI_EVAL_BOARD:-""}
 export CARRIER=${CARRIER:-""}
 export EXTRA_SCRIPT=${EXTRA_SCRIPT:-""}
 export INSTALL_RPI_PACKAGES=${INSTALL_RPI_PACKAGES:-n}
+export USE_ADI_REPO_RPI_BOOT=${USE_ADI_REPO_RPI_BOOT:-n}
+export GMSL_DEB=${GMSL_DEB:-n}
 
 # Check if architecture is supported
 if [[ ! ${TARGET_ARCHITECTURE} = armhf && ! ${TARGET_ARCHITECTURE} = arm64 ]]; then
