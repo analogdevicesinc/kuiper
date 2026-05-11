@@ -42,8 +42,11 @@ wget -q -O - "https://api.github.com/repos/analogdevicesinc/linux/contents/arch/
 
 chown -R analog:analog /home/analog/Workspace
 
-echo "deb http://archive.raspberrypi.com/debian/ bookworm main" > /etc/apt/sources.list.d/raspi.list
+sed -i 's/#deb /deb /' /etc/apt/sources.list.d/raspi.list
 apt-get update
 
 # Install Bluetooth firmware and the latest Broadcom wireless firmware
 apt-get install -y bluez-firmware firmware-brcm80211
+
+sed -i 's/deb /#deb /' /etc/apt/sources.list.d/raspi.list
+apt-get update

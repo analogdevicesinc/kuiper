@@ -22,7 +22,7 @@ chroot "${BUILD_DIR}" << EOF
 	apt update
 
 	# Install raspi-config
-	apt install -y raspi-config
+	apt install -y raspi-config rpi-eeprom
 	
 	# Install python RPI GPIO packages
 	apt install -y python3 python-is-python3 python3-pip pigpio python3-pigpio raspi-gpio python3-rpi-lgpio
