@@ -47,10 +47,21 @@ docker build --build-arg BASE_IMAGE="${BASE_IMAGE}" -t ${IMAGE_NAME} .
 # -v: mounts volumes allowing the container to access files on the host or work with kernel modules
 # -e: sets environment variables
 # Inside the container kuiper-stages.sh will run building the Kuiper image
+DOCKER_EXTRA_ARGS=""
+if grep -q 'GMSL_KRIA_DEB=y' config; then
+	# Bind-mount the local deb into the container for the GMSL Kria boot stage
+	if [ ! -f ./adi-gmsl-kria-boot.deb ]; then
+		echo "ERROR: GMSL_KRIA_DEB=y but adi-gmsl-kria-boot.deb not found in repo root" >&2
+		exit 1
+	fi
+	DOCKER_EXTRA_ARGS="-v $(pwd)/adi-gmsl-kria-boot.deb:/adi-gmsl-kria-boot.deb:ro"
+fi
+
 docker run -t --privileged \
 			-v /dev:/dev \
 			-v /lib/modules:/lib/modules \
 			-v ./kuiper-volume:/kuiper-volume \
+			${DOCKER_EXTRA_ARGS} \
 			-e "DEBIAN_VERSION="${DEBIAN_VERSION}"" \
 			--name ${CONTAINER_NAME} ${IMAGE_NAME} \
 			/bin/bash -o pipefail -c "bash kuiper-stages.sh"

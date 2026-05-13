@@ -119,7 +119,13 @@ CONFIG_GRM2K=n
 #
 # [RASPBERRY PI BOOT FILES]
 # Contains boot files for Raspberry PI installed from the ADI Package Repository.
-CONFIG_RPI_BOOT_FILES=y
+CONFIG_RPI_BOOT_FILES=n
+#
+#
+#
+# [GMSL KRIA BOOT FILES]
+# Install GMSL boot files for Xilinx Kria KV260 from a local deb package.
+GMSL_KRIA_DEB=y
 #
 #
 #
@@ -127,12 +133,12 @@ CONFIG_RPI_BOOT_FILES=y
 # Contains boot files for Intel and Xilinx.
 #
 # For armhf:
-CONFIG_ARCH_ZYNQ=y
-CONFIG_ARCH_ARRIA10=y
-CONFIG_ARCH_CYCLONE5=y
+CONFIG_ARCH_ZYNQ=n
+CONFIG_ARCH_ARRIA10=n
+CONFIG_ARCH_CYCLONE5=n
 #
 # For arm64:
-CONFIG_ARCH_ZYNQMP=n
+CONFIG_ARCH_ZYNQMP=y
 CONFIG_ARCH_VERSAL=n
 #
 #
@@ -159,6 +165,7 @@ INSTALL_RPI_PACKAGES=n
 # After cloning the repository, the script should be added inside 'kuiper' folder.
 # The path should be relative to 'kuiper' folder.
 # Example: EXTRA_SCRIPT=stages/07.extra-tweaks/01.extra-scripts/examples/extra-script-example.sh
+#EXTRA_SCRIPT=stages/07.extra-tweaks/01.extra-scripts/gmsl-extra-tweaks/extra-script.sh
 EXTRA_SCRIPT=
 #
 #

@@ -70,6 +70,7 @@ export ADI_EVAL_BOARD=${ADI_EVAL_BOARD:-""}
 export CARRIER=${CARRIER:-""}
 export EXTRA_SCRIPT=${EXTRA_SCRIPT:-""}
 export INSTALL_RPI_PACKAGES=${INSTALL_RPI_PACKAGES:-n}
+export GMSL_KRIA_DEB=${GMSL_KRIA_DEB:-n}
 
 # Check if architecture is supported
 if [[ ! ${TARGET_ARCHITECTURE} = armhf && ! ${TARGET_ARCHITECTURE} = arm64 ]]; then

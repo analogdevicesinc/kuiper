@@ -16,8 +16,20 @@ XILINX_INTEL_ARCHIVE_NAME="latest_boot_partition.tar.gz"
 XILINX_INTEL_PROPERTIES="latest_boot.txt"
 RELEASE_XILINX_INTEL_BOOT_FILES="2023_r2"
 
-if [ "${USE_ADI_REPO_CARRIERS_BOOT}" == y ]; then
-		
+if [ "${GMSL_KRIA_DEB}" = y ]; then
+	echo "Installing GMSL Kria boot files from local deb"
+	if [ ! -f /adi-gmsl-kria-boot.deb ]; then
+		echo "ERROR: /adi-gmsl-kria-boot.deb not found — place it in the repo root before building" 1>&2
+		exit 1
+	fi
+	cp /adi-gmsl-kria-boot.deb "${BUILD_DIR}/tmp/"
+	chroot "${BUILD_DIR}" dpkg -i /tmp/adi-gmsl-kria-boot.deb
+	# Resolve any missing dependencies from the deb package
+	chroot "${BUILD_DIR}" apt-get install -f -y
+	rm "${BUILD_DIR}/tmp/adi-gmsl-kria-boot.deb"
+
+elif [ "${USE_ADI_REPO_CARRIERS_BOOT}" == y ]; then
+
 # Install packages from adi-kuiper package repository
 chroot "${BUILD_DIR}" << EOF
 	# Install only boot files packages for the architectures that are enabled
