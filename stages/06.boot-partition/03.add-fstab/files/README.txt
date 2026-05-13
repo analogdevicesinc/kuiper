@@ -23,7 +23,14 @@ For Versal projects, copy these files to the root of the BOOT FAT32 partition:
     <target>/<specific_folder>/system.dtb - Device tree for your specific project
     <target>/boot.scr - U-Boot script for Versal boot sequence
     versal-common/Image - Kernel image for Versal platforms
+    versal-common/uEnv.txt - U-Boot environment configuration
 
+For Versal-Apollo projects, copy these files to the root of the BOOT FAT32 partition::
+    versal_apollo/<target>/BOOT.BIN - Platform Loader and Manager (PLM) and boot components
+    versal_apollo/<target>/<specific_folder>/system.dtb - Device tree for your specific project
+    versal_apollo/<target>/boot.scr - U-Boot script for Versal boot sequence
+    versal_apollo/Image - Kernel image for Versal-Apollo platforms
+    versal-common/uEnv.txt - U-Boot environment configuration
 
 Intel/Altera Platforms
 
