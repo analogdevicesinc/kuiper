@@ -353,17 +353,25 @@ see device information.
 
 ----
 
-Change the hostname and MAC address
------------------------------------
+Customizing Hostname and MAC Address
+-------------------------------------
 
-By default, the hostname is ``analog`` for every Kuiper install. If you have
-multiple devices in the same network with the same hostname, mDNS/Avahi won't
-work properly. Set-up a new, unique hostname, with:
+Changing the Hostname
+~~~~~~~~~~~~~~~~~~~~~~
+
+By default, the hostname is ``analog`` for every Kuiper image (unless customized
+at build time). If you have multiple devices on the same network with the same
+hostname, mDNS/Avahi won't work properly.
+
+To set a new, unique hostname:
 
 .. shell::
 
    $hostnamectl set-hostname analog-my-device
    $systemctl restart avahi-daemon
+
+Changing MAC Address
+~~~~~~~~~~~~~~~~~~~~~
 
 To persistently change the MAC address will depend on your carrier, you may be
 able through ``/boot/uEnv.txt`` by adding ``ethaddr=<new-mac-address>``, or

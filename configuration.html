@@ -112,6 +112,7 @@
 <li><a class="reference internal" href="#building-for-a-specific-adi-evaluation-board">Building for a specific ADI evaluation board</a></li>
 <li><a class="reference internal" href="#building-only-64-bit-boot-files">Building only 64-bit boot files</a></li>
 <li><a class="reference internal" href="#complete-development-environment-with-gnu-radio">Complete development environment with GNU Radio</a></li>
+<li><a class="reference internal" href="#building-images-for-multiple-devices">Building images for multiple devices</a></li>
 </ul>
 </li>
 </ul>
@@ -236,6 +237,12 @@ this uses all available cores (<code class="docutils literal notranslate"><span 
 <td><p><code class="docutils literal notranslate"><span class="pre">trixie</span></code></p></td>
 <td><p>Debian version to use (e.g., <code class="docutils literal notranslate"><span class="pre">trixie</span></code>, <code class="docutils literal notranslate"><span class="pre">bookworm</span></code>, <code class="docutils literal notranslate"><span class="pre">bullseye</span></code>).
 Versions other than the default may have limited support</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HOSTNAME</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">analog</span></code></p></td>
+<td><p>System hostname. Useful for identifying devices on a network, especially
+when running multiple boards. The hostname is used for SSH connections
+and network discovery (e.g., <code class="docutils literal notranslate"><span class="pre">analog.local</span></code> via mDNS/Avahi)</p></td>
 </tr>
 </tbody>
 </table>
@@ -599,6 +606,25 @@ during build for additional customization</p></td>
 </pre></div>
 </div>
 </div>
+</section>
+<section id="building-images-for-multiple-devices">
+<h3>Building images for multiple devices<a class="headerlink" href="#building-images-for-multiple-devices" title="Link to this heading"></a></h3>
+<p>When deploying multiple Kuiper boards on the same network, set unique hostnames
+to avoid conflicts:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-number">Listing 7 </span><span class="caption-text">config file settings for first device</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">HOSTNAME</span><span class="o">=</span>pluto-sdr-lab-01
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-number">Listing 8 </span><span class="caption-text">config file settings for second device</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">HOSTNAME</span><span class="o">=</span>pluto-sdr-lab-02
+</pre></div>
+</div>
+</div>
+<p>This allows you to connect to specific devices via SSH using their hostname
+(e.g., <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">analog&#64;pluto-sdr-lab-01.local</span></code>)</p>
 </section>
 </section>
 </section>

@@ -47,6 +47,11 @@ These options control the fundamental aspects of your Kuiper image:
      - ``trixie``
      - Debian version to use (e.g., ``trixie``, ``bookworm``, ``bullseye``).
        Versions other than the default may have limited support
+   * - ``HOSTNAME``
+     - ``analog``
+     - System hostname. Useful for identifying devices on a network, especially
+       when running multiple boards. The hostname is used for SSH connections
+       and network discovery (e.g., ``analog.local`` via mDNS/Avahi)
 
 ----
 
@@ -352,3 +357,22 @@ Complete development environment with GNU Radio
    CONFIG_LIBM2K=y
    CONFIG_GNURADIO=y
    CONFIG_GRM2K=y
+
+Building images for multiple devices
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When deploying multiple Kuiper boards on the same network, set unique hostnames
+to avoid conflicts:
+
+.. code-block:: bash
+   :caption: config file settings for first device
+
+   HOSTNAME=pluto-sdr-lab-01
+
+.. code-block:: bash
+   :caption: config file settings for second device
+
+   HOSTNAME=pluto-sdr-lab-02
+
+This allows you to connect to specific devices via SSH using their hostname
+(e.g., ``ssh analog@pluto-sdr-lab-01.local``)

@@ -116,7 +116,11 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#verifying-your-installation">Verifying Your Installation</a></li>
-<li><a class="reference internal" href="#change-the-hostname-and-mac-address">Change the hostname and MAC address</a></li>
+<li><a class="reference internal" href="#customizing-hostname-and-mac-address">Customizing Hostname and MAC Address</a><ul>
+<li><a class="reference internal" href="#changing-the-hostname">Changing the Hostname</a></li>
+<li><a class="reference internal" href="#changing-mac-address">Changing MAC Address</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -541,11 +545,14 @@ typical successful outputs.</p>
 </div>
 </section>
 <hr class="docutils" />
-<section id="change-the-hostname-and-mac-address">
-<h2>Change the hostname and MAC address<a class="headerlink" href="#change-the-hostname-and-mac-address" title="Link to this heading"></a></h2>
-<p>By default, the hostname is <code class="docutils literal notranslate"><span class="pre">analog</span></code> for every Kuiper install. If you have
-multiple devices in the same network with the same hostname, mDNS/Avahi won’t
-work properly. Set-up a new, unique hostname, with:</p>
+<section id="customizing-hostname-and-mac-address">
+<h2>Customizing Hostname and MAC Address<a class="headerlink" href="#customizing-hostname-and-mac-address" title="Link to this heading"></a></h2>
+<section id="changing-the-hostname">
+<h3>Changing the Hostname<a class="headerlink" href="#changing-the-hostname" title="Link to this heading"></a></h3>
+<p>By default, the hostname is <code class="docutils literal notranslate"><span class="pre">analog</span></code> for every Kuiper image (unless customized
+at build time). If you have multiple devices on the same network with the same
+hostname, mDNS/Avahi won’t work properly.</p>
+<p>To set a new, unique hostname:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
@@ -558,10 +565,14 @@ work properly. Set-up a new, unique hostname, with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>avahi-daemon
 </pre></div>
 </div>
-<div class="clear-left"></div></div></div><p>To persistently change the MAC address will depend on your carrier, you may be
+<div class="clear-left"></div></div></div></section>
+<section id="changing-mac-address">
+<h3>Changing MAC Address<a class="headerlink" href="#changing-mac-address" title="Link to this heading"></a></h3>
+<p>To persistently change the MAC address will depend on your carrier, you may be
 able through <code class="docutils literal notranslate"><span class="pre">/boot/uEnv.txt</span></code> by adding <code class="docutils literal notranslate"><span class="pre">ethaddr=&lt;new-mac-address&gt;</span></code>, or
 through Linux through manipulating <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code>. Check the
 carrier vendor documentation for full instructions.</p>
+</section>
 </section>
 </section>
 
