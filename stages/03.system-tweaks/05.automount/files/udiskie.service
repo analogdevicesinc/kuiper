@@ -1,6 +1,6 @@
 [Unit]
 Description=Udiskie service for managing removable media
-After=network.target
+After=network.target graphical.target
 
 [Service]
 # Start udiskie with the following parameters to make it independent of the desktop environment:
