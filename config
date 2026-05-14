@@ -10,6 +10,9 @@ TARGET_ARCHITECTURE=armhf
 # Set the Debian version for Kuiper. Options: bullseye, bookworm, trixie.
 DEBIAN_VERSION=trixie
 #
+# Set the hostname for the system. Default: analog
+HOSTNAME=analog
+#
 # Preserve the Docker container.
 PRESERVE_CONTAINER=n
 #
