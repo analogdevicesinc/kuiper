@@ -1,0 +1,50 @@
+name: Training-SDP-RTP
+on:
+  push:
+    branches:
+      - training-SDP-RTP
+    paths-ignore:
+      - 'docs/**'
+
+jobs:
+  Build:
+    runs-on: ubuntu-24.04-arm
+    strategy:
+      matrix:
+        build_type: [jupiter, pi5]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set env variables
+        run: |
+          BRANCH=$GITHUB_REF_NAME
+          branch_name=$(echo $BRANCH | tr 'a-z' 'A-Z' | sed 's/[^[:alnum:]]/_/g')
+          type=$( echo ${{ matrix.build_type }} | tr 'a-z' 'A-Z')
+          echo ARTIFACT_NAME=training-SDP-RTP_"${{ matrix.build_type }}" >> $GITHUB_ENV
+          echo BRANCH_NAME="$branch_name"_"$type" >> $GITHUB_ENV
+      - name: Build image
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static
+          # remove container if already exists
+          CONTAINER_NAME=$(grep -m1 -oP '^[#]?CONTAINER_NAME=\K.*' ./config)
+          if [ "$(docker ps -a -q -f name=^/${CONTAINER_NAME}$)" ]; then
+              docker rm -fv "$CONTAINER_NAME"
+          fi
+
+          rm config && mv config-${{ matrix.build_type }} config
+          sudo bash build-docker.sh
+          ls kuiper-volume/*.zip >/dev/null 2>&1 && exit 0 || exit 2
+      - name: Upload image
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}_image
+          path: ${{ github.workspace }}/kuiper-volume/*.zip
+      - name: Upload meta
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}_meta
+          path: |
+            ${{ github.workspace }}/kuiper-volume
+            !${{ github.workspace }}/kuiper-volume/*.zip

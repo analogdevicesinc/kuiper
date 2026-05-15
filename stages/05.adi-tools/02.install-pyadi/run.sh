@@ -6,7 +6,7 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_PIP_REPO=y
+USE_PIP_REPO=n
 BRANCH_PYADI=main
 
 if [ "${CONFIG_PYADI}" = y ]; then

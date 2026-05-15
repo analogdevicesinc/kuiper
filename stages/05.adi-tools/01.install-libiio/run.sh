@@ -6,7 +6,7 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_ADI_REPO=y
+USE_ADI_REPO=n
 CONFIG_LIBIIO_CMAKE_ARGS="-DWITH_HWMON=ON \
 			-DWITH_SERIAL_BACKEND=ON \
 			-DWITH_MAN=ON \
