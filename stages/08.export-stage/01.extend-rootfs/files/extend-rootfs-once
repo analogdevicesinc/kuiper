@@ -9,22 +9,10 @@
 # Description:
 ### END INIT INFO
 
-PART_START="$(parted /dev/mmcblk0 -ms unit s p | grep "^2" | cut -f 2 -d: | sed 's/[^0-9]*//g')"
-[ "$PART_START" ] || return 1
+ROOT_PART="$(readlink -f /dev/disk/by-label/rootfs)"
+DISK="/dev/$(lsblk -no pkname "$ROOT_PART")"
 
-fdisk /dev/mmcblk0 <<EOF
-p
-d
-2
-n
-p
-2
-$((PART_START))
-
-p
-w
-EOF
-
-sudo resize2fs /dev/mmcblk0p2 >/dev/null 2>&1
+sudo growpart "$DISK" 2
+sudo resize2fs "$ROOT_PART" >/dev/null 2>&1
 
 rm /etc/init.d/extend-rootfs-once
