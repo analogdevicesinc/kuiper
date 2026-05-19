@@ -39,6 +39,7 @@ apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 apt-get install -y python3 python3-pip python3-setuptools python3-venv
 yes | pip install paramiko matplotlib pandas-stubs --break-system-packages
 
+cp stages/07.extra-tweaks/01.extra-scripts/files/kernel_2712.img /boot/
 
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hostname
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hosts
