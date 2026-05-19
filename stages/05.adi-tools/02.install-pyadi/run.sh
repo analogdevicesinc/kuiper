@@ -7,7 +7,7 @@
 # Author: Larisa Radu <larisa.radu@analog.com>
 
 USE_PIP_REPO=n
-BRANCH_PYADI=main
+BRANCH_PYADI=jupiter_sync_update_refactor
 
 if [ "${CONFIG_PYADI}" = y ]; then
 
