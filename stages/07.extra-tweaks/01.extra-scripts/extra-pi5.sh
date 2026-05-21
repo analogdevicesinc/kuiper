@@ -6,7 +6,7 @@
 # Copyright (c) 2026 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-mkdir -p /home/analog
+mkdir -p /home/analog/adi-tools
 
 # Install Debian packages for general exercises
 apt install -y picocom
@@ -40,6 +40,14 @@ apt-get install -y python3 python3-pip python3-setuptools python3-venv
 yes | pip install paramiko matplotlib pandas-stubs --break-system-packages
 
 cp stages/07.extra-tweaks/01.extra-scripts/files/kernel_2712.img /boot/
+
+
+apt-get install -y fakeroot libncurses5-dev libssl-dev ccache dfu-util u-boot-tools device-tree-compiler libssl-dev mtools cpio zip unzip rsync file bc gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf dfu-util u-boot-tools mpc libmpc-dev
+cd /home/analog/adi-tools
+git clone --recursive --shallow-submodules https://github.com/analogdevicesinc/plutosdr-fw.git
+sed -i 's/arm-linux-gnueabihf-/arm-none-linux-gnueabihf-/g' plutosdr-fw/Makefile
+
+git clone --depth 1 https://github.com/analogdevicesinc/kuiper.git
 
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hostname
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hosts
