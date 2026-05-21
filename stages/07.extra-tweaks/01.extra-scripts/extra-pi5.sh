@@ -47,7 +47,5 @@ cd /home/analog/adi-tools
 git clone --recursive --shallow-submodules https://github.com/analogdevicesinc/plutosdr-fw.git
 sed -i 's/arm-linux-gnueabihf-/arm-none-linux-gnueabihf-/g' plutosdr-fw/Makefile
 
-git clone --depth 1 https://github.com/analogdevicesinc/kuiper.git
-
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hostname
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hosts
