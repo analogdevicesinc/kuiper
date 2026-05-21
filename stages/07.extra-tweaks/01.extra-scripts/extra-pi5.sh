@@ -18,24 +18,6 @@ rm vscode.deb
 
 echo 'alias code="code --use-inmemory-secretstorage"' >> /etc/bash.bashrc
 
-# Install Docker
-install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-chmod a+r /etc/apt/keyrings/docker.asc
-
-# Add the repository to Apt sources:
-tee /etc/apt/sources.list.d/docker.sources <<EOF
-Types: deb
-URIs: https://download.docker.com/linux/debian
-Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
-Components: stable
-Signed-By: /etc/apt/keyrings/docker.asc
-EOF
-
-apt-get update
-
-apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
 apt-get install -y python3 python3-pip python3-setuptools python3-venv
 yes | pip install paramiko matplotlib pandas-stubs --break-system-packages
 
@@ -46,6 +28,8 @@ apt-get install -y fakeroot libncurses5-dev libssl-dev ccache dfu-util u-boot-to
 cd /home/analog/adi-tools
 git clone --recursive --shallow-submodules https://github.com/analogdevicesinc/plutosdr-fw.git
 sed -i 's/arm-linux-gnueabihf-/arm-none-linux-gnueabihf-/g' plutosdr-fw/Makefile
+
+git clone --depth 1 https://github.com/analogdevicesinc/linux.git
 
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hostname
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hosts
