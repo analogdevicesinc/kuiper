@@ -1,5 +1,5 @@
 ######################### Kuiper Configuration File #########################
-#
+# 
 # [MINIMAL] - this is the default configuration
 # Contains only mandatory packages for minimum functionality.
 # This image can be customized by adding one or more of the following libraries and tools.
