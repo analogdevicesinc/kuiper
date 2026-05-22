@@ -29,7 +29,7 @@ git clone --depth 1 https://github.com/analogdevicesinc/linux.git
 install -m 600 "/stages/07.extra-tweaks/01.extra-scripts/files/SDP_SW training.nmconnection"	"/etc/NetworkManager/system-connections/"
 
 cp /stages/07.extra-tweaks/01.extra-scripts/files/kernel_2712.img /boot/
-cp -r /stages/07.extra-tweaks/01.extra-scripts/files/talise-tracker /home/analog/adi-tools/pyadi-iio/examples/
+cp -r /stages/07.extra-tweaks/01.extra-scripts/files/talise_tracker /home/analog/adi-tools/pyadi-iio/examples/
 
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hostname
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hosts
