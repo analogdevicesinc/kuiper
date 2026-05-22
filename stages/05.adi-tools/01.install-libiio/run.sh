@@ -30,7 +30,8 @@ if [ "${CONFIG_LIBIIO}" = y ]; then
 		install -m 644 "${BASH_SOURCE%%/run.sh}"/files/iiod.service	"${BUILD_DIR}/lib/systemd/system/"
 
 chroot "${BUILD_DIR}" << EOF
-		cd /usr/local/src
+		mkdir -p /home/analog/adi-tools
+		cd /home/analog/adi-tools
 
 		# Clone libiio
 		git clone -b ${BRANCH_LIBIIO} ${GITHUB_ANALOG_DEVICES}/libiio.git

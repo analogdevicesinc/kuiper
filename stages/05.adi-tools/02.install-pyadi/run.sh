@@ -19,7 +19,7 @@ if [ "${CONFIG_PYADI}" = y ]; then
 		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF
-		cd /usr/local/src
+		cd /home/analog/adi-tools
 
 		# Clone pyadi
 		git clone -b ${BRANCH_PYADI} ${GITHUB_ANALOG_DEVICES}/pyadi-iio.git

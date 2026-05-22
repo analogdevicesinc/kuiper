@@ -6,7 +6,7 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_ADI_REPO=y
+USE_ADI_REPO=n
 CONFIG_LIBAD9166_IIO_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr \
 				-DCMAKE_BUILD_TYPE=Release \
 				-DCMAKE_COLOR_MAKEFILE=OFF \
@@ -31,7 +31,7 @@ if [ "${CONFIG_LIBAD9361_IIO}" = y ]; then
 	elif [ "${CONFIG_LIBIIO}" = y ]; then
 
 chroot "${BUILD_DIR}" << EOF
-		cd /usr/local/src
+		cd /home/analog/adi-tools
 
 		# Clone libad9361
 		git clone -b ${BRANCH_LIBAD9361_IIO} ${GITHUB_ANALOG_DEVICES}/libad9361-iio
@@ -56,7 +56,7 @@ if [ "${CONFIG_LIBAD9166_IIO}" = y ]; then
 	elif [ "${CONFIG_LIBIIO}" = y ]; then
 
 chroot "${BUILD_DIR}" << EOF
-		cd /usr/local/src
+		cd /home/analog/adi-tools
 
 		# Clone libad9166
 		git clone -b ${BRANCH_LIBAD9166_IIO} ${GITHUB_ANALOG_DEVICES}/libad9166-iio

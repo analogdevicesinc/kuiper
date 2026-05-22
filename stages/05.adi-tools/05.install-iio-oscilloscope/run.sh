@@ -6,7 +6,7 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-USE_ADI_REPO=y
+USE_ADI_REPO=n
 CONFIG_IIO_OSCILLOSCOPE_CMAKE_ARGS="-DCMAKE_INSTALL_PREFIX=/usr/local \
 				-DCMAKE_BUILD_TYPE=Release \
 				-DCMAKE_COLOR_MAKEFILE=OFF \
@@ -22,7 +22,7 @@ if [ "${CONFIG_IIO_OSCILLOSCOPE}" = y ]; then
 		install_packages "${BASH_SOURCE%/run.sh}"
 
 chroot "${BUILD_DIR}" << EOF
-		cd /usr/local/src
+		cd /home/analog/adi-tools
 
 		# Install gtkdatabox-1.0.0
 		wget https://downloads.sourceforge.net/project/gtkdatabox/gtkdatabox-1/gtkdatabox-1.0.0.tar.gz

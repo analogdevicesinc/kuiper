@@ -6,8 +6,6 @@
 # Copyright (c) 2026 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
-mkdir -p /home/analog/adi-tools
-
 # Install Debian packages for general exercises
 apt install -y picocom
 
@@ -19,7 +17,7 @@ rm vscode.deb
 echo 'alias code="code --use-inmemory-secretstorage"' >> /etc/bash.bashrc
 
 apt-get install -y python3 python3-pip python3-setuptools python3-venv
-yes | pip install paramiko matplotlib pandas-stubs --break-system-packages
+yes | pip install paramiko matplotlib pandas-stubs sshfs --break-system-packages
 
 cp stages/07.extra-tweaks/01.extra-scripts/files/kernel_2712.img /boot/
 
@@ -30,6 +28,10 @@ git clone --recursive --shallow-submodules https://github.com/analogdevicesinc/p
 sed -i 's/arm-linux-gnueabihf-/arm-none-linux-gnueabihf-/g' plutosdr-fw/Makefile
 
 git clone --depth 1 https://github.com/analogdevicesinc/linux.git
+
+install -m 600 "stages/07.extra-tweaks/01.extra-scripts/files/SDP_SW training.nmconnection"	"/etc/NetworkManager/system-connections/"
+
+cp -r stages/07.extra-tweaks/01.extra-scripts/files/talise-tracker /home/analog/adi-tools/pyadi-iio/examples/
 
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hostname
 sed -i 's/analog/training-SDP-RTP-pi5/g' /etc/hosts
