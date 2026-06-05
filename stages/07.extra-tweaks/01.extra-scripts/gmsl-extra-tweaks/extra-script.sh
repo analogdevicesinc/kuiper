@@ -14,15 +14,6 @@ apt-get install -y g++ meson ninja-build pkg-config libyaml-dev python3-yaml pyt
                 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libpython3-dev pybind11-dev \
                 libevent-dev libdrm-dev libtiff-dev qt6-base-dev libboost-dev libfmt-dev
 
-
-# Install libcamera
-cd /usr/local/share/
-git clone https://github.com/raspberrypi/libcamera.git
-cd libcamera
-meson setup build --buildtype=release -Dpipelines=rpi/vc4,rpi/pisp -Dipas=rpi/vc4,rpi/pisp -Dv4l2=true -Dgstreamer=enabled -Dtest=false -Dlc-compliance=disabled \
-                -Dcam=disabled -Dqcam=disabled -Ddocumentation=disabled -Dpycamera=enabled
-ninja -C build install
-
 # Install pix-utils and pykms
 apt-get install -y python3-pip
 yes | pip3 install --break-system-packages pix-utils git+https://github.com/tomba/pykms.git git+https://github.com/tomba/pixutils.git
