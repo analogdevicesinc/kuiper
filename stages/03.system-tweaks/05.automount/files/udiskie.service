@@ -1,11 +1,13 @@
 [Unit]
 Description=Udiskie service for managing removable media
-After=network.target graphical.target
+After=network.target
 
 [Service]
 # Start udiskie with the following parameters to make it independent of the desktop environment:
 # --no-notify: suppresses desktop notifications
 # -f "": prevents udiskie from managing any devices
+User=analog
+Group=analog
 ExecStart=/usr/bin/udiskie --no-notify -f ""
 Restart=on-failure
 
