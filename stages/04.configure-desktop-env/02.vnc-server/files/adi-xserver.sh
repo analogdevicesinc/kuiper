@@ -14,15 +14,15 @@ else
 	# Enable dummy display
 	enable_dummy_display.sh
 	
-	# Create a .xinitrc file
-	mkdir -p /home/analog
-	echo "exec dbus-run-session startxfce4" > /home/analog/.xinitrc
-	chown analog:analog /home/analog/.xinitrc
-	chmod 644 /home/analog/.xinitrc
-
-	# Start an X server as user 'analog'
-	su - analog -c "startx -- :0 &"
+	# Wait for lightdm to start
+	sleep 5
 	
-	# Export the display port
-	export DISPLAY=:0
+	# Start Xorg if no display server is running yet
+	if ! pgrep -f "Xorg" >/dev/null; then
+		# Start an X server as user 'analog'
+		su - analog -c "startx -- :0 &"
+		
+		# Export the display port
+		export DISPLAY=:0
+	fi
 fi

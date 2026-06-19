@@ -1,7 +1,6 @@
 [Unit]
 Description=ADI X Server
-After=systemd-udev-settle.service
-Before=display-manager.service
+After=systemd-udev-settle.service display-manager.service
 
 [Service]
 Type=oneshot
