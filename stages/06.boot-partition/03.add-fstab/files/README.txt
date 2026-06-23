@@ -22,6 +22,9 @@ For ZynqMP projects, copy these files to the root of the BOOT FAT32 partition:
     project
     zynqmp-common/Image - Kernel image for ZynqMP platforms
     zynqmp-common/uEnv.txt - U-Boot environment configuration
+    
+    INFO: If you want to boot on Jupiter SDR also copy the following file:
+    <target>/boot.scr - U-Boot script for Jupiter boot sequence
 
 For Versal projects, copy these files to the root of the BOOT FAT32 partition:
     <target>/BOOT.BIN - Platform Loader and Manager (PLM) and boot components
