@@ -37,7 +37,7 @@ jobs:
           sparse-checkout-cone-mode: false
 
       - name: Download image
-        uses: dawidd6/action-download-artifact@v5
+        uses: dawidd6/action-download-artifact@v6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: kuiper2_0-build.yml
