@@ -240,9 +240,11 @@ logging in directly as root.
 Change the password on disk
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You **must** change the default password on the image before connecting the target
-to the Internet.
-You can change directly on a Kuiper image before flashing the SD card, or after.
+You **must** change the default password before connecting the target to the
+Internet. If you can provide Console Access or SSH Access without connecting to
+the Internet first, simply use the ``passwd`` command on the booted system. If
+it is not an option, change the password on the image before flashing the SD
+card or after by following the instructions below.
 
 Start by creating a mount path:
 
