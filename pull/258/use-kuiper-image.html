@@ -368,11 +368,10 @@ your system is running</p></li>
 </section>
 <section id="booting-your-device">
 <span id="use-kuiper-image-booting"></span><h2>Booting Your Device<a class="headerlink" href="#booting-your-device" title="Link to this heading"></a></h2>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>You must <strong>not</strong> connect your target to the Internet before changing the
-default password. If you must boot for the first time already connected to
-the Internet, see <a class="reference internal" href="#login-change-on-disk"><span class="std std-ref">Change the password on disk</span></a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The image has SSH enabled with a known password by default, it is
+recommended to change it before connecting to the Internet.</p>
 </div>
 <p>After writing the image to your SD card and completing any required
 configuration:</p>
@@ -417,11 +416,11 @@ use the full SD card capacity.</p>
 logging in directly as root.</p>
 <section id="change-the-password-on-disk">
 <span id="login-change-on-disk"></span><h3>Change the password on disk<a class="headerlink" href="#change-the-password-on-disk" title="Link to this heading"></a></h3>
-<p>You <strong>must</strong> change the default password before connecting the target to the
-Internet. If you can provide Console Access or SSH Access without connecting to
-the Internet first, simply use the <code class="docutils literal notranslate"><span class="pre">passwd</span></code> command on the booted system. If
-it is not an option, change the password on the image before flashing the SD
-card or after by following the instructions below.</p>
+<p>It is recommended to change the default password before connecting the target
+to the Internet. If you can provide Console Access or SSH Access without
+connecting to the Internet first, simply use the <code class="docutils literal notranslate"><span class="pre">passwd</span></code> command on the
+booted system. If it is not an option, change the password on the image before
+flashing the SD card or after by following the instructions below.</p>
 <p>Start by creating a mount path:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
