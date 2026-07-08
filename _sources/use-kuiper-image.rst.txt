@@ -180,6 +180,11 @@ Raspberry Pi images work out-of-box with no configuration required.
 Booting Your Device
 -------------------
 
+.. tip::
+
+   The image has SSH enabled with a known password by default, it is
+   recommended to change it before connecting to the Internet.
+
 After writing the image to your SD card and completing any required
 configuration:
 
@@ -216,6 +221,8 @@ configuration:
 
 ----
 
+.. _login:
+
 Login Information
 -----------------
 
@@ -225,6 +232,78 @@ Login Information
 
 Root access is available using the same password with ``sudo`` or by
 logging in directly as root.
+
+
+.. _login-change-on-disk:
+
+Change the password on disk
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is recommended to change the default password before connecting the target
+to the Internet. If you can provide Console Access or SSH Access without
+connecting to the Internet first, simply use the ``passwd`` command on the
+booted system. If it is not an option, change the password on the image before
+flashing the SD card or after by following the instructions below.
+
+Start by creating a mount path:
+
+.. shell::
+
+   $ sudo mkdir /mnt/rootfs
+
+Then, for changing before flashing the SD Card, mount the ``*.img`` partition:
+
+.. shell::
+
+   # Find the start of the rootfs partition
+   $ fdisk -l path/to/kuiper.img
+     Units: sectors of 1 * 512 = 512 bytes
+
+     Device                     Start     End Sectors  Size Id Type
+     path/to/kuiper.img1        24576 4218879 4194304    2G  c W95 FAT32 (LBA)
+     path/to/kuiper.img2      4218880 7208959 2990080  1.4G 83 Linux
+     path/to/kuiper.img3         8192   24575   16384    8M a2 unknown
+   # Mount it
+   $ sudo mount -o loop,offset=$(echo '512 * 4218880' | bc) path/to/kuiper.img /mnt/rootfs
+
+Or for an already-flashed SD card
+
+.. shell::
+
+   # Find the SD Card rootfs partition
+   $ lsblk
+      NAME         MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+      mmcblk0      179:0    0  3.4G  0 disk
+      ├─mmcblk0p1  179:1    0    2G  0 part /boot
+      ├─mmcblk0p2  179:2    0  1.4G  0 part
+      └─mmcblk0p3  179:3    0    8M  0 part
+
+   # Mount the partition
+   $ sudo mount /dev/mmcblk0p2 /mnt/rootfs
+
+Generate a new password and replace the old one:
+
+.. shell::
+
+   # With mkpasswd yescrypt
+   new_password=$(mkpasswd -m yescrypt "your_new_password")
+   # or with openssl sha512
+   new_password=$(openssl passwd -6 "your_new_password")
+
+   # Replace in the image
+   [ -z "$new_password" ] || {
+     sudo sed -i "s|^analog:[^:]*:|analog:${new_password}:|" /mnt/rootfs/etc/shadow &&
+     echo "password changed!" ;
+   }
+   new_password= # clear it
+
+Then unmount the partition:
+
+.. shell::
+
+   $ sudo umount /mnt/rootfs
+
+Done, you can proceed with :ref:`use-kuiper-image-booting`.
 
 ----
 

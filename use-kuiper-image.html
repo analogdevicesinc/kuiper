@@ -8,14 +8,15 @@
 
     <title>Using Kuiper Images &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=ac863bf0" />
-    <script async="async" src="_static/app.umd.js?v=09b0c6bc"></script>
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=d3f78147" />
+    <script async="async" src="_static/app.umd.js?v=26d0298f"></script>
     <link rel="icon" href="_static/icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Hardware Configuration" href="hardware-configuration.html" />
     <link rel="prev" title="Quick Start" href="quick-start.html" />
    
+  
   
   
   <meta name="repository" content="kuiper">
@@ -108,7 +109,10 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#booting-your-device">Booting Your Device</a></li>
-<li><a class="reference internal" href="#login-information">Login Information</a></li>
+<li><a class="reference internal" href="#login-information">Login Information</a><ul>
+<li><a class="reference internal" href="#change-the-password-on-disk">Change the password on disk</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#accessing-your-kuiper-system">Accessing Your Kuiper System</a><ul>
 <li><a class="reference internal" href="#console-access">Console Access</a></li>
 <li><a class="reference internal" href="#ssh-access">SSH Access</a></li>
@@ -364,6 +368,11 @@ your system is running</p></li>
 </section>
 <section id="booting-your-device">
 <span id="use-kuiper-image-booting"></span><h2>Booting Your Device<a class="headerlink" href="#booting-your-device" title="Link to this heading"></a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The image has SSH enabled with a known password by default, it is
+recommended to change it before connecting to the Internet.</p>
+</div>
 <p>After writing the image to your SD card and completing any required
 configuration:</p>
 <ol class="arabic">
@@ -397,14 +406,122 @@ use the full SD card capacity.</p>
 </ul>
 </li>
 </ol>
-</section>
 <hr class="docutils" />
+</section>
 <section id="login-information">
-<h2>Login Information<a class="headerlink" href="#login-information" title="Link to this heading"></a></h2>
+<span id="login"></span><h2>Login Information<a class="headerlink" href="#login-information" title="Link to this heading"></a></h2>
 <p><strong>Username:</strong> analog</p>
 <p><strong>Password:</strong> analog</p>
 <p>Root access is available using the same password with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> or by
 logging in directly as root.</p>
+<section id="change-the-password-on-disk">
+<span id="login-change-on-disk"></span><h3>Change the password on disk<a class="headerlink" href="#change-the-password-on-disk" title="Link to this heading"></a></h3>
+<p>It is recommended to change the default password before connecting the target
+to the Internet. If you can provide Console Access or SSH Access without
+connecting to the Internet first, simply use the <code class="docutils literal notranslate"><span class="pre">passwd</span></code> command on the
+booted system. If it is not an option, change the password on the image before
+flashing the SD card or after by following the instructions below.</p>
+<p>Start by creating a mount path:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mkdir<span class="w"> </span>/mnt/rootfs
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Then, for changing before flashing the SD Card, mount the <code class="docutils literal notranslate"><span class="pre">*.img</span></code> partition:</p>
+<div class="code-shell"><div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the start of the rootfs partition</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>fdisk<span class="w"> </span>-l<span class="w"> </span>path/to/kuiper.img
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span> Units: sectors of 1 * 512 = 512 bytes
+
+ Device                     Start     End Sectors  Size Id Type
+ path/to/kuiper.img1        24576 4218879 4194304    2G  c W95 FAT32 (LBA)
+ path/to/kuiper.img2      4218880 7208959 2990080  1.4G 83 Linux
+ path/to/kuiper.img3         8192   24575   16384    8M a2 unknown
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mount it</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mount<span class="w"> </span>-o<span class="w"> </span>loop,offset<span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;512 * 4218880&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="k">)</span><span class="w"> </span>path/to/kuiper.img<span class="w"> </span>/mnt/rootfs
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Or for an already-flashed SD card</p>
+<div class="code-shell"><div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the SD Card rootfs partition</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsblk
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>  NAME         MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+  mmcblk0      179:0    0  3.4G  0 disk
+  ├─mmcblk0p1  179:1    0    2G  0 part /boot
+  ├─mmcblk0p2  179:2    0  1.4G  0 part
+  └─mmcblk0p3  179:3    0    8M  0 part
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mount the partition</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mount<span class="w"> </span>/dev/mmcblk0p2<span class="w"> </span>/mnt/rootfs
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Generate a new password and replace the old one:</p>
+<div class="code-shell"><div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># With mkpasswd yescrypt</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>new_password=$(mkpasswd -m yescrypt &quot;your_new_password&quot;)
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># or with openssl sha512</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>new_password=$(openssl passwd -6 &quot;your_new_password&quot;)
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace in the image</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>[ -z &quot;$new_password&quot; ] || {
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span> sudo sed -i &quot;s|^analog:[^:]*:|analog:${new_password}:|&quot; /mnt/rootfs/etc/shadow &amp;&amp;
+ echo &quot;password changed!&quot; ;
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>}
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>new_password= # clear it
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Then unmount the partition:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>umount<span class="w"> </span>/mnt/rootfs
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Done, you can proceed with <a class="reference internal" href="#use-kuiper-image-booting"><span class="std std-ref">Booting Your Device</span></a>.</p>
+</section>
 </section>
 <hr class="docutils" />
 <section id="accessing-your-kuiper-system">
