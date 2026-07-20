@@ -22,6 +22,7 @@ export BUILD_DIR=${TARGET_ARCHITECTURE}_rootfs
 export IMG_FILE="image_"$(date +%Y-%m-%d)"-ADI-Kuiper-Linux-$TARGET_ARCHITECTURE.img"
 export NUM_JOBS=${NUM_JOBS:-$(nproc)}
 export HOSTNAME=${HOSTNAME:-analog}
+export DEBIAN_SNAPSHOT=${DEBIAN_SNAPSHOT:-""}
 
 export CONFIG_DESKTOP=${CONFIG_DESKTOP:-n}
 export CONFIG_LIBIIO=${CONFIG_LIBIIO:-n}
@@ -76,6 +77,15 @@ export INSTALL_RPI_PACKAGES=${INSTALL_RPI_PACKAGES:-n}
 if [[ ! ${TARGET_ARCHITECTURE} = armhf && ! ${TARGET_ARCHITECTURE} = arm64 ]]; then
 	echo "Unsupported architecture ${TARGET_ARCHITECTURE}"
 	exit 1
+fi
+
+# Validate the snapshot timestamp
+if [ -n "${DEBIAN_SNAPSHOT}" ]; then
+	if [[ ! ${DEBIAN_SNAPSHOT} =~ ^[0-9]{8}(T[0-9]{6}Z)?$ ]]; then
+		echo "Invalid DEBIAN_SNAPSHOT '${DEBIAN_SNAPSHOT}'"
+		echo "Expected format YYYYMMDD or YYYYMMDDTHHMMSSZ, e.g. 20260615T000000Z"
+		exit 1
+	fi
 fi
 
 # Save logs with timestamps in build.log

@@ -6,6 +6,14 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+# Restore the live Debian mirror so the device receives updates instead of being frozen to the snapshot
+if [ -n "${DEBIAN_SNAPSHOT}" ]; then
+	rm -f "${BUILD_DIR}/etc/apt/apt.conf.d/10no-check-valid-until"
+	DEBOOTSTRAP_MIRROR="https://snapshot.debian.org/archive/debian/${DEBIAN_SNAPSHOT}/"
+	sed -i "s|${DEBOOTSTRAP_MIRROR}|http://deb.debian.org/debian|g" \
+		"${BUILD_DIR}/etc/apt/sources.list"
+fi
+
 EXPORT_ROOTFS_DIR="export_rootfs_dir"
 
 BOOTLOADER_SIZE="$((8 * 1024 * 1024))"
