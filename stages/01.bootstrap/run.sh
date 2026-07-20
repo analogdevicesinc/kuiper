@@ -11,10 +11,27 @@ if [[ "$(uname -m)" != "aarch64" && "$(uname -m)" != "arm*" ]]; then
 fi
 
 mkdir "${BUILD_DIR}"
+
+# When DEBIAN_SNAPSHOT is set, pin the base to a reproducible snapshot from
+# snapshot.debian.org instead of the live mirror
+DEBOOTSTRAP_MIRROR=""
+if [ -n "${DEBIAN_SNAPSHOT}" ]; then
+	DEBOOTSTRAP_MIRROR="https://snapshot.debian.org/archive/debian/${DEBIAN_SNAPSHOT}/"
+	echo "Installing from Debian snapshot ${DEBIAN_SNAPSHOT}"
+fi
+
 debootstrap --arch=${TARGET_ARCHITECTURE} \
 			--components "main,non-free,non-free-firmware" \
 			--include=ca-certificates,curl,gnupg,wget \
-			--keyring "/usr/share/keyrings/debian-archive-"${DEBIAN_VERSION}"-stable.gpg" "${DEBIAN_VERSION}" "${BUILD_DIR}"
+			--keyring "/usr/share/keyrings/debian-archive-"${DEBIAN_VERSION}"-stable.gpg" "${DEBIAN_VERSION}" "${BUILD_DIR}" ${DEBOOTSTRAP_MIRROR}
+
+# Point the chroot's apt sources at the same snapshot and disable the
+# Valid-Until check so dist-upgrade and later stages stay pinned too
+if [ -n "${DEBIAN_SNAPSHOT}" ]; then
+	sed -i -E "s|^(deb(-src)?) \S+|\1 ${DEBOOTSTRAP_MIRROR}|" \
+		"${BUILD_DIR}/etc/apt/sources.list"
+	echo 'Acquire::Check-Valid-Until "false";' > "${BUILD_DIR}/etc/apt/apt.conf.d/10no-check-valid-until"
+fi
 
 # Add adi-repo.list to sources.list
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/prefer-adi "${BUILD_DIR}/etc/apt/preferences.d/prefer-adi"

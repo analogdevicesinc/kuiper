@@ -10,6 +10,12 @@ TARGET_ARCHITECTURE=armhf
 # Set the Debian version for Kuiper. Options: bullseye, bookworm, trixie.
 DEBIAN_VERSION=trixie
 #
+# Pin the Debian base to a reproducible snapshot from snapshot.debian.org.
+# Leave empty to use the live mirror (deb.debian.org). Set to a timestamp
+# (format: YYYYMMDD) to freeze package versions
+# Note: only the Debian archive is pinned; the Raspberry Pi and ADI repos stay live
+DEBIAN_SNAPSHOT=20260701
+#
 # Set the hostname for the system. Default: analog
 HOSTNAME=analog
 #
