@@ -292,5 +292,3 @@ when building your own image include:
 
 See the :doc:`Configuration <configuration>` section for the full list of
 options.
-</content>
-</invoke>
