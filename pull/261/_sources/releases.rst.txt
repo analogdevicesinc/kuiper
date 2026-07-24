@@ -251,20 +251,18 @@ ADI Applications (Full Edition)
      - v0.3.0
      - ``CONFIG_COLORIMETER``
      - ``colorimeter``
-   * - Scopy [#nc]_
+   * - Scopy
      - v2.2.0
      - ``CONFIG_SCOPY``
      - ``scopy``
-   * - gr-m2k [#nc]_
+   * - gr-m2k
      - v1.0.0
      - ``CONFIG_GRM2K``
      - ``gr-m2k``
-   * - GNU Radio [#nc]_
+   * - GNU Radio
      - Debian repository version
      - ``CONFIG_GNURADIO``
      - ``gnuradio`` (from the Debian repository)
-
-.. [#nc] Inclusion of this component in the Full edition is not yet confirmed.
 
 Desktop Environment (Full Edition)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
