@@ -14,6 +14,91 @@ This section guides you through that process.
 
 ----
 
+.. _checking-your-kuiper-version:
+
+Checking Your Kuiper Version
+----------------------------
+
+If you already have an SD card with Kuiper on it and are not sure which
+version it holds, check before you use it. Two generations exist:
+
+- **Kuiper 2** — the current, stable, and actively developed version. All
+  :doc:`releases <releases>` and development builds are Kuiper 2.
+- **Kuiper 1** — the previous generation. It is **deprecated** and no longer
+  maintained. If your card has Kuiper 1, you should rewrite it with a current
+  Kuiper 2 image.
+
+.. note::
+
+   If you just wrote your card from a :doc:`release <releases>` or a
+   development build, it is already Kuiper 2 and you can skip this section.
+
+How to Tell the Difference
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Kuiper 2 copies the ``config`` file used to build the image into the root of
+the root filesystem (``/config``). Kuiper 1 does not. This file is the quickest
+way to tell the two apart:
+
+- **A** ``/config`` **file exists** → the card holds **Kuiper 2**. As a bonus,
+  this file records exactly which options the image was built with.
+- **No** ``/config`` **file** → the card holds **Kuiper 1** (deprecated).
+
+You can check either on the running system or directly from the SD card.
+
+On a Booted System
+++++++++++++++++++
+
+If the device is running, list the file from a console or SSH session:
+
+.. shell::
+
+   $ls -l /config
+
+If the file is present, you are on Kuiper 2. You can also inspect it to see the
+build configuration:
+
+.. shell::
+
+   $cat /config
+
+From the SD Card
+++++++++++++++++
+
+If the device is not booted, inspect the card directly. Insert it into your
+computer and mount the root filesystem partition (the second, ext4 partition),
+exactly as described in :ref:`login-change-on-disk`:
+
+.. shell::
+
+   $sudo mkdir -p /mnt/rootfs
+   $sudo mount /dev/mmcblk0p2 /mnt/rootfs
+
+Replace ``/dev/mmcblk0p2`` with your card's root partition (use ``lsblk`` to
+identify it). Then check for the file:
+
+.. shell::
+
+   $ls -l /mnt/rootfs/config
+
+When you are done, unmount the partition:
+
+.. shell::
+
+   $sudo umount /mnt/rootfs
+
+If You Have Kuiper 1
+~~~~~~~~~~~~~~~~~~~~~
+
+Kuiper 1 is deprecated and does not receive updates or support. We recommend
+rewriting your card with a current Kuiper 2 image:
+
+#. Download a current image from the :doc:`releases <releases>` page.
+#. Rewrite the SD card by following :ref:`use-kuiper-image-writing` below. This
+   overwrites everything on the card, replacing Kuiper 1 with Kuiper 2.
+
+----
+
 Extracting the Image
 --------------------
 
@@ -27,6 +112,8 @@ Extract it using:
    $unzip image_YYYY-MM-DD-ADI-Kuiper-Linux-[arch].zip
 
 ----
+
+.. _use-kuiper-image-writing:
 
 Writing the Image to an SD Card
 -------------------------------
@@ -366,6 +453,8 @@ Then connect from another computer:
     analog@192.168.1.100's password:
 
 Enter the password ``analog`` when prompted.
+
+.. _use-kuiper-image-vnc:
 
 VNC Access
 ~~~~~~~~~~
