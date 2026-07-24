@@ -26,8 +26,9 @@ Download a tested and stable Kuiper release. Two versions are available:
 - **Full Image**: Complete system with XFCE desktop, ADI libraries and
   applications, development tools
 
-For detailed information about what's included in each version, see
-:doc:`Kuiper Versions <kuiper-versions>`.
+Each version is available for 32-bit (``armhf``) and 64-bit (``arm64``)
+architectures. For detailed information about the variants and what's included
+in each, see :doc:`Releases <releases>`.
 
 **Download**: `ADI Kuiper Releases <RELEASE_LINK_PLACEHOLDER>`_
 
@@ -95,7 +96,7 @@ with Raspberry Pi boot files. For most users, this is sufficient to get started:
 
 This configuration creates what we call the "Basic Image" that includes only
 essential components. For details on exactly what stages and components are
-included in this basic build, see :ref:`kuiper-versions-basic-image`.
+included in this basic build, see :ref:`releases-basic-image`.
 
 For ADI evaluation boards, you can configure your target hardware now by
 setting ``ADI_EVAL_BOARD`` and ``CARRIER`` in the config file, or configure

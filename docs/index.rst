@@ -67,8 +67,8 @@ Kuiper offers three main configurations to suit different needs. You can either
 download pre-built images or create custom builds using the configuration 
 system.
 
-For detailed stage breakdowns and component lists, see :doc:`Kuiper Versions 
-<kuiper-versions>`.
+For the tested, stable download variants and detailed component lists, see
+:doc:`Releases <releases>`.
 
 Basic Image (Default)
 ~~~~~~~~~~~~~~~~~~~~~
@@ -146,6 +146,7 @@ Documentation
 
    prerequisites
    quick-start
+   releases
    use-kuiper-image
    hardware-configuration
 
@@ -154,7 +155,6 @@ Documentation
    :caption: Configuration & Building
 
    configuration
-   kuiper-versions
    build-flow
 
 .. toctree::
