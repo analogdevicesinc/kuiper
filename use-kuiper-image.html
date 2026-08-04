@@ -8,13 +8,13 @@
 
     <title>Using Kuiper Images &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=d3f78147" />
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=cae2157c" />
     <script async="async" src="_static/app.umd.js?v=26d0298f"></script>
     <link rel="icon" href="_static/icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Hardware Configuration" href="hardware-configuration.html" />
-    <link rel="prev" title="Quick Start" href="quick-start.html" />
+    <link rel="prev" title="Releases" href="releases.html" />
    
   
   
@@ -66,10 +66,10 @@
     </div>
     <div id="right">
       <span>
-        <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
         <div class="vertical-divider"></div>
         
-        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Docs</label>
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
         
         <a id="logo" href="index.html">
           <div>Kuiper</div>
@@ -96,6 +96,15 @@
         <nav>
           <ul>
 <li><a class="reference internal" href="#">Using Kuiper Images</a><ul>
+<li><a class="reference internal" href="#checking-your-kuiper-version">Checking Your Kuiper Version</a><ul>
+<li><a class="reference internal" href="#how-to-tell-the-difference">How to Tell the Difference</a><ul>
+<li><a class="reference internal" href="#on-a-booted-system">On a Booted System</a></li>
+<li><a class="reference internal" href="#from-the-sd-card">From the SD Card</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#if-you-have-kuiper-1">If You Have Kuiper 1</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#extracting-the-image">Extracting the Image</a></li>
 <li><a class="reference internal" href="#writing-the-image-to-an-sd-card">Writing the Image to an SD Card</a><ul>
 <li><a class="reference internal" href="#using-balena-etcher">Using Balena Etcher</a></li>
@@ -160,6 +169,7 @@ Content on this topic
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Using Kuiper Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hardware-configuration.html">Hardware Configuration</a></li>
 </ul>
@@ -170,7 +180,6 @@ Content on this topic
 
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kuiper-versions.html">Kuiper Versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
 </ul>
 
@@ -211,12 +220,103 @@ Content on this topic
 write it to an SD card or storage device and boot your target hardware.
 This section guides you through that process.</p>
 <hr class="docutils" />
+<section id="checking-your-kuiper-version">
+<span id="id1"></span><h2>Checking Your Kuiper Version<a class="headerlink" href="#checking-your-kuiper-version" title="Link to this heading"></a></h2>
+<p>If you already have an SD card with Kuiper on it and are not sure which
+version it holds, check before you use it. Two generations exist:</p>
+<ul class="simple">
+<li><p><strong>Kuiper 2</strong> — the current, stable, and actively developed version. All
+<a class="reference internal" href="releases.html"><span class="doc">releases</span></a> and development builds are Kuiper 2.</p></li>
+<li><p><strong>Kuiper 1</strong> — the previous generation. It is <strong>deprecated</strong> and no longer
+maintained. If your card has Kuiper 1, you should rewrite it with a current
+Kuiper 2 image.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you just wrote your card from a <a class="reference internal" href="releases.html"><span class="doc">release</span></a> or a
+development build, it is already Kuiper 2 and you can skip this section.</p>
+</div>
+<section id="how-to-tell-the-difference">
+<h3>How to Tell the Difference<a class="headerlink" href="#how-to-tell-the-difference" title="Link to this heading"></a></h3>
+<p>Kuiper 2 copies the <code class="docutils literal notranslate"><span class="pre">config</span></code> file used to build the image into the root of
+the root filesystem (<code class="docutils literal notranslate"><span class="pre">/config</span></code>). Kuiper 1 does not. This file is the quickest
+way to tell the two apart:</p>
+<ul class="simple">
+<li><p><strong>A</strong> <code class="docutils literal notranslate"><span class="pre">/config</span></code> <strong>file exists</strong> → the card holds <strong>Kuiper 2</strong>. As a bonus,
+this file records exactly which options the image was built with.</p></li>
+<li><p><strong>No</strong> <code class="docutils literal notranslate"><span class="pre">/config</span></code> <strong>file</strong> → the card holds <strong>Kuiper 1</strong> (deprecated).</p></li>
+</ul>
+<p>You can check either on the running system or directly from the SD card.</p>
+<section id="on-a-booted-system">
+<h4>On a Booted System<a class="headerlink" href="#on-a-booted-system" title="Link to this heading"></a></h4>
+<p>If the device is running, list the file from a console or SSH session:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w"> </span>/config
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>If the file is present, you are on Kuiper 2. You can also inspect it to see the
+build configuration:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/config
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div></section>
+<section id="from-the-sd-card">
+<h4>From the SD Card<a class="headerlink" href="#from-the-sd-card" title="Link to this heading"></a></h4>
+<p>If the device is not booted, inspect the card directly. Insert it into your
+computer and mount the root filesystem partition (the second, ext4 partition),
+exactly as described in <a class="reference internal" href="#login-change-on-disk"><span class="std std-ref">Change the password on disk</span></a>:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/rootfs
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mount<span class="w"> </span>/dev/mmcblk0p2<span class="w"> </span>/mnt/rootfs
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Replace <code class="docutils literal notranslate"><span class="pre">/dev/mmcblk0p2</span></code> with your card’s root partition (use <code class="docutils literal notranslate"><span class="pre">lsblk</span></code> to
+identify it). Then check for the file:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w"> </span>/mnt/rootfs/config
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>When you are done, unmount the partition:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>umount<span class="w"> </span>/mnt/rootfs
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div></section>
+</section>
+<section id="if-you-have-kuiper-1">
+<h3>If You Have Kuiper 1<a class="headerlink" href="#if-you-have-kuiper-1" title="Link to this heading"></a></h3>
+<p>Kuiper 1 is deprecated and does not receive updates or support. We recommend
+rewriting your card with a current Kuiper 2 image:</p>
+<ol class="arabic simple">
+<li><p>Download a current image from the <a class="reference internal" href="releases.html"><span class="doc">releases</span></a> page.</p></li>
+<li><p>Rewrite the SD card by following <a class="reference internal" href="#use-kuiper-image-writing"><span class="std std-ref">Writing the Image to an SD Card</span></a> below. This
+overwrites everything on the card, replacing Kuiper 1 with Kuiper 2.</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
 <section id="extracting-the-image">
 <h2>Extracting the Image<a class="headerlink" href="#extracting-the-image" title="Link to this heading"></a></h2>
 <p>The build process produces a zip file in the <code class="docutils literal notranslate"><span class="pre">kuiper-volume/</span></code> directory.
 Extract it using:</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-number">Listing 1 </span><span class="caption-text">Extract the image</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-number">Listing 1 </span><span class="caption-text">Extract the image</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~/kuiper-volume$
 </pre></div>
 </div>
@@ -224,10 +324,10 @@ Extract it using:</p>
 </pre></div>
 </div>
 <div class="clear-left"></div></div></div></div>
-</section>
 <hr class="docutils" />
+</section>
 <section id="writing-the-image-to-an-sd-card">
-<h2>Writing the Image to an SD Card<a class="headerlink" href="#writing-the-image-to-an-sd-card" title="Link to this heading"></a></h2>
+<span id="use-kuiper-image-writing"></span><h2>Writing the Image to an SD Card<a class="headerlink" href="#writing-the-image-to-an-sd-card" title="Link to this heading"></a></h2>
 <section id="using-balena-etcher">
 <h3>Using Balena Etcher<a class="headerlink" href="#using-balena-etcher" title="Link to this heading"></a></h3>
 <p><a class="icon link reference external" href="https://www.balena.io/etcher/" target="_blank">Balena Etcher</a> provides a simple,
@@ -593,7 +693,7 @@ analog@192.168.1.100&#39;s password:
 <div class="clear-left"></div></div></div><p>Enter the password <code class="docutils literal notranslate"><span class="pre">analog</span></code> when prompted.</p>
 </section>
 <section id="vnc-access">
-<h3>VNC Access<a class="headerlink" href="#vnc-access" title="Link to this heading"></a></h3>
+<span id="use-kuiper-image-vnc"></span><h3>VNC Access<a class="headerlink" href="#vnc-access" title="Link to this heading"></a></h3>
 <p>If you built your image with <code class="docutils literal notranslate"><span class="pre">CONFIG_DESKTOP=y</span></code>, you can access the
 graphical environment via VNC:</p>
 <ol class="arabic">
@@ -697,7 +797,7 @@ carrier vendor documentation for full instructions.</p>
           </div>
               <div class="related">
                 &nbsp;
-    <a href="quick-start.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Quick Start</a>
+    <a href="releases.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Releases</a>
     <a href="hardware-configuration.html" title="Next document (Alt+Shift+RightArrow)" class="next">Hardware Configuration</a>
               </div>
           
