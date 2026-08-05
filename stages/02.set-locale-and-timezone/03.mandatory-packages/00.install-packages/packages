@@ -26,3 +26,4 @@ jq
 bsdextrautils
 python3-pip
 cloud-guest-utils
+gpiod
