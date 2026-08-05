@@ -514,7 +514,8 @@ overlays.
 Method 1: Persistent Configuration
 +++++++++++++++++++++++++++++++++++
 
-Edit ``/boot/config.txt`` to automatically load overlays on every boot.
+:ref:`Edit <editors>` ``/boot/config.txt`` to automatically load overlays on
+every boot.
 
 #. Open the configuration file and add a new line with your overlay:
 

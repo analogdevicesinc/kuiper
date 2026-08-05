@@ -545,3 +545,21 @@ To persistently change the MAC address will depend on your carrier, you may be
 able through ``/boot/uEnv.txt`` by adding ``ethaddr=<new-mac-address>``, or
 through Linux through manipulating ``/etc/network/interfaces``. Check the
 carrier vendor documentation for full instructions.
+
+.. _editors:
+
+Using text editors
+------------------
+
+Kuiper images include the `nano <https://www.nano-editor.org/>`__ and
+`vim <https://www.vim.org/>`__ text editors by default.
+
+If you are new to command-line editors, these introductory guides may help:
+
+- nano: `Getting started with Nano - Red Hat <https://www.redhat.com/en/blog/getting-started-nano>`__
+- vim: `Linux basics: A beginner's guide to text editing with vim - Red Hat <https://www.redhat.com/en/blog/beginners-guide-vim>`__
+
+When using Kuiper with a display, you can also
+:ref:`install <package-management-kuiper>` a graphical editor, such as
+`gedit <https://gedit-text-editor.org/>`__, for a more familiar text editing
+experience.
