@@ -148,6 +148,7 @@ Documentation
    quick-start
    releases
    use-kuiper-image
+   networking
    hardware-configuration
 
 .. toctree::
