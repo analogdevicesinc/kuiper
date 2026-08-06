@@ -406,7 +406,9 @@ it. This is the most reliable access method for initial setup.
 SSH Access
 ~~~~~~~~~~
 
-If your device is connected to a network, you can access it via SSH.
+If your device is connected to a network, you can access it via SSH. For
+configuring the network itself — including connecting the board directly to a
+PC, or assigning a static address — see :doc:`Networking <networking>`.
 
 First, find your device's IP address. If you have console access:
 
@@ -524,27 +526,13 @@ see device information.
 Customizing Hostname and MAC Address
 -------------------------------------
 
-Changing the Hostname
-~~~~~~~~~~~~~~~~~~~~~~
+By default, the hostname is ``analog`` for every Kuiper image (unless
+customized at build time). If you have multiple devices on the same network
+with the same hostname, mDNS/Avahi won't work properly.
 
-By default, the hostname is ``analog`` for every Kuiper image (unless customized
-at build time). If you have multiple devices on the same network with the same
-hostname, mDNS/Avahi won't work properly.
-
-To set a new, unique hostname:
-
-.. shell::
-
-   $hostnamectl set-hostname analog-my-device
-   $systemctl restart avahi-daemon
-
-Changing MAC Address
-~~~~~~~~~~~~~~~~~~~~~
-
-To persistently change the MAC address will depend on your carrier, you may be
-able through ``/boot/uEnv.txt`` by adding ``ethaddr=<new-mac-address>``, or
-through Linux through manipulating ``/etc/network/interfaces``. Check the
-carrier vendor documentation for full instructions.
+See :ref:`Hostname and Network Discovery <networking-hostname>` for how to
+change the hostname on a running system or at build time, and for changing the
+MAC address.
 
 .. _editors:
 
