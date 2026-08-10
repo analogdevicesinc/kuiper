@@ -114,8 +114,6 @@
 </li>
 <li><a class="reference internal" href="#accessing-iio-devices-over-the-network">Accessing IIO Devices over the Network</a></li>
 <li><a class="reference internal" href="#securing-network-access">Securing Network Access</a></li>
-<li><a class="reference internal" href="#troubleshooting-network-issues">Troubleshooting Network Issues</a></li>
-<li><a class="reference internal" href="#other-issues">Other Issues</a></li>
 </ul>
 </li>
 </ul>
@@ -283,8 +281,7 @@ and power it on; it will request an address automatically.</p>
 </pre></div>
 </div>
 <div class="clear-left"></div></div></div><p>An address in the <code class="docutils literal notranslate"><span class="pre">169.254.x.x</span></code> range means DHCP did not answer and the
-link-local fallback took over — see <a class="reference internal" href="#networking-direct"><span class="std std-ref">Connecting Directly to a PC</span></a> if that was
-intentional, or <a class="reference internal" href="#networking-troubleshooting"><span class="std std-ref">Troubleshooting Network Issues</span></a> if it was not.</p>
+link-local fallback took over — see <a class="reference internal" href="#networking-direct"><span class="std std-ref">Connecting Directly to a PC</span></a>.</p>
 <p>You can also inspect the connection through NetworkManager:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
@@ -620,78 +617,6 @@ with the password <code class="docutils literal notranslate"><span class="pre">a
 <div class="clear-left"></div></div></div><p>For a board that must be exposed more widely, also consider disabling password
 authentication in favor of SSH keys, and setting <code class="docutils literal notranslate"><span class="pre">PermitRootLogin</span> <span class="pre">no</span></code> in
 <code class="docutils literal notranslate"><span class="pre">/etc/ssh/sshd_config</span></code>.</p>
-<hr class="docutils" />
-</section>
-<section id="troubleshooting-network-issues">
-<span id="networking-troubleshooting"></span><h2>Troubleshooting Network Issues<a class="headerlink" href="#troubleshooting-network-issues" title="Link to this heading"></a></h2>
-<p><strong>The board has a 169.254.x.x address but should have a DHCP lease</strong></p>
-<p>The DHCP profile timed out after 5 seconds. Check that the cable is seated and
-the link is up (<code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">link</span> <span class="pre">show</span> <span class="pre">eth0</span></code> should report <code class="docutils literal notranslate"><span class="pre">LOWER_UP</span></code>), then retry:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">&quot;Wired connection 1&quot;</span>
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p>If the switch port is slow to come up — managed switches running spanning tree
-often are — the 5-second timeout may simply be too short. Raise it:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">&quot;Wired connection 1&quot;</span><span class="w"> </span>ipv4.dhcp-timeout<span class="w"> </span><span class="m">30</span>
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p><strong>The board has no address at all</strong></p>
-<p>Confirm the interface exists and NetworkManager is managing it:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nmcli<span class="w"> </span>device<span class="w"> </span>status
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p>A device in <code class="docutils literal notranslate"><span class="pre">unmanaged</span></code> state is not under NetworkManager’s control. A
-missing <code class="docutils literal notranslate"><span class="pre">eth0</span></code> points at the hardware or the device tree rather than the
-network configuration — check <a class="reference internal" href="hardware-configuration.html"><span class="doc">Hardware Configuration</span></a>.</p>
-<p><strong>analog.local does not resolve</strong></p>
-<p>Verify the mDNS responder is running on the board:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>avahi-daemon
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p>Then confirm the client machine can resolve mDNS at all. Windows needs Bonjour
-installed (it ships with iTunes); most Linux distributions need
-<code class="docutils literal notranslate"><span class="pre">libnss-mdns</span></code>. If two boards share the hostname <code class="docutils literal notranslate"><span class="pre">analog</span></code>, rename one — see
-<a class="reference internal" href="#networking-hostname"><span class="std std-ref">Hostname and Network Discovery</span></a>. As a fallback, connect by IP address.</p>
-<p><strong>SSH connection refused</strong></p>
-<p>If the address is right and the board is up, check the service:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>ssh
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p><strong>Host key verification failed</strong></p>
-<p>Expected after reflashing a board or reusing an address — the key changed.
-Remove the stale entry on the client:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen<span class="w"> </span>-R<span class="w"> </span><span class="m">192</span>.168.1.100
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p><strong>Static IP settings did not survive a reboot</strong></p>
-<p>Settings applied with <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">addr</span> <span class="pre">add</span></code> are not persistent, and neither are
-edits to <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code>. Use <code class="docutils literal notranslate"><span class="pre">nmcli</span> <span class="pre">connection</span> <span class="pre">modify</span></code> as shown
-in <a class="reference internal" href="#networking-static-ip"><span class="std std-ref">Setting a Static IP Address</span></a>.</p>
-</section>
-<hr class="docutils" />
-<section id="other-issues">
-<h2>Other Issues<a class="headerlink" href="#other-issues" title="Link to this heading"></a></h2>
-<p>For network issues not covered here, please check the
-<a class="icon git reference external" href="https://github.com/analogdevicesinc/kuiper/issues" target="_blank">GitHub Issues</a>
-page or open a new issue with details about your problem.</p>
 </section>
 </section>
 

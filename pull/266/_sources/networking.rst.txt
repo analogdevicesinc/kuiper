@@ -100,8 +100,7 @@ To check the address the board received:
         inet 192.168.1.100/24 brd 192.168.1.255 scope global eth0
 
 An address in the ``169.254.x.x`` range means DHCP did not answer and the
-link-local fallback took over — see :ref:`networking-direct` if that was
-intentional, or :ref:`networking-troubleshooting` if it was not.
+link-local fallback took over — see :ref:`networking-direct`.
 
 You can also inspect the connection through NetworkManager:
 
@@ -416,84 +415,3 @@ Regenerate the SSH host keys so the board has its own identity:
 For a board that must be exposed more widely, also consider disabling password
 authentication in favor of SSH keys, and setting ``PermitRootLogin no`` in
 ``/etc/ssh/sshd_config``.
-
-----
-
-.. _networking-troubleshooting:
-
-Troubleshooting Network Issues
-------------------------------
-
-**The board has a 169.254.x.x address but should have a DHCP lease**
-
-The DHCP profile timed out after 5 seconds. Check that the cable is seated and
-the link is up (``ip link show eth0`` should report ``LOWER_UP``), then retry:
-
-.. shell::
-
-   $sudo nmcli connection up "Wired connection 1"
-
-If the switch port is slow to come up — managed switches running spanning tree
-often are — the 5-second timeout may simply be too short. Raise it:
-
-.. shell::
-
-   $sudo nmcli connection modify "Wired connection 1" ipv4.dhcp-timeout 30
-
-**The board has no address at all**
-
-Confirm the interface exists and NetworkManager is managing it:
-
-.. shell::
-
-   $nmcli device status
-
-A device in ``unmanaged`` state is not under NetworkManager's control. A
-missing ``eth0`` points at the hardware or the device tree rather than the
-network configuration — check :doc:`Hardware Configuration
-<hardware-configuration>`.
-
-**analog.local does not resolve**
-
-Verify the mDNS responder is running on the board:
-
-.. shell::
-
-   $systemctl status avahi-daemon
-
-Then confirm the client machine can resolve mDNS at all. Windows needs Bonjour
-installed (it ships with iTunes); most Linux distributions need
-``libnss-mdns``. If two boards share the hostname ``analog``, rename one — see
-:ref:`networking-hostname`. As a fallback, connect by IP address.
-
-**SSH connection refused**
-
-If the address is right and the board is up, check the service:
-
-.. shell::
-
-   $systemctl status ssh
-
-**Host key verification failed**
-
-Expected after reflashing a board or reusing an address — the key changed.
-Remove the stale entry on the client:
-
-.. shell::
-
-   $ssh-keygen -R 192.168.1.100
-
-**Static IP settings did not survive a reboot**
-
-Settings applied with ``ip addr add`` are not persistent, and neither are
-edits to ``/etc/network/interfaces``. Use ``nmcli connection modify`` as shown
-in :ref:`networking-static-ip`.
-
-----
-
-Other Issues
-------------
-
-For network issues not covered here, please check the
-:git-kuiper:`GitHub Issues <issues+>`
-page or open a new issue with details about your problem.
