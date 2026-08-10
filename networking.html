@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Configure Ethernet, static IP addresses and Wi-Fi on Kuiper, and reach your board over the network" name="description" />
+
+    <title>Networking &#8212; Kuiper  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=cae2157c" />
+    <script async="async" src="_static/app.umd.js?v=26d0298f"></script>
+    <link rel="icon" href="_static/icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Hardware Configuration" href="hardware-configuration.html" />
+    <link rel="prev" title="Using Kuiper Images" href="use-kuiper-image.html" />
+   
+  
+  
+  
+  <meta name="repository" content="kuiper">
+  <meta name="version" content="latest">
+  
+    <meta name="page_source_suffix" content=".rst">
+  
+  
+  
+
+
+<style>
+  body {
+    
+  }
+
+  body.dark {
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light) {
+      
+    }
+  }
+</style>
+  </head>
+  
+    <body>
+  
+  <input type="checkbox" id="input-show-toc">
+  <input type="checkbox" id="input-show-localtoc">
+  <input type="checkbox" id="input-show-repotoc">
+
+  
+  <div class="search-area">
+    <form action="" method="get">
+      <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="search" placeholder="Search"/>
+      <button class="icon"></button>
+    </form>
+  </div>
+  
+
+  <header>
+    <div id="left">
+      <label id="show-sidebar" class="icon" for="input-show-toc" title="Show/hide index"></label>
+    </div>
+    <div id="right">
+      <span>
+        <a id="logo-org" href="https://developer.analog.com/" aria-label="Analog Devices Inc. landing page"></a>
+        <div class="vertical-divider"></div>
+        
+        <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs">Documentation</label>
+        
+        <a id="logo" href="index.html">
+          <div>Kuiper</div>
+        </a>
+      </span>
+      <span class="reverse">
+        <label id="show-localtoc" class="icon" for="input-show-localtoc" title="Show/hide contents"></label>
+      </span>
+    </div>
+  </header>
+
+
+  <div class="repotoc-tree overlay">
+    <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+  </div>
+    <div class="localtoc">
+      <div class="tocwrapper">
+        <div class="header localtoc-header">
+          <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
+        </div>
+        <nav>
+          <ul>
+<li><a class="reference internal" href="#">Networking</a><ul>
+<li><a class="reference internal" href="#how-kuiper-configures-the-network">How Kuiper Configures the Network</a></li>
+<li><a class="reference internal" href="#connecting-to-a-network-with-dhcp">Connecting to a Network with DHCP</a><ul>
+<li><a class="reference internal" href="#requesting-a-new-address">Requesting a New Address</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#connecting-directly-to-a-pc">Connecting Directly to a PC</a></li>
+<li><a class="reference internal" href="#setting-a-static-ip-address">Setting a Static IP Address</a><ul>
+<li><a class="reference internal" href="#reverting-to-dhcp">Reverting to DHCP</a></li>
+<li><a class="reference internal" href="#using-the-adi-helper-scripts">Using the ADI Helper Scripts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#connecting-to-wi-fi">Connecting to Wi-Fi</a></li>
+<li><a class="reference internal" href="#hostname-and-network-discovery">Hostname and Network Discovery</a><ul>
+<li><a class="reference internal" href="#changing-the-hostname">Changing the Hostname</a></li>
+<li><a class="reference internal" href="#changing-the-mac-address">Changing the MAC Address</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#accessing-iio-devices-over-the-network">Accessing IIO Devices over the Network</a></li>
+<li><a class="reference internal" href="#securing-network-access">Securing Network Access</a></li>
+</ul>
+</li>
+</ul>
+
+        </nav>
+      </div>
+    </div>
+
+  
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+    <a id="logo" href="index.html">
+      <img class="only-light" src="_static/logo_light.png"/>
+      <img class="only-dark" src="_static/logo_dark.png"/>
+    </a><input id="input-switch-toc" type="checkbox">
+<label id="show-repotoc" for="input-switch-toc">
+All content
+</label>
+<label id="show-toc" for="input-switch-toc">
+Content on this topic
+</label>
+<div class="repotoc-tree">
+  <root>
+  <a href="./index.html" class="current">Kuiper</a>
+</root>
+
+</div>
+<div class="toc-tree">
+  <p class="caption" role="heading">
+  <span class="caption-text">Getting Started</span>
+</p>
+
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use-kuiper-image.html">Using Kuiper Images</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware-configuration.html">Hardware Configuration</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Configuration &amp; Building</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Advanced Topics</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="package-management.html">Package Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Advanced Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
+</ul>
+
+<p class="caption" role="heading">
+  <span class="caption-text">Reference</span>
+</p>
+
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+
+
+</div>
+        </div>
+      </div>
+
+  <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper" id="top-anchor">
+          <div class="body-header">
+  <nav class="breadcrumb empty"><ol></ol></nav>
+</div>
+          <div class="body" role="main">
+            
+  <section id="networking">
+<span id="id1"></span><h1>Networking<a class="headerlink" href="#networking" title="Link to this heading"></a></h1>
+<p>Kuiper is configured to get your board on the network without any setup: plug
+in an Ethernet cable and the board acquires an address, either from your
+network or by negotiating one directly with the computer at the other end of
+the cable.</p>
+<p>This page explains what that default configuration does, and how to change it
+when you need a fixed address, a Wi-Fi connection, or access to IIO devices
+from another machine.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the first-boot walkthrough of logging in over serial, SSH or VNC, see
+<a class="reference internal" href="use-kuiper-image.html#use-kuiper-image"><span class="std std-ref">Accessing Your Kuiper System</span></a>. This page covers
+configuring the network itself.</p>
+</div>
+<hr class="docutils" />
+<section id="how-kuiper-configures-the-network">
+<span id="networking-defaults"></span><h2>How Kuiper Configures the Network<a class="headerlink" href="#how-kuiper-configures-the-network" title="Link to this heading"></a></h2>
+<p>Kuiper manages network interfaces with <a class="icon link reference external" href="https://networkmanager.dev/" target="_blank">NetworkManager</a>. The image ships two connection profiles for
+the Ethernet port, and NetworkManager picks between them automatically:</p>
+<div class="table-wrapper bold-header docutils container">
+<table class="bold-header docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Profile</p></th>
+<th class="head"><p>Priority</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Wired</span> <span class="pre">connection</span> <span class="pre">1</span></code></p></td>
+<td><p>10</p></td>
+<td><p>Requests an address over DHCP, waiting up to 5 seconds for a reply</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">eth0-linklocal</span></code></p></td>
+<td><p>5</p></td>
+<td><p>Assigns a link-local address in the <code class="docutils literal notranslate"><span class="pre">169.254.x.x</span></code> range</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The higher-priority DHCP profile is tried first. If no DHCP server answers
+within 5 seconds — which is what happens when the board is cabled straight to
+a PC — NetworkManager falls back to the link-local profile. <strong>You do not need
+to configure anything for a direct board-to-PC connection.</strong></p>
+<p>Both profiles live in <code class="docutils literal notranslate"><span class="pre">/etc/NetworkManager/system-connections/</span></code> on the
+running system.</p>
+<p>A few other defaults are worth knowing:</p>
+<dl class="simple">
+<dt><strong>Interface names are predictable-name-free</strong></dt><dd><p>Kuiper disables systemd’s predictable interface naming, so the ports use
+the classic kernel names <code class="docutils literal notranslate"><span class="pre">eth0</span></code>, <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> and <code class="docutils literal notranslate"><span class="pre">usb0</span></code> rather than names
+like <code class="docutils literal notranslate"><span class="pre">enx00044b</span></code> or <code class="docutils literal notranslate"><span class="pre">end0</span></code>. Both shipped profiles are bound to <code class="docutils literal notranslate"><span class="pre">eth0</span></code>
+by name.</p>
+</dd>
+<dt><strong>IPv6 is disabled</strong></dt><dd><p>Both Ethernet profiles set <code class="docutils literal notranslate"><span class="pre">method=disabled</span></code> for IPv6. Kuiper is reachable
+over IPv4 only unless you enable IPv6 yourself.</p>
+</dd>
+<dt><strong>The board is discoverable as</strong> <code class="docutils literal notranslate"><span class="pre">analog.local</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">avahi-daemon</span></code> and <code class="docutils literal notranslate"><span class="pre">libnss-mdns</span></code> are installed, so the board advertises
+itself over mDNS using its hostname. See <a class="reference internal" href="#networking-hostname"><span class="std std-ref">Hostname and Network Discovery</span></a>.</p>
+</dd>
+<dt><strong>SSH is enabled and starts at boot</strong></dt><dd><p><code class="docutils literal notranslate"><span class="pre">openssh-server</span></code> is part of every image, including Basic builds. Review
+<a class="reference internal" href="#networking-security"><span class="std std-ref">Securing Network Access</span></a> before putting a board on an untrusted network.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Wi-Fi is not part of this default configuration. Only the Ethernet port is
+preconfigured — see <a class="reference internal" href="#networking-wifi"><span class="std std-ref">Connecting to Wi-Fi</span></a> to connect wirelessly.</p>
+</div>
+<hr class="docutils" />
+</section>
+<section id="connecting-to-a-network-with-dhcp">
+<span id="networking-dhcp"></span><h2>Connecting to a Network with DHCP<a class="headerlink" href="#connecting-to-a-network-with-dhcp" title="Link to this heading"></a></h2>
+<p>This is the default. Connect the board’s Ethernet port to a router or switch
+and power it on; it will request an address automatically.</p>
+<p>To check the address the board received:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>eth0
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP
+    inet 192.168.1.100/24 brd 192.168.1.255 scope global eth0
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>An address in the <code class="docutils literal notranslate"><span class="pre">169.254.x.x</span></code> range means DHCP did not answer and the
+link-local fallback took over — see <a class="reference internal" href="#networking-direct"><span class="std std-ref">Connecting Directly to a PC</span></a>.</p>
+<p>You can also inspect the connection through NetworkManager:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nmcli<span class="w"> </span>device<span class="w"> </span>status
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>DEVICE  TYPE      STATE                   CONNECTION
+eth0    ethernet  connected               Wired connection 1
+lo      loopback  connected (externally)  lo
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>The <code class="docutils literal notranslate"><span class="pre">CONNECTION</span></code> column tells you which profile is active.</p>
+<section id="requesting-a-new-address">
+<h3>Requesting a New Address<a class="headerlink" href="#requesting-a-new-address" title="Link to this heading"></a></h3>
+<p>If you need the board to request a fresh lease — after moving it to a
+different network, for example — bring the connection down and back up:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>down<span class="w"> </span><span class="s2">&quot;Wired connection 1&quot;</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">&quot;Wired connection 1&quot;</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Older ADI documentation suggests <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dhclient</span> <span class="pre">-r</span> <span class="pre">eth0</span></code> for this.
+Kuiper does not use <code class="docutils literal notranslate"><span class="pre">dhclient</span></code>; use the <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> commands above.</p>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+<section id="connecting-directly-to-a-pc">
+<span id="networking-direct"></span><h2>Connecting Directly to a PC<a class="headerlink" href="#connecting-directly-to-a-pc" title="Link to this heading"></a></h2>
+<p>To connect the board straight to a computer with a single Ethernet cable, with
+no router or switch in between, just plug the cable in. Kuiper handles the rest.</p>
+<p>Because no DHCP server responds, the DHCP profile times out after 5 seconds
+and NetworkManager activates the <code class="docutils literal notranslate"><span class="pre">eth0-linklocal</span></code> profile, giving the board
+an address in the <code class="docutils literal notranslate"><span class="pre">169.254.x.x</span></code> range. Every modern operating system does the
+same on an unconfigured wired interface, so the two ends land on the same
+link-local network and can reach each other.</p>
+<p>Allow roughly 10 seconds after connecting the cable for the fallback to
+happen, then confirm the address on the board:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>eth0
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP
+    inet 169.254.8.21/16 brd 169.254.255.255 scope link eth0
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>From the PC, reach the board by hostname rather than by address — the
+link-local address is negotiated at random and changes:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>analog@analog.local
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>On the PC side, make sure the wired interface is set to obtain an address
+automatically (its normal default). If you previously gave it a static
+address for an older Kuiper release, set it back to automatic — otherwise
+it will not join the link-local network.</p>
+</div>
+<p>Setting a static IP address on both ends, as required by earlier Kuiper
+versions, is no longer necessary for a direct connection.</p>
+<hr class="docutils" />
+</section>
+<section id="setting-a-static-ip-address">
+<span id="networking-static-ip"></span><h2>Setting a Static IP Address<a class="headerlink" href="#setting-a-static-ip-address" title="Link to this heading"></a></h2>
+<p>A fixed address is useful when a board must stay reachable at a known location
+— in an automated test rack, or when a client application has an address
+compiled into it.</p>
+<p>There are two ways to do this. <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> is the general method and is shown
+first; if you have used Kuiper before, the ADI helper scripts described in
+<a class="reference internal" href="#networking-static-ip-scripts"><span class="std std-ref">Using the ADI Helper Scripts</span></a> do the same job in a single command.</p>
+<p>Set a static address on the default wired profile:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">&quot;Wired connection 1&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>ipv4.method<span class="w"> </span>manual<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>ipv4.addresses<span class="w"> </span><span class="m">192</span>.168.1.50/24<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>ipv4.gateway<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>ipv4.dns<span class="w"> </span><span class="s2">&quot;8.8.8.8 8.8.4.4&quot;</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">&quot;Wired connection 1&quot;</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Adjust the address, gateway and DNS servers to match your network. The <code class="docutils literal notranslate"><span class="pre">/24</span></code>
+suffix is the subnet prefix length, equivalent to a <code class="docutils literal notranslate"><span class="pre">255.255.255.0</span></code> netmask.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Omit <code class="docutils literal notranslate"><span class="pre">ipv4.gateway</span></code> and <code class="docutils literal notranslate"><span class="pre">ipv4.dns</span></code> for an isolated point-to-point link
+with no route to the wider network. Setting a gateway that does not exist
+will make the board slow to resolve names.</p>
+</div>
+<p>Verify the result:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>eth0
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP
+    inet 192.168.1.50/24 brd 192.168.1.255 scope global eth0
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>The setting is written to the profile and survives reboots.</p>
+<section id="reverting-to-dhcp">
+<h3>Reverting to DHCP<a class="headerlink" href="#reverting-to-dhcp" title="Link to this heading"></a></h3>
+<p>To hand addressing back to the network:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">&quot;Wired connection 1&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>ipv4.method<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>ipv4.gateway<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>ipv4.addresses<span class="w"> </span><span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">&quot;Wired connection 1&quot;</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Clearing <code class="docutils literal notranslate"><span class="pre">ipv4.addresses</span></code> and <code class="docutils literal notranslate"><span class="pre">ipv4.gateway</span></code> matters — a leftover static
+address stays configured alongside the DHCP lease.</p>
+</section>
+<section id="using-the-adi-helper-scripts">
+<span id="networking-static-ip-scripts"></span><h3>Using the ADI Helper Scripts<a class="headerlink" href="#using-the-adi-helper-scripts" title="Link to this heading"></a></h3>
+<p>Kuiper images include two scripts that wrap the same configuration in a single
+command. They come from the <code class="docutils literal notranslate"><span class="pre">adi-scripts</span></code> package and have been part of
+Kuiper for a long time, so you may already be using them.</p>
+<p>To set a static address:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>enable_static_ip.sh<span class="w"> </span><span class="m">192</span>.168.0.101<span class="w"> </span>eth0
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Both arguments are optional: the address defaults to <code class="docutils literal notranslate"><span class="pre">192.168.0.101</span></code> and the
+interface to <code class="docutils literal notranslate"><span class="pre">eth0</span></code>. The netmask is always <code class="docutils literal notranslate"><span class="pre">255.255.255.0</span></code>, and no gateway
+or DNS server is configured — the scripts are aimed at point-to-point links
+rather than at joining a routed network.</p>
+<p>To hand addressing back to DHCP:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>enable_dhcp.sh
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These scripts write <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code> and set <code class="docutils literal notranslate"><span class="pre">managed=true</span></code>
+for NetworkManager’s ifupdown plugin, which takes <code class="docutils literal notranslate"><span class="pre">eth0</span></code> over from the
+shipped profiles — the DHCP and link-local fallback described in
+<a class="reference internal" href="#networking-defaults"><span class="std std-ref">How Kuiper Configures the Network</span></a> no longer apply until you run
+<code class="docutils literal notranslate"><span class="pre">enable_dhcp.sh</span></code>.</p>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> instead when you need a gateway, DNS servers, a netmask other
+than <code class="docutils literal notranslate"><span class="pre">/24</span></code>, or want to keep the shipped profiles in charge of the interface.</p>
+<hr class="docutils" />
+</section>
+</section>
+<section id="connecting-to-wi-fi">
+<span id="networking-wifi"></span><h2>Connecting to Wi-Fi<a class="headerlink" href="#connecting-to-wi-fi" title="Link to this heading"></a></h2>
+<p>Wi-Fi is not configured by default and support depends on your build:</p>
+<ul class="simple">
+<li><p><strong>Raspberry Pi images</strong> (<code class="docutils literal notranslate"><span class="pre">CONFIG_RPI_BOOT_FILES=y</span></code>, the default) include
+the Broadcom Wi-Fi firmware and <code class="docutils literal notranslate"><span class="pre">wpasupplicant</span></code>, so the onboard adapter
+works.</p></li>
+<li><p><strong>Desktop images</strong> (<code class="docutils literal notranslate"><span class="pre">CONFIG_DESKTOP=y</span></code>) additionally include the
+NetworkManager applet, letting you connect from the XFCE panel.</p></li>
+<li><p><strong>Other platforms</strong> need a supported USB Wi-Fi adapter and its firmware.</p></li>
+</ul>
+<p>Confirm the adapter was detected:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nmcli<span class="w"> </span>device<span class="w"> </span>status
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>DEVICE  TYPE      STATE         CONNECTION
+eth0    ethernet  connected     Wired connection 1
+wlan0   wifi      disconnected  --
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>If no <code class="docutils literal notranslate"><span class="pre">wifi</span></code> device is listed, the adapter or its firmware is missing rather
+than misconfigured.</p>
+<p>Scan for networks and connect:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>list
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>connect<span class="w"> </span><span class="s2">&quot;MyNetwork&quot;</span><span class="w"> </span>password<span class="w"> </span><span class="s2">&quot;MyPassword&quot;</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>The connection is saved as a new profile and reconnects automatically at boot.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some regions require a regulatory domain before the adapter will use all
+available channels. Kuiper does not set one. If networks are missing from
+the scan, set your country code with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">iw</span> <span class="pre">reg</span> <span class="pre">set</span> <span class="pre">&lt;code&gt;</span></code> (for
+example <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">iw</span> <span class="pre">reg</span> <span class="pre">set</span> <span class="pre">US</span></code>).</p>
+</div>
+<hr class="docutils" />
+</section>
+<section id="hostname-and-network-discovery">
+<span id="networking-hostname"></span><h2>Hostname and Network Discovery<a class="headerlink" href="#hostname-and-network-discovery" title="Link to this heading"></a></h2>
+<p>Every Kuiper image uses the hostname <code class="docutils literal notranslate"><span class="pre">analog</span></code> unless you change it, and
+advertises itself over mDNS at <code class="docutils literal notranslate"><span class="pre">&lt;hostname&gt;.local</span></code>. That is what makes
+<code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">analog&#64;analog.local</span></code> work without knowing the IP address.</p>
+<p>To look up the address behind the name from another machine:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>avahi-resolve-host-name<span class="w"> </span>-4<span class="w"> </span>analog.local
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>analog.local      192.168.1.100
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Two boards with the same hostname on one network will collide, and mDNS
+resolution becomes unreliable — you cannot predict which board answers.
+Give each board a unique hostname when running more than one.</p>
+</div>
+<section id="changing-the-hostname">
+<h3>Changing the Hostname<a class="headerlink" href="#changing-the-hostname" title="Link to this heading"></a></h3>
+<p>On a running system:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>analog-my-device
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>avahi-daemon
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>The board is then reachable at <code class="docutils literal notranslate"><span class="pre">analog-my-device.local</span></code>.</p>
+<p>To bake the hostname into the image instead, set <code class="docutils literal notranslate"><span class="pre">HOSTNAME</span></code> in the
+<a class="reference internal" href="configuration.html"><span class="doc">config file</span></a> before building. This is the better option
+when provisioning several boards at once.</p>
+</section>
+<section id="changing-the-mac-address">
+<h3>Changing the MAC Address<a class="headerlink" href="#changing-the-mac-address" title="Link to this heading"></a></h3>
+<p>How to persistently change the MAC address depends on your carrier. You may be
+able to set it through <code class="docutils literal notranslate"><span class="pre">/boot/uEnv.txt</span></code> by adding
+<code class="docutils literal notranslate"><span class="pre">ethaddr=&lt;new-mac-address&gt;</span></code>. Check the carrier vendor documentation for full
+instructions.</p>
+<hr class="docutils" />
+</section>
+</section>
+<section id="accessing-iio-devices-over-the-network">
+<span id="networking-iio"></span><h2>Accessing IIO Devices over the Network<a class="headerlink" href="#accessing-iio-devices-over-the-network" title="Link to this heading"></a></h2>
+<p>Images built with <code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO=y</span></code> include <code class="docutils literal notranslate"><span class="pre">iiod</span></code>, the IIO daemon. It
+serves the board’s IIO devices over TCP port <strong>30431</strong>, so tools running on
+another machine can reach hardware attached to the board.</p>
+<p>From a remote machine with libiio installed, pass the board’s address with
+<code class="docutils literal notranslate"><span class="pre">-n</span></code>:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iio_info<span class="w"> </span>-n<span class="w"> </span><span class="m">192</span>.168.1.100<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>Library version: 0.26 (git tag: ba74e6c)
+IIO context created with network backend.
+Backend description string: 192.168.1.100 Linux analog 6.6.63-v8-16k+
+IIO context has 5 attributes:
+  hw_carrier: Raspberry Pi 5 Model B Rev 1.0
+  uri: ip:192.168.1.100
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>The hostname works here too, which is more convenient on a link-local direct
+connection where the address is unpredictable:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>iio_info<span class="w"> </span>-u<span class="w"> </span>ip:analog.local
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Applications that accept a libiio URI — IIO Oscilloscope, Scopy, pyadi-iio —
+take the same <code class="docutils literal notranslate"><span class="pre">ip:</span></code> form:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ip:192.168.1.100
+ip:analog.local
+</pre></div>
+</div>
+<p>If the connection is refused, check that the daemon is running on the board:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>iiod
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">iiod</span></code> accepts connections from anywhere on the network without
+authentication. Keep boards serving IIO devices on trusted networks.</p>
+</div>
+<hr class="docutils" />
+</section>
+<section id="securing-network-access">
+<span id="networking-security"></span><h2>Securing Network Access<a class="headerlink" href="#securing-network-access" title="Link to this heading"></a></h2>
+<p>Kuiper’s defaults favor getting a board reachable quickly, which is the right
+trade-off on a lab bench and the wrong one on an untrusted network. Before
+connecting a board to the internet or a shared network, be aware that:</p>
+<ul class="simple">
+<li><p><strong>The default credentials are published.</strong> Both <code class="docutils literal notranslate"><span class="pre">analog</span></code> and <code class="docutils literal notranslate"><span class="pre">root</span></code> use
+the password <code class="docutils literal notranslate"><span class="pre">analog</span></code>, and SSH accepts password authentication.</p></li>
+<li><p><strong>Root can log in directly over SSH.</strong> Kuiper sets <code class="docutils literal notranslate"><span class="pre">PermitRootLogin</span> <span class="pre">yes</span></code>.</p></li>
+<li><p><strong>SSH host keys are built into the image.</strong> Every board flashed from the same
+image shares them, so host-key verification cannot distinguish one board from
+another.</p></li>
+<li><p><strong>VNC is exposed on all interfaces.</strong> Desktop images run x11vnc on port 5900
+with the password <code class="docutils literal notranslate"><span class="pre">analog</span></code>.</p></li>
+</ul>
+<p>At minimum, change the password on first boot:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>passwd
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>To change it before the board ever boots, see
+<a class="reference internal" href="use-kuiper-image.html#login-change-on-disk"><span class="std std-ref">Change the password on disk</span></a>.</p>
+<p>Regenerate the SSH host keys so the board has its own identity:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>rm<span class="w"> </span>/etc/ssh/ssh_host_*
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dpkg-reconfigure<span class="w"> </span>openssh-server
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>For a board that must be exposed more widely, also consider disabling password
+authentication in favor of SSH keys, and setting <code class="docutils literal notranslate"><span class="pre">PermitRootLogin</span> <span class="pre">no</span></code> in
+<code class="docutils literal notranslate"><span class="pre">/etc/ssh/sshd_config</span></code>.</p>
+</section>
+</section>
+
+
+          </div>
+              <div class="related">
+                &nbsp;
+    <a href="use-kuiper-image.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Using Kuiper Images</a>
+    <a href="hardware-configuration.html" title="Next document (Alt+Shift+RightArrow)" class="next">Hardware Configuration</a>
+              </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <label id="cancel-area-show-toc" for="input-show-toc"></label>
+  <label id="cancel-area-show-localtoc" for="input-show-localtoc"></label>
+    <footer>
+      &#169;2025, Analog Devices, Inc.
+      
+      |
+      Made with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+      &amp; <a href="https://github.com/analogdevicesinc/doctools">Doctools</a>
+      
+    </footer>
+  </body>
+</html>
