@@ -182,11 +182,9 @@ A fixed address is useful when a board must stay reachable at a known location
 — in an automated test rack, or when a client application has an address
 compiled into it.
 
-.. important::
-
-   Configure static addressing with ``nmcli``, as shown below. Kuiper manages
-   the network with NetworkManager, so editing ``/etc/network/interfaces`` or
-   restarting the ``networking`` service has no effect — neither is used.
+There are two ways to do this. ``nmcli`` is the general method and is shown
+first; if you have used Kuiper before, the ADI helper scripts described in
+:ref:`networking-static-ip-scripts` do the same job in a single command.
 
 Set a static address on the default wired profile:
 
@@ -233,6 +231,45 @@ To hand addressing back to the network:
 
 Clearing ``ipv4.addresses`` and ``ipv4.gateway`` matters — a leftover static
 address stays configured alongside the DHCP lease.
+
+.. _networking-static-ip-scripts:
+
+Using the ADI Helper Scripts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Kuiper images include two scripts that wrap the same configuration in a single
+command. They come from the ``adi-scripts`` package and have been part of
+Kuiper for a long time, so you may already be using them.
+
+To set a static address:
+
+.. shell::
+
+   $sudo enable_static_ip.sh 192.168.0.101 eth0
+
+Both arguments are optional: the address defaults to ``192.168.0.101`` and the
+interface to ``eth0``. The netmask is always ``255.255.255.0``, and no gateway
+or DNS server is configured — the scripts are aimed at point-to-point links
+rather than at joining a routed network.
+
+To hand addressing back to DHCP:
+
+.. shell::
+
+   $sudo enable_dhcp.sh
+
+.. note::
+
+   These scripts write ``/etc/network/interfaces`` and set ``managed=true``
+   for NetworkManager's ifupdown plugin, which takes ``eth0`` over from the
+   shipped profiles — the DHCP and link-local fallback described in
+   :ref:`networking-defaults` no longer apply until you run
+   ``enable_dhcp.sh``. Both scripts end by restarting the ``networking``
+   service, which does not exist on Kuiper; the resulting error is harmless
+   and appears after the configuration has already been applied.
+
+Use ``nmcli`` instead when you need a gateway, DNS servers, a netmask other
+than ``/24``, or want to keep the shipped profiles in charge of the interface.
 
 ----
 

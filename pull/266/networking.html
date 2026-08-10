@@ -104,6 +104,7 @@
 <li><a class="reference internal" href="#connecting-directly-to-a-pc">Connecting Directly to a PC</a></li>
 <li><a class="reference internal" href="#setting-a-static-ip-address">Setting a Static IP Address</a><ul>
 <li><a class="reference internal" href="#reverting-to-dhcp">Reverting to DHCP</a></li>
+<li><a class="reference internal" href="#using-the-adi-helper-scripts">Using the ADI Helper Scripts</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#connecting-to-wi-fi">Connecting to Wi-Fi</a></li>
@@ -364,12 +365,9 @@ versions, is no longer necessary for a direct connection.</p>
 <p>A fixed address is useful when a board must stay reachable at a known location
 — in an automated test rack, or when a client application has an address
 compiled into it.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Configure static addressing with <code class="docutils literal notranslate"><span class="pre">nmcli</span></code>, as shown below. Kuiper manages
-the network with NetworkManager, so editing <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code> or
-restarting the <code class="docutils literal notranslate"><span class="pre">networking</span></code> service has no effect — neither is used.</p>
-</div>
+<p>There are two ways to do this. <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> is the general method and is shown
+first; if you have used Kuiper before, the ADI helper scripts described in
+<a class="reference internal" href="#networking-static-ip-scripts"><span class="std std-ref">Using the ADI Helper Scripts</span></a> do the same job in a single command.</p>
 <p>Set a static address on the default wired profile:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
@@ -427,6 +425,42 @@ will make the board slow to resolve names.</p>
 </div>
 <div class="clear-left"></div></div></div><p>Clearing <code class="docutils literal notranslate"><span class="pre">ipv4.addresses</span></code> and <code class="docutils literal notranslate"><span class="pre">ipv4.gateway</span></code> matters — a leftover static
 address stays configured alongside the DHCP lease.</p>
+</section>
+<section id="using-the-adi-helper-scripts">
+<span id="networking-static-ip-scripts"></span><h3>Using the ADI Helper Scripts<a class="headerlink" href="#using-the-adi-helper-scripts" title="Link to this heading"></a></h3>
+<p>Kuiper images include two scripts that wrap the same configuration in a single
+command. They come from the <code class="docutils literal notranslate"><span class="pre">adi-scripts</span></code> package and have been part of
+Kuiper for a long time, so you may already be using them.</p>
+<p>To set a static address:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>enable_static_ip.sh<span class="w"> </span><span class="m">192</span>.168.0.101<span class="w"> </span>eth0
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Both arguments are optional: the address defaults to <code class="docutils literal notranslate"><span class="pre">192.168.0.101</span></code> and the
+interface to <code class="docutils literal notranslate"><span class="pre">eth0</span></code>. The netmask is always <code class="docutils literal notranslate"><span class="pre">255.255.255.0</span></code>, and no gateway
+or DNS server is configured — the scripts are aimed at point-to-point links
+rather than at joining a routed network.</p>
+<p>To hand addressing back to DHCP:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>enable_dhcp.sh
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These scripts write <code class="docutils literal notranslate"><span class="pre">/etc/network/interfaces</span></code> and set <code class="docutils literal notranslate"><span class="pre">managed=true</span></code>
+for NetworkManager’s ifupdown plugin, which takes <code class="docutils literal notranslate"><span class="pre">eth0</span></code> over from the
+shipped profiles — the DHCP and link-local fallback described in
+<a class="reference internal" href="#networking-defaults"><span class="std std-ref">How Kuiper Configures the Network</span></a> no longer apply until you run
+<code class="docutils literal notranslate"><span class="pre">enable_dhcp.sh</span></code>. Both scripts end by restarting the <code class="docutils literal notranslate"><span class="pre">networking</span></code>
+service, which does not exist on Kuiper; the resulting error is harmless
+and appears after the configuration has already been applied.</p>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> instead when you need a gateway, DNS servers, a netmask other
+than <code class="docutils literal notranslate"><span class="pre">/24</span></code>, or want to keep the shipped profiles in charge of the interface.</p>
 <hr class="docutils" />
 </section>
 </section>
