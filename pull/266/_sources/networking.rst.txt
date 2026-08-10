@@ -264,9 +264,7 @@ To hand addressing back to DHCP:
    for NetworkManager's ifupdown plugin, which takes ``eth0`` over from the
    shipped profiles — the DHCP and link-local fallback described in
    :ref:`networking-defaults` no longer apply until you run
-   ``enable_dhcp.sh``. Both scripts end by restarting the ``networking``
-   service, which does not exist on Kuiper; the resulting error is harmless
-   and appears after the configuration has already been applied.
+   ``enable_dhcp.sh``.
 
 Use ``nmcli`` instead when you need a gateway, DNS servers, a netmask other
 than ``/24``, or want to keep the shipped profiles in charge of the interface.

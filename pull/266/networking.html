@@ -455,9 +455,7 @@ rather than at joining a routed network.</p>
 for NetworkManager’s ifupdown plugin, which takes <code class="docutils literal notranslate"><span class="pre">eth0</span></code> over from the
 shipped profiles — the DHCP and link-local fallback described in
 <a class="reference internal" href="#networking-defaults"><span class="std std-ref">How Kuiper Configures the Network</span></a> no longer apply until you run
-<code class="docutils literal notranslate"><span class="pre">enable_dhcp.sh</span></code>. Both scripts end by restarting the <code class="docutils literal notranslate"><span class="pre">networking</span></code>
-service, which does not exist on Kuiper; the resulting error is harmless
-and appears after the configuration has already been applied.</p>
+<code class="docutils literal notranslate"><span class="pre">enable_dhcp.sh</span></code>.</p>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> instead when you need a gateway, DNS servers, a netmask other
 than <code class="docutils literal notranslate"><span class="pre">/24</span></code>, or want to keep the shipped profiles in charge of the interface.</p>
