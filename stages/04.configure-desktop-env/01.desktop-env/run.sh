@@ -19,7 +19,7 @@ if [ "${CONFIG_DESKTOP}" = y ]; then
 
 chroot "${BUILD_DIR}" << EOF
 	# Remove unwanted packages
-	apt purge -y xiccd colord colord-data
+	apt purge -y xiccd colord colord-data ghostscript
 
 	# Enable autologin for analog user
 	sed -i "s/#autologin-user=/autologin-user=analog/g" /etc/lightdm/lightdm.conf
