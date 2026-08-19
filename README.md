@@ -4,7 +4,7 @@ Kuiper is a specialized Debian-based Linux distribution designed specifically fo
 
 Whether you're prototyping with an ADI evaluation board, developing embedded applications, or building software-defined radio solutions, Kuiper gives you a solid foundation to start immediately without the complexity of manual system configuration.
 
-📖 **[Complete Documentation](https://analogdevicesinc.github.io/kuiper/)** | 📥 **[Pre-built Images](https://github.com/analogdevicesinc/kuiper/actions/workflows/kuiper2_0-build.yml)** | 🐛 **[Issues](https://github.com/analogdevicesinc/kuiper/issues)** | 💬 **[Community](https://ez.analog.com/linux-software-drivers)**
+📖 **[Complete Documentation](https://analogdevicesinc.github.io/kuiper/)** | 📥 **[Pre-built Images](https://github.com/analogdevicesinc/kuiper/actions/workflows/kuiper2_0-build.yml?query=branch:main)** | 🐛 **[Issues](https://github.com/analogdevicesinc/kuiper/issues)** | 💬 **[Community](https://ez.analog.com/linux-software-drivers)**
 
 ## Quick Start
 
