@@ -42,13 +42,15 @@ EOF
 	mkdir "${BUILD_DIR}/pip-src"
 	mount --bind /kuiper-volume/sources/pip-src "${BUILD_DIR}/pip-src"
 
-# --format=freeze: install only one version of the package
-# --no-binary :all: : downloads only sources, not precompiled weels
+# pip inspect: lists installed packages as JSON, including who installed each one
+# installer=="pip": keeps only pip-installed packages, skipping apt's python3-* (debian) ones
+# name==version: pins the exact installed version of each package
+# --no-binary :all: : downloads only sources, not precompiled wheels
 # --no-deps: does not download dependencies
-# --no-build-isolation: avoid virtual environments
-# || true: ensures that the script continues running even if the pip command is not installed, a package has missing or broken dependencies, or if the required wheels cannot be found
 chroot "${BUILD_DIR}" << EOF
-	pip list --format=freeze | xargs -I {} /usr/bin/python3 -m pip download {} --no-binary :all: --no-deps --no-build-isolation -d /pip-src/ || true
+	/usr/bin/python3 -m pip inspect 2>/dev/null \
+	| /usr/bin/python3 -c 'import sys,json;[print(p["metadata"]["name"]+"=="+p["metadata"]["version"]) for p in json.load(sys.stdin)["installed"] if p.get("installer")=="pip"]' \
+	| while read -r p; do /usr/bin/python3 -m pip download "\$p" --no-binary :all: --no-deps -d pip-src/; done
 EOF
 
 	umount "${BUILD_DIR}/pip-src"
