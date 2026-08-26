@@ -161,6 +161,6 @@ Stage 08: Export Stage
 **Related config options**:
 
 - ``EXPORT_SOURCES`` - Download source files for all packages
-- ``COMPRESS_IMAGE`` - Compress the exported image into a zip archive (default) or
-  keep the raw ``.img``
+- ``COMPRESS_IMAGE`` - Compress the exported image into a zip archive (default)
+  or keep the raw ``.img``
 - ``ADI_EVAL_BOARD`` and ``CARRIER`` - Configure for specific hardware

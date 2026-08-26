@@ -14,7 +14,7 @@ these high-level steps:
 3. Each stage performs specific tasks like system configuration, tool 
    installation, and boot setup
 4. The final image is exported to the ``kuiper-volume`` directory on your host
-   machine — as a ``.zip`` archive by default, or as a raw ``.img`` when
+   machine as a ``.zip`` archive by default, or as a raw ``.img`` when
    ``COMPRESS_IMAGE=n``
 
 This approach ensures consistent builds across different host systems while 
