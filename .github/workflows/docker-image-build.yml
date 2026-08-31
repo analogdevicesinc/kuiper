@@ -7,6 +7,7 @@ jobs:
     permissions:
       packages: write
       contents: read
+      id-token: write
     strategy:
       matrix:
         kuiper_artifact: [kuiper_basic_32, kuiper_basic_64]
@@ -16,18 +17,19 @@ jobs:
             - kuiper_artifact: kuiper_basic_64
               arch: linux/arm64
     steps:
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
+      - name: Generate Cloudsmith OIDC Token
+        uses: cloudsmith-io/cloudsmith-cli-action@ad73fafb92e3e29a5166c529464c2df7658a608e # v3.1.0
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          oidc-namespace: adi
+          oidc-service-slug: ${{ secrets.CLOUDSMITH_USER }}
+          export-auth-token: true
 
-      - name: Log in to the GitHub Container registry
-        uses: docker/login-action@v1
+      - name: Docker login Cloudsmith
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.cloudsmith.io/adi/containers
+          username: ${{ secrets.CLOUDSMITH_USER }}
+          password: ${{ env.CLOUDSMITH_API_KEY }}
 
       - name: Checkout Dockerfile for image building
         uses: actions/checkout@v4
@@ -73,12 +75,11 @@ jobs:
 
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
         with:
           push: true
           file: ci/Dockerfile
           context: .
           platforms: ${{ matrix.arch }}
           tags: |
-            aandrisa/${{ matrix.kuiper_artifact }}:latest
-            ghcr.io/analogdevicesinc/kuiper/${{ matrix.kuiper_artifact }}:latest
+            docker.cloudsmith.io/adi/containers/${{ matrix.kuiper_artifact }}:latest
