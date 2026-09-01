@@ -35,7 +35,7 @@ jobs:
             os: ubuntu-24.04-arm
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set env variabiles
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
@@ -93,7 +93,7 @@ jobs:
             os: ubuntu-latest
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set env variabiles
         run: |
           BRANCH=$GITHUB_BASE_REF
@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Trigger docker build
         run: gh workflow run docker-image-build.yml --ref main -f run_id=${{ github.run_id }}
         env:
