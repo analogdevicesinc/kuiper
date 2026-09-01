@@ -3,6 +3,7 @@ network-manager
 openssh-server 
 net-tools 
 build-essential 
+gdb
 git 
 fake-hwclock 
 nano
