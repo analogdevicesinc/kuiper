@@ -115,6 +115,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Trigger docker build
-        run: gh workflow run docker-image-build.yml --ref main
+        run: gh workflow run docker-image-build.yml --ref main -f run_id=${{ github.run_id }}
         env:
           GH_TOKEN: ${{ github.token }}

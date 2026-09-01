@@ -1,5 +1,10 @@
 name: docker image build
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "kuiper2_0-build run id (blank = latest successful on main)"
+        required: false
 
 jobs:
   Build:
@@ -36,14 +41,24 @@ jobs:
             ci/Dockerfile
           sparse-checkout-cone-mode: false
 
+      - name: Resolve build run id
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          run_id="${{ inputs.run_id }}"
+          if [ -z "$run_id" ]; then
+            run_id=$(gh run list -R analogdevicesinc/kuiper \
+                       --workflow kuiper2_0-build.yml --branch main \
+                       --status success -L1 --json databaseId -q '.[0].databaseId')
+          fi
+          echo "RUN_ID=$run_id" >> "$GITHUB_ENV"
+
       - name: Download image
-        uses: dawidd6/action-download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: kuiper2_0-build.yml
-          branch: main
           name: ${{ matrix.kuiper_artifact }}_image.zip
-          repo: analogdevicesinc/kuiper
+          run-id: ${{ env.RUN_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create .tar file
         run: |
