@@ -45,17 +45,18 @@ jobs:
 
           ci/modify_config.sh ./config "TARGET_ARCHITECTURE=${{ matrix.target_arch }}"
           sudo bash build-docker.sh
-          ls kuiper-volume/*ADI-Kuiper-Linux*.zip >/dev/null 2>&1 && exit 0 || exit 2
+          ls kuiper-volume/*ADI-Kuiper-Linux*.zip >/dev/null 2>&1 || exit 2
+          sudo mv kuiper-volume/*ADI-Kuiper-Linux*.zip "kuiper-volume/${ARTIFACT_NAME}_image.zip"
       - name: Upload image
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: ${{ env.ARTIFACT_NAME }}_image
-          path: ${{ github.workspace }}/kuiper-volume/*.zip
+          path: ${{ github.workspace }}/kuiper-volume/${{ env.ARTIFACT_NAME }}_image.zip
+          archive: false
       - name: Upload meta
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: ${{ env.ARTIFACT_NAME }}_meta
+          name: ${{ env.ARTIFACT_NAME }}_meta.zip
           path: |
             ${{ github.workspace }}/kuiper-volume
             !${{ github.workspace }}/kuiper-volume/*.zip
