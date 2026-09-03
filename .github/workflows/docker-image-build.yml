@@ -44,15 +44,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: kuiper2_0-build.yml
           branch: main
-          name: ${{ matrix.kuiper_artifact }}_image
+          name: ${{ matrix.kuiper_artifact }}_image.zip
           repo: analogdevicesinc/kuiper
 
       - name: Create .tar file
         run: |
           sudo apt-get update
           sudo apt-get install -y qemu-user-static
-          zip_file=$(ls *.zip)
-          unzip ${zip_file} -d .
           img_file=$(ls *.img)
           sudo losetup -fP ${img_file}
           loop_device=$(losetup --list | grep "$(basename "ADI-Kuiper-Linux.*.img")" | cut -f1 -d' ')
