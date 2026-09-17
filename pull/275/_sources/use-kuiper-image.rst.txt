@@ -102,7 +102,6 @@ from:
 
    {
      "schema_version": 1,
-     "kuiper_generation": 2,
      "version": "v2.0.0-96-g538aa18",
      "build_date": "2026-08-26",
      "commit": "538aa18",
@@ -112,17 +111,16 @@ from:
      "debian_snapshot": "20260701"
    }
 
-``schema_version`` is bumped only on a breaking change to this format, so a
-consumer reads it first and can reject a manifest newer than it understands;
-new fields are added without bumping it. ``kuiper_generation`` is the
-Kuiper-1-vs-2 discriminator, ``version`` is the ``git describe`` of the Kuiper
-repository the image was built from, and ``build_date`` gives a temporal
-ordering for images that have no release tag.
+The presence of this manifest is itself the Kuiper-1-vs-2 discriminator: only
+Kuiper 2 images write it. ``schema_version`` is bumped only on a breaking change
+to this format, so a consumer reads it first and can reject a manifest newer
+than it understands; new fields are added without bumping it. ``version`` is the
+``git describe`` of the Kuiper repository the image was built from, and
+``build_date`` gives a temporal ordering for images that have no release tag.
 
 The same facts are also written on the root filesystem in os-release format at
 ``/etc/kuiper-release`` (source it from a script with ``. /etc/kuiper-release``),
-and appended to ``/etc/os-release`` as ``KUIPER_*`` vendor keys, for on-device
-detection:
+for on-device detection:
 
 .. shell::
 

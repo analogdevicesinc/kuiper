@@ -309,7 +309,6 @@ tooling such as Kuiper Imager uses to recognize an image and the build it came
 from:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">"schema_version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"kuiper_generation"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2.0.0-96-g538aa18"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"build_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-08-26"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"commit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"538aa18"</span><span class="p">,</span>
@@ -320,16 +319,15 @@ from:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">schema_version</span></code> is bumped only on a breaking change to this format, so a
-consumer reads it first and can reject a manifest newer than it understands;
-new fields are added without bumping it. <code class="docutils literal notranslate"><span class="pre">kuiper_generation</span></code> is the
-Kuiper-1-vs-2 discriminator, <code class="docutils literal notranslate"><span class="pre">version</span></code> is the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">describe</span></code> of the Kuiper
-repository the image was built from, and <code class="docutils literal notranslate"><span class="pre">build_date</span></code> gives a temporal
-ordering for images that have no release tag.</p>
+<p>The presence of this manifest is itself the Kuiper-1-vs-2 discriminator: only
+Kuiper 2 images write it. <code class="docutils literal notranslate"><span class="pre">schema_version</span></code> is bumped only on a breaking change
+to this format, so a consumer reads it first and can reject a manifest newer
+than it understands; new fields are added without bumping it. <code class="docutils literal notranslate"><span class="pre">version</span></code> is the
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">describe</span></code> of the Kuiper repository the image was built from, and
+<code class="docutils literal notranslate"><span class="pre">build_date</span></code> gives a temporal ordering for images that have no release tag.</p>
 <p>The same facts are also written on the root filesystem in os-release format at
 <code class="docutils literal notranslate"><span class="pre">/etc/kuiper-release</span></code> (source it from a script with <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">/etc/kuiper-release</span></code>),
-and appended to <code class="docutils literal notranslate"><span class="pre">/etc/os-release</span></code> as <code class="docutils literal notranslate"><span class="pre">KUIPER_*</span></code> vendor keys, for on-device
-detection:</p>
+for on-device detection:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
