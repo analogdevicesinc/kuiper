@@ -133,8 +133,7 @@ in a :ref:`custom build <quick-start>`.
 
    Versions reflect the components at the time of writing and may differ
    between releases. The exact versions built into your image are recorded in
-   ``/config`` and in the ``ADI_repos_git_info.txt`` build log that ships with
-   the image.
+   ``/config`` and can be listed on the device with ``dpkg -l``.
 
 System and Boot Components
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
