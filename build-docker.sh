@@ -14,6 +14,10 @@ IMAGE_NAME="debian_${DEBIAN_VERSION}_rootfs"
 CONTAINER_NAME=${CONTAINER_NAME:-"${IMAGE_NAME}_container"}
 PRESERVE_CONTAINER=${PRESERVE_CONTAINER:-n}
 
+KUIPER_VERSION=${KUIPER_VERSION:-$(git -c safe.directory='*' describe --tags --always --dirty 2>/dev/null || echo unknown)}
+KUIPER_COMMIT=${KUIPER_COMMIT:-$(git -c safe.directory='*' rev-parse --short HEAD 2>/dev/null || echo unknown)}
+KUIPER_VARIANT=${KUIPER_VARIANT:-custom}
+
 cleanup() {
 	docker rm -fv ${CONTAINER_NAME}
 	exit 1
@@ -52,6 +56,9 @@ docker run -t --privileged \
 			-v /lib/modules:/lib/modules \
 			-v ./kuiper-volume:/kuiper-volume \
 			-e "DEBIAN_VERSION="${DEBIAN_VERSION}"" \
+			-e "KUIPER_VERSION=${KUIPER_VERSION}" \
+			-e "KUIPER_COMMIT=${KUIPER_COMMIT}" \
+			-e "KUIPER_VARIANT=${KUIPER_VARIANT}" \
 			--name ${CONTAINER_NAME} ${IMAGE_NAME} \
 			/bin/bash -o pipefail -c "bash kuiper-stages.sh"
 
