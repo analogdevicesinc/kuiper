@@ -128,6 +128,9 @@ detection:
 
    $. /etc/kuiper-release && echo "$KUIPER_VERSION ($KUIPER_ARCH/$KUIPER_VARIANT)"
 
+The exact component versions built into the image are listed in
+``/etc/kuiper-packages`` (one ``package version`` per line).
+
 If You Have Kuiper 1
 ~~~~~~~~~~~~~~~~~~~~~
 
