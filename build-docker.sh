@@ -67,10 +67,3 @@ LOOP_DEVICES=$(losetup --list | grep "$(basename "ADI-Kuiper-Linux.*.img")" | cu
 for LOOP_DEV in ${LOOP_DEVICES}; do
 	losetup -d ${LOOP_DEV}
 done
-
-
-# Save info about kuiper repository in log file
-echo -e "\nADI Kuiper Linux:" >> "kuiper-volume/ADI_repos_git_info.txt"
-echo "Repo   : $(git remote get-url origin)" >> "kuiper-volume/ADI_repos_git_info.txt"
-echo "Branch : $(git branch | cut -d' ' -f2)" >> "kuiper-volume/ADI_repos_git_info.txt"
-echo -e "Git_sha: $(git rev-parse --short HEAD)\n\n" >> "kuiper-volume/ADI_repos_git_info.txt"
