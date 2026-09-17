@@ -36,6 +36,8 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Set env variabiles
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
@@ -60,7 +62,7 @@ jobs:
           fi
 
           ci/modify_config.sh ./config "${{ vars[format('{0}', env.BRANCH_NAME )] }}"
-          sudo bash build-docker.sh
+          sudo KUIPER_VARIANT="${{ matrix.build_type }}" bash build-docker.sh
           ls kuiper-volume/*.zip >/dev/null 2>&1 || exit 2
           sudo mv kuiper-volume/*.zip "kuiper-volume/${ARTIFACT_NAME}_image.zip"
       - name: Upload image
@@ -94,6 +96,8 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Set env variabiles
         run: |
           BRANCH=$GITHUB_BASE_REF
@@ -105,7 +109,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y qemu-user-static
           ci/modify_config.sh ./config "${{ vars[format('{0}', env.BRANCH_NAME )] }}"
-          sudo bash build-docker.sh
+          sudo KUIPER_VARIANT="${{ matrix.build_type }}" bash build-docker.sh
           ls kuiper-volume/*.zip >/dev/null 2>&1 && exit 0 || exit 2
 
   Trigger_workflow:

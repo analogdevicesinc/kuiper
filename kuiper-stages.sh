@@ -18,10 +18,16 @@ export LOG_FILE="kuiper-volume/build.log"
 export GITHUB_ANALOG_DEVICES="https://github.com/analogdevicesinc"
 export TARGET_ARCHITECTURE=${TARGET_ARCHITECTURE:-armhf}
 export BUILD_DIR=${TARGET_ARCHITECTURE}_rootfs
-export IMG_FILE="image_"$(date +%Y-%m-%d)"-ADI-Kuiper-Linux-$TARGET_ARCHITECTURE.img"
+export BUILD_DATE=${BUILD_DATE:-$(date -u +%Y-%m-%d)}
+export IMG_FILE="image_${BUILD_DATE}-ADI-Kuiper-Linux-${TARGET_ARCHITECTURE}.img"
 export NUM_JOBS=${NUM_JOBS:-$(nproc)}
 export HOSTNAME=${HOSTNAME:-analog}
 export DEBIAN_SNAPSHOT=${DEBIAN_SNAPSHOT:-""}
+export DEBIAN_VERSION=${DEBIAN_VERSION:-trixie}
+
+export KUIPER_VERSION=${KUIPER_VERSION:-unknown}
+export KUIPER_COMMIT=${KUIPER_COMMIT:-unknown}
+export KUIPER_VARIANT=${KUIPER_VARIANT:-custom}
 
 export CONFIG_DESKTOP=${CONFIG_DESKTOP:-n}
 export CONFIG_LIBIIO=${CONFIG_LIBIIO:-n}

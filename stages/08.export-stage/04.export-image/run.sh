@@ -142,6 +142,6 @@ rsync -rtx --inplace "${BUILD_DIR}/boot/" "${EXPORT_ROOTFS_DIR}/boot/"
 sync
 
 # Archive with compression level 6 (on a scale from 1 to 9 representing the trade-off between compression ratio and speed)
-zip -v -6 "/kuiper-volume/image_"$(date +%Y-%m-%d)"-ADI-Kuiper-Linux-$TARGET_ARCHITECTURE.zip" "${IMG_FILE}"
+zip -v -6 "/kuiper-volume/image_${BUILD_DATE}-ADI-Kuiper-Linux-${TARGET_ARCHITECTURE}.zip" "${IMG_FILE}"
 
-echo "Kuiper archived image image_"$(date +%Y-%m-%d)"-ADI-Kuiper-Linux-$TARGET_ARCHITECTURE.zip can be found in /kuiper-volume directory"
+echo "Kuiper archived image image_${BUILD_DATE}-ADI-Kuiper-Linux-${TARGET_ARCHITECTURE}.zip can be found in /kuiper-volume directory"
