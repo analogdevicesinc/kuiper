@@ -1,16 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://analogdevicesinc.github.io/kuiper/build-flow.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/configuration.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/customization.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/hardware-configuration.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/networking.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/package-management.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/prerequisites.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/quick-start.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/releases.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/stage-reference.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/troubleshooting.html</loc><lastmod>2026-09-10</lastmod></url>
-<url><loc>https://analogdevicesinc.github.io/kuiper/use-kuiper-image.html</loc><lastmod>2026-09-10</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/build-flow/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/configuration/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/customization/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/genindex/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/hardware-configuration/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/networking/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/package-management/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/prerequisites/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/quick-start/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/releases/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/search/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/stage-reference/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/troubleshooting/</loc><lastmod>2026-09-17</lastmod></url>
+<url><loc>https://analogdevicesinc.github.io/kuiper/use-kuiper-image/</loc><lastmod>2026-09-17</lastmod></url>
 </urlset>
