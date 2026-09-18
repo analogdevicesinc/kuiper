@@ -43,6 +43,7 @@ if [[ "$(uname -m)" != "aarch64" && "$(uname -m)" != "arm*" ]]; then
 fi
 
 # Build docker image
+echo "Build docker image"
 docker build --build-arg BASE_IMAGE="${BASE_IMAGE}" -t ${IMAGE_NAME} .
 
 # Run docker container
@@ -51,6 +52,7 @@ docker build --build-arg BASE_IMAGE="${BASE_IMAGE}" -t ${IMAGE_NAME} .
 # -v: mounts volumes allowing the container to access files on the host or work with kernel modules
 # -e: sets environment variables
 # Inside the container kuiper-stages.sh will run building the Kuiper image
+echo "Run container"
 docker run -t --privileged \
 			-v /dev:/dev \
 			-v /lib/modules:/lib/modules \
