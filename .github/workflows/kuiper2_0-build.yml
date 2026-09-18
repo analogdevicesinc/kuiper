@@ -1,5 +1,6 @@
 name: Kuiper2.0
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -15,27 +16,14 @@ on:
 
 jobs:
   Build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04-arm
     strategy:
       matrix:
         arch: [32, 64]
         build_type: [basic, full]
-        include:
-          - arch: 32
-            build_type: basic
-            os: ubuntu-24.04-arm
-          - arch: 64
-            build_type: basic
-            os: ubuntu-24.04-arm
-          - arch: 32
-            build_type: full
-            os: ubuntu-24.04-arm
-          - arch: 64
-            build_type: full
-            os: ubuntu-24.04-arm
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Set env variabiles
@@ -51,16 +39,6 @@ jobs:
           echo BRANCH_NAME="$branch_name"_"$type"_"${{ matrix.arch }}" >> $GITHUB_ENV
       - name: Build image
         run: |
-          if [[ "$(uname -m)" != "aarch64" ]]; then
-            sudo apt-get update
-            sudo apt-get install -y qemu-user-static
-          fi
-          # remove container if already exists
-          CONTAINER_NAME=$(grep -m1 -oP '^[#]?CONTAINER_NAME=\K.*' ./config)
-          if [ "$(docker ps -a -q -f name=^/${CONTAINER_NAME}$)" ]; then
-              docker rm -fv "$CONTAINER_NAME"
-          fi
-
           ci/modify_config.sh ./config "${{ vars[format('{0}', env.BRANCH_NAME )] }}"
           sudo KUIPER_VARIANT="${{ matrix.build_type }}" bash build-docker.sh
           ls kuiper-volume/*.zip >/dev/null 2>&1 || exit 2
@@ -81,21 +59,14 @@ jobs:
 
   Build_with_qemu:
     if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         arch: [32, 64]
         build_type: [basic]
-        include:
-          - arch: 32
-            build_type: basic
-            os: ubuntu-latest
-          - arch: 64
-            build_type: basic
-            os: ubuntu-latest
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Set env variabiles
@@ -117,7 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: Trigger docker build
         run: gh workflow run docker-image-build.yml --ref main
         env:
