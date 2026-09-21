@@ -32,6 +32,12 @@ chroot "${BUILD_DIR}" << EOF
 	apt-get install -y wpasupplicant wireless-tools blueman
 EOF
 
+# Remove unwanted packages
+chroot "${BUILD_DIR}" << EOF
+	apt-get purge -y ghostscript
+	apt-get autoremove -y
+EOF
+
 else
 	echo "RPI wifi and bluetooth firmware won't be installed because CONFIG_RPI_BOOT_FILES is set to 'n'."
 fi
