@@ -13,9 +13,6 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y doxygen graphviz man2htm
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y wget curl tar
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3 python3-pip python3-setuptools python3-full
 
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip3 install sphinx sphinx_rtd_theme furo
 
 # Cleanup

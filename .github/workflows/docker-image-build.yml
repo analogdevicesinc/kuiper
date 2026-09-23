@@ -1,5 +1,12 @@
 name: docker image build
-on: workflow_dispatch
+
+on:
+  pull_request:
+    branches: 
+      - main
+    paths:
+      - 'ci/**'
+  workflow_dispatch:
 
 jobs:
   Build:
@@ -71,13 +78,24 @@ jobs:
           ARCH_CHECK=$(docker run --platform ${{ matrix.arch }} test_kuiper_image:latest uname -a)
           echo "$ARCH_CHECK"
 
-      - name: Build and push
+      - name: Build and push - release
         id: docker_build
         uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
         with:
-          push: true
+          push: ${{ github.event_name == 'push' }}
           file: ci/Dockerfile
           context: .
           platforms: ${{ matrix.arch }}
           tags: |
             docker.cloudsmith.io/adi/containers/${{ matrix.kuiper_artifact }}:latest
+
+      - name: Build and push - test
+        id: docker_build
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
+        with:
+          push: ${{ github.event_name == 'pull_request' }}
+          file: ci/Dockerfile
+          context: .
+          platforms: ${{ matrix.arch }}
+          tags: |
+            docker.cloudsmith.io/adi/containers/${{ matrix.kuiper_artifact }}:test
