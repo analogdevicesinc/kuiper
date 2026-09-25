@@ -30,7 +30,7 @@ Each version is available for 32-bit (``armhf``) and 64-bit (``arm64``)
 architectures. For detailed information about the variants and what's included
 in each, see :doc:`Releases <releases>`.
 
-**Download**: `ADI Kuiper Releases <RELEASE_LINK_PLACEHOLDER>`_
+**Download**: :ref:`ADI Kuiper Releases <releases-downloads>`
 
 After downloading, skip to :ref:`quick-start-next-steps`.
 
