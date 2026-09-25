@@ -25,7 +25,7 @@ Quick Start
 Get up and running with Kuiper in two simple steps:
 
 #. Download a tested release image (Basic or Full) from
-   `ADI Kuiper Releases <RELEASE_LINK_PLACEHOLDER>`_
+   :ref:`ADI Kuiper Releases <releases-downloads>`
 
 #. :doc:`Write the image to an SD card and boot your device <use-kuiper-image>`
 
