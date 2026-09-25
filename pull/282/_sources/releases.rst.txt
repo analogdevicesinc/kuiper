@@ -11,8 +11,8 @@ Releases
 Releases are tested, stable Kuiper images that we recommend for most users.
 Every release is a **Kuiper 2** image. If you have an existing SD card and are
 unsure which generation it holds, see :ref:`checking-your-kuiper-version`. If
-you want to check the list of supported projects, see `ADI Kuiper Supported
-Projects <SUPPORTED_PROJECTS_PLACEHOLDER>`_.
+you want to check the list of supported projects, see
+:ref:`supported-projects`.
 
 .. note::
 
@@ -339,3 +339,383 @@ when building your own image include:
 
 See the :doc:`Configuration <configuration>` section for the full list of
 options.
+
+----
+
+.. _supported-projects:
+
+Supported Projects
+------------------
+
+The table below lists all ADI evaluation board and carrier board combinations
+supported in the current release. The **Architecture** column shows which
+Kuiper image variant (32-bit or 64-bit) is required.
+
+.. list-table::
+   :header-rows: 1
+   :class: bold-header
+   :widths: 40 25 20
+
+   * - Project
+     - Carrier
+     - Architecture
+   * - ad353xr
+     - coraz7s
+     - zynq
+   * - ad353xr
+     - de10nano
+     - cyclone5
+   * - ad353xr
+     - zed
+     - zynq
+   * - ad35xxr_evb
+     - zed
+     - zynq
+   * - ad4052_ardz
+     - coraz7s
+     - zynq
+   * - ad4052_ardz
+     - de10nano
+     - cyclone5
+   * - ad4062_ardz
+     - coraz7s
+     - zynq
+   * - ad4062_ardz
+     - de10nano
+     - cyclone5
+   * - ad4080_fmc_evb
+     - zed
+     - zynq
+   * - ad4110
+     - zed
+     - zynq
+   * - ad411x_ad717x
+     - de10nano
+     - cyclone5
+   * - ad4134_fmc
+     - zed
+     - zynq
+   * - ad4170_asdz
+     - coraz7s
+     - zynq
+   * - ad4170_asdz
+     - de10nano
+     - cyclone5
+   * - ad4630_fmc
+     - zed
+     - zynq
+   * - ad469x_evb
+     - coraz7s
+     - zynq
+   * - ad469x_evb
+     - de10nano
+     - cyclone5
+   * - ad469x_evb
+     - zed
+     - zynq
+   * - ad485x_fmcz
+     - zed
+     - zynq
+   * - ad4880_fmc_evb
+     - zed
+     - zynq
+   * - ad5758_sdz
+     - zed
+     - zynq
+   * - ad5766_sdz
+     - zed
+     - zynq
+   * - ad57xx_ardz
+     - coraz7s
+     - zynq
+   * - ad57xx_ardz
+     - de10nano
+     - cyclone5
+   * - ad6676evb
+     - zc706
+     - zynq
+   * - ad7124_asdz
+     - de10nano
+     - cyclone5
+   * - ad7134_fmc
+     - zed
+     - zynq
+   * - ad719x_asdz
+     - coraz7s
+     - zynq
+   * - ad719x_asdz
+     - de10nano
+     - cyclone5
+   * - ad738x_fmc
+     - zed
+     - zynq
+   * - ad7405_fmc
+     - zed
+     - zynq
+   * - ad7606x_fmc
+     - zed
+     - zynq
+   * - ad7616_sdz
+     - zed
+     - zynq
+   * - ad77681evb
+     - zed
+     - zynq
+   * - ad7768evb
+     - zed
+     - zynq
+   * - ad777x_fmcz
+     - zed
+     - zynq
+   * - ad9081_fmca_ebz
+     - a10soc
+     - arria10
+   * - ad9081_fmca_ebz
+     - fm87
+     - versal
+   * - ad9081_fmca_ebz
+     - s10soc
+     - stratix10
+   * - ad9081_fmca_ebz
+     - vck190
+     - versal
+   * - ad9081_fmca_ebz
+     - vpk180
+     - versal
+   * - ad9081_fmca_ebz
+     - zc706
+     - zynq
+   * - ad9081_fmca_ebz
+     - zcu102
+     - zynqmp
+   * - ad9081_fmca_ebz_x_band
+     - zcu102
+     - zynqmp
+   * - ad9082_fmca_ebz
+     - vck190
+     - versal
+   * - ad9082_fmca_ebz
+     - vpk180
+     - versal
+   * - ad9082_fmca_ebz
+     - zc706
+     - zynq
+   * - ad9082_fmca_ebz
+     - zcu102
+     - zynqmp
+   * - ad9083_evb
+     - a10soc
+     - arria10
+   * - ad9083_evb
+     - zcu102
+     - zynqmp
+   * - ad9084_ebz
+     - fm87
+     - versal
+   * - ad9084_ebz
+     - vck190
+     - versal
+   * - ad9084_ebz
+     - vpk180
+     - versal
+   * - ad916x_fmc
+     - zcu102
+     - zynqmp
+   * - ad9208_dual_ebz
+     - s10soc
+     - stratix10
+   * - ad9209_fmca_ebz
+     - vck190
+     - versal
+   * - ad9213_dual_ebz
+     - s10soc
+     - stratix10
+   * - ad9265_fmc
+     - zc706
+     - zynq
+   * - ad9265_fmc
+     - zed
+     - zynq
+   * - ad9434_fmc
+     - zc706
+     - zynq
+   * - ad9434_fmc
+     - zed
+     - zynq
+   * - ad9467_fmc
+     - zcu102
+     - zynqmp
+   * - ad9467_fmc
+     - zed
+     - zynq
+   * - ad9656_fmc
+     - zcu102
+     - zynqmp
+   * - ad9694_fmc
+     - zcu102
+     - zynqmp
+   * - ad9695_fmc
+     - zcu102
+     - zynqmp
+   * - ad9783_ebz
+     - zcu102
+     - zynqmp
+   * - ad_gmsl2eth_sl
+     - k26
+     - zynqmp
+   * - ad_quadmxfe1_ebz
+     - s10soc
+     - stratix10
+   * - ada4355_fmc
+     - zed
+     - zynq
+   * - adaq23875
+     - zed
+     - zynq
+   * - adaq7980_sdz
+     - zed
+     - zynq
+   * - adaq8092_fmc
+     - zed
+     - zynq
+   * - admx100x_evb
+     - zcu102
+     - zynqmp
+   * - admx6001_ebz
+     - zcu102
+     - zynqmp
+   * - adrv9001
+     - a10soc
+     - arria10
+   * - adrv9001
+     - zcu102
+     - zynqmp
+   * - adrv9001
+     - zed
+     - zynq
+   * - adrv9001_dual
+     - zcu102
+     - zynqmp
+   * - adrv9009
+     - a10soc
+     - arria10
+   * - adrv9009
+     - zc706
+     - zynq
+   * - adrv9009
+     - zcu102
+     - zynqmp
+   * - adrv9026
+     - zcu102
+     - zynqmp
+   * - adrv903x
+     - vck190
+     - versal
+   * - adrv903x
+     - zcu102
+     - zynqmp
+   * - adrv904x
+     - vck190
+     - versal
+   * - adrv904x
+     - zcu102
+     - zynqmp
+   * - adrv9371x
+     - a10soc
+     - arria10
+   * - adrv9371x
+     - zc706
+     - zynq
+   * - adrv9371x
+     - zcu102
+     - zynqmp
+   * - adv7511
+     - zc702
+     - zynq
+   * - adv7511
+     - zc706
+     - zynq
+   * - adv7511
+     - zed
+     - zynq
+   * - adv7513
+     - de10nano
+     - cyclone5
+   * - arradio
+     - c5soc
+     - cyclone5
+   * - cn0363
+     - zed
+     - zynq
+   * - cn0506
+     - zed
+     - zynq
+   * - cn0540
+     - coraz7s
+     - zynq
+   * - cn0540
+     - de10nano
+     - cyclone5
+   * - cn0561
+     - de10nano
+     - cyclone5
+   * - cn0577
+     - zed
+     - zynq
+   * - cn0579
+     - zed
+     - zynq
+   * - cn0585
+     - zed
+     - zynq
+   * - dac_fmc_ebz
+     - a10soc
+     - arria10
+   * - dac_fmc_ebz
+     - zc706
+     - zynq
+   * - dac_fmc_ebz
+     - zcu102
+     - zynqmp
+   * - daq2
+     - a10soc
+     - arria10
+   * - daq2
+     - zc706
+     - zynq
+   * - daq2
+     - zcu102
+     - zynqmp
+   * - daq3
+     - zc706
+     - zynq
+   * - daq3
+     - zcu102
+     - zynqmp
+   * - dc2677a
+     - zed
+     - zynq
+   * - fmcomms11
+     - zc706
+     - zynq
+   * - fmcomms8
+     - zcu102
+     - zynqmp
+   * - jupiter_sdr
+     - zcu102
+     - zynqmp
+   * - max96724
+     - zed
+     - zynq
+   * - pulsar_adc
+     - coraz7s
+     - zynq
+   * - pulsar_adc
+     - de10nano
+     - cyclone5
+   * - pulsar_adc
+     - zed
+     - zynq
+   * - pulsar_lvds_adc
+     - zed
+     - zynq
