@@ -13,9 +13,8 @@ CONFIG_LIBIIO_CMAKE_ARGS="-DWITH_HWMON=ON \
 			-DWITH_EXAMPLES=ON \
 			-DPYTHON_BINDINGS=ON \
 			-DCMAKE_BUILD_TYPE=Release \
-			-DCMAKE_COLOR_MAKEFILE=OFF \
-			-Bbuild -H."
-BRANCH_LIBIIO=libiio-v0
+			-DCMAKE_COLOR_MAKEFILE=OFF"
+BRANCH_LIBIIO=v1.0.0
 
 
 if [ "${CONFIG_LIBIIO}" = y ]; then
@@ -36,7 +35,9 @@ chroot "${BUILD_DIR}" << EOF
 		git clone -b ${BRANCH_LIBIIO} ${GITHUB_ANALOG_DEVICES}/libiio.git
 	
 		# Install libiio
-		cd libiio && cmake ${CONFIG_LIBIIO_CMAKE_ARGS} && cd build && make -j $NUM_JOBS && make install
+		cmake -S libiio -B libiio/build ${CONFIG_LIBIIO_CMAKE_ARGS}
+		cmake --build libiio/build -j ${NUM_JOBS}
+		cmake --install libiio/build
 	
 		# Enable iiod service to start at every boot
 		systemctl enable iiod
