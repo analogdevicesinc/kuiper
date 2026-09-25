@@ -15,6 +15,7 @@ if [ ! -f $config_file ]; then
 	exit 1
 fi
 
+echo "Build arguments: "
 for argument in $arguments
 do
     echo $argument
