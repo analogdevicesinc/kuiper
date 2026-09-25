@@ -12,12 +12,59 @@ Releases are tested, stable Kuiper images that we recommend for most users.
 Every release is a **Kuiper 2** image. If you have an existing SD card and are
 unsure which generation it holds, see :ref:`checking-your-kuiper-version`.
 
-**Download**: `ADI Kuiper Releases <RELEASE_LINK_PLACEHOLDER>`_
-
 .. note::
 
    Kuiper 1 is the previous generation. It is **deprecated** and no longer
    maintained. New releases are Kuiper 2 only.
+
+----
+
+.. _releases-downloads:
+
+Downloads
+---------
+
+The current release is **Kuiper 2026.1.0**. Each variant ships as an
+**image** (the SD-card image, write it with :doc:`these steps
+<use-kuiper-image>`) and a **metadata** archive. The Full editions are
+recommended for most users; the Basic editions are available below under
+*Advanced*.
+
+Full editions (recommended):
+
+.. list-table::
+   :header-rows: 1
+   :class: bold-header
+
+   * - Variant
+     - Image
+     - Metadata
+   * - ARM 32-bit Full (``armhf``)
+     - `Image <https://packages.analog.com/public/raw/files/kuiper_full_32_image_2026.1.0.zip>`__
+     - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_32_meta_2026.1.0.zip>`__
+   * - ARM 64-bit Full (``arm64``)
+     - `Image <https://packages.analog.com/public/raw/files/kuiper_full_64_image_2026.1.0.zip>`__
+     - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_64_meta_2026.1.0.zip>`__
+
+.. collapsible:: Advanced: Basic editions
+
+   The Basic editions are minimal images without a desktop environment or the
+   ADI software stack. See :ref:`Basic Edition <releases-basic-image>` for
+   details.
+
+   .. list-table::
+      :header-rows: 1
+      :class: bold-header
+
+      * - Variant
+        - Image
+        - Metadata
+      * - ARM 32-bit Basic (``armhf``)
+        - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_32_image_2026.1.0.zip>`__
+        - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_32_meta_2026.1.0.zip>`__
+      * - ARM 64-bit Basic (``arm64``)
+        - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_64_image_2026.1.0.zip>`__
+        - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_64_meta_2026.1.0.zip>`__
 
 ----
 
