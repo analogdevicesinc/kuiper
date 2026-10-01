@@ -33,66 +33,10 @@ version it holds, check before you use it. Two generations exist:
    If you just wrote your card from a :doc:`release <releases>` or a
    development build, it is already Kuiper 2 and you can skip this section.
 
-How to Tell the Difference
+The Image Identity Manifest
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Kuiper 2 copies the ``config`` file used to build the image into the root of
-the root filesystem (``/config``). Kuiper 1 does not. This file is the quickest
-way to tell the two apart:
-
-- **A** ``/config`` **file exists** → the card holds **Kuiper 2**. As a bonus,
-  this file records exactly which options the image was built with.
-- **No** ``/config`` **file** → the card holds **Kuiper 1** (deprecated).
-
-You can check either on the running system or directly from the SD card.
-
-On a Booted System
-++++++++++++++++++
-
-If the device is running, list the file from a console or SSH session:
-
-.. shell::
-
-   $ls -l /config
-
-If the file is present, you are on Kuiper 2. You can also inspect it to see the
-build configuration:
-
-.. shell::
-
-   $cat /config
-
-From the SD Card
-++++++++++++++++
-
-If the device is not booted, inspect the card directly. Insert it into your
-computer and mount the root filesystem partition (the second, ext4 partition),
-exactly as described in :ref:`login-change-on-disk`:
-
-.. shell::
-
-   $sudo mkdir -p /mnt/rootfs
-   $sudo mount /dev/mmcblk0p2 /mnt/rootfs
-
-Replace ``/dev/mmcblk0p2`` with your card's root partition (use ``lsblk`` to
-identify it). Then check for the file:
-
-.. shell::
-
-   $ls -l /mnt/rootfs/config
-
-When you are done, unmount the partition:
-
-.. shell::
-
-   $sudo umount /mnt/rootfs
-
-The Image Identity Manifest
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The ``/config`` file above is a convenient *manual* check, but it lives on the
-ext4 root filesystem, which Windows and macOS cannot read without extra drivers.
-So every Kuiper 2 image also carries a small machine-readable manifest,
+Every Kuiper 2 image carries a small machine-readable manifest,
 ``kuiper-release.json``, on the **BOOT** (FAT32) partition — readable on every
 operating system and parseable straight out of an ``.img`` file. This is what
 tooling such as Kuiper Imager uses to recognize an image and the build it came
@@ -119,8 +63,7 @@ than it understands; new fields are added without bumping it. ``version`` is the
 ``build_date`` gives a temporal ordering for images that have no release tag.
 
 The same facts are also written on the root filesystem in os-release format at
-``/etc/kuiper-release`` (source it from a script with ``. /etc/kuiper-release``),
-for on-device detection:
+``/etc/kuiper-release``, for on-device detection:
 
 .. shell::
 
@@ -130,7 +73,7 @@ The exact component versions built into the image are listed in
 ``/etc/kuiper-packages`` (one ``package version`` per line).
 
 If You Have Kuiper 1
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
 
 Kuiper 1 is deprecated and does not receive updates or support. We recommend
 rewriting your card with a current Kuiper 2 image:
@@ -566,7 +509,7 @@ see device information.
 ----
 
 Customizing Hostname and MAC Address
--------------------------------------
+------------------------------------
 
 By default, the hostname is ``analog`` for every Kuiper image (unless
 customized at build time). If you have multiple devices on the same network
