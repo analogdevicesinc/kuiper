@@ -83,8 +83,7 @@ Basic Image (Default)
 **Perfect for:** Headless applications, foundation for custom development, 
 resource-constrained environments
 
-**Get it:** Download pre-built from :git-kuiper:`GitHub Actions 
-<actions/workflows/kuiper2_0-build.yml?query=branch:main+>` or build using the
+**Get it:** :ref:`Download <releases-downloads>` pre-built or build using the
 default config file.
 
 Full Image
@@ -101,9 +100,8 @@ Full Image
 **Perfect for:** Complete development workstations, evaluation and testing, 
 learning ADI ecosystem
 
-**Get it:** Download pre-built from :git-kuiper:`GitHub Actions 
-<actions/workflows/kuiper2_0-build.yml?query=branch:main+>` or enable all
-options in the config file.
+**Get it:** :ref:`Download <releases-downloads>` or enable all options in the
+config file and build.
 
 Custom Image
 ~~~~~~~~~~~~
