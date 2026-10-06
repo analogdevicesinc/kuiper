@@ -57,7 +57,15 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}_meta.zip
           path: |
             ${{ github.workspace }}/kuiper-volume
+            !${{ github.workspace }}/kuiper-volume/sources
             !${{ github.workspace }}/kuiper-volume/*.zip
+      - name: Upload sources
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.ARTIFACT_NAME }}_sources.zip
+          path:
+            ${{ github.workspace }}/kuiper-volume/sources
 
   Build_with_qemu:
     if: ${{ github.event_name == 'pull_request' }}
