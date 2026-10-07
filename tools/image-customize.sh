@@ -18,6 +18,7 @@
 # Usage:
 #   sudo ./image-customize.sh <image.img> <script>
 #   sudo GROW=5G ./image-customize.sh <image.img> <script>
+#   sudo BIND_DIR=./kernel-output ./image-customize.sh <image.img> <script>
 #
 #   <script>  A host-side script run inside the target rootfs. It is copied in,
 #             executed, then removed
@@ -25,6 +26,11 @@
 #   GROW=<size>  Optional env var. Enlarge the image and stretch the rootfs
 #                partition by <size> (e.g. GROW=5G) before customizing, so large
 #                installs fit. Unset = no resize
+#
+#   BIND_DIR=<dir>  Optional env var. Bind-mount <dir> at /mnt inside the rootfs
+#                before the script runs, so it can read host files (e.g. a
+#                cross-built kernel) from /mnt. Unmounted on exit - the files are
+#                only viewed, never copied into the image. Unset = no bind
 #
 # Prerequisites:
 #   sudo apt install qemu-user-static binfmt-support
@@ -42,6 +48,7 @@ image-customize.sh - customize a pre-built Kuiper .img in place.
 Usage:
   sudo $0 <image.img> <script>
   sudo GROW=<size> $0 <image.img> <script>
+  sudo BIND_DIR=<dir> $0 <image.img> <script>
 
 Arguments:
   <image.img>   Kuiper image to modify (edited in place via a loop device).
@@ -49,6 +56,9 @@ Arguments:
                 Copied in, executed, then removed.
   GROW=<size>   Enlarge the image + rootfs before customizing (e.g. GROW=5G) so
                 large installs fit. Kept change (bigger image). Unset = no resize.
+  BIND_DIR=<dir>  Bind-mount <dir> at /mnt inside the rootfs so the script can
+                read host files (e.g. a cross-built kernel) from /mnt.
+                Temporary - unmounted on exit, never copied into the image.
 
 Requirements:
   Run as root, with qemu-user-static + binfmt-support installed:
@@ -112,6 +122,10 @@ if [ ! -f "${IMG_FILE}" ]; then
 fi
 if [ ! -f "${EXTRA_SCRIPT}" ]; then
 	err "Script not found: ${EXTRA_SCRIPT}"
+	exit 1
+fi
+if [ -n "${BIND_DIR:-}" ] && [ ! -d "${BIND_DIR}" ]; then
+	err "BIND_DIR not found or not a directory: ${BIND_DIR}"
 	exit 1
 fi
 if [ "$(id -u)" -ne 0 ]; then
@@ -178,6 +192,16 @@ mount -t proc   proc   "${MOUNT_DIR}/proc"
 mount -t sysfs  sys    "${MOUNT_DIR}/sys"
 mount --bind    /dev   "${MOUNT_DIR}/dev"
 mount -t devpts devpts "${MOUNT_DIR}/dev/pts"
+
+# Optionally expose a host directory at /mnt so the hook can read host files
+# (e.g. a cross-built kernel) from inside the chroot. The bind lives under
+# MOUNT_DIR, so cleanup()'s 'umount -R' tears it down automatically on exit; the
+# files are only viewed, never copied into the final image
+if [ -n "${BIND_DIR:-}" ]; then
+	step "Bind-mounting ${BIND_DIR} at ${MOUNT_DIR}/mnt"
+	mkdir -p "${MOUNT_DIR}/mnt"
+	mount --bind "${BIND_DIR}" "${MOUNT_DIR}/mnt"
+fi
 
 step "Running ${EXTRA_SCRIPT} inside the target rootfs"
 run_hook
