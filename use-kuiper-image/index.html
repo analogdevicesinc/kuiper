@@ -8,8 +8,8 @@
 
     <title>Using Kuiper Images &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=fb8972a4" />
-    <script async="async" src="../_static/app.umd.js?v=8c78863f"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=b1d7a81a" />
+    <script async="async" src="../_static/app.umd.js?v=048c1170"></script>
     <link rel="icon" href="../_static/icon.png"/>
     <link rel="index" title="Index" href="../genindex/" />
     <link rel="search" title="Search" href="../search/" />
@@ -97,11 +97,6 @@
           <ul>
 <li><a class="reference internal" href="#">Using Kuiper Images</a><ul>
 <li><a class="reference internal" href="#checking-your-kuiper-version">Checking Your Kuiper Version</a><ul>
-<li><a class="reference internal" href="#how-to-tell-the-difference">How to Tell the Difference</a><ul>
-<li><a class="reference internal" href="#on-a-booted-system">On a Booted System</a></li>
-<li><a class="reference internal" href="#from-the-sd-card">From the SD Card</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#the-image-identity-manifest">The Image Identity Manifest</a></li>
 <li><a class="reference internal" href="#if-you-have-kuiper-1">If You Have Kuiper 1</a></li>
 </ul>
@@ -235,74 +230,9 @@ Kuiper 2 image.</p></li>
 <p>If you just wrote your card from a <a class="reference internal" href="../releases/"><span class="doc">release</span></a> or a
 development build, it is already Kuiper 2 and you can skip this section.</p>
 </div>
-<section id="how-to-tell-the-difference">
-<h3>How to Tell the Difference<a class="headerlink" href="#how-to-tell-the-difference" title="Link to this heading"></a></h3>
-<p>Kuiper 2 copies the <code class="docutils literal notranslate"><span class="pre">config</span></code> file used to build the image into the root of
-the root filesystem (<code class="docutils literal notranslate"><span class="pre">/config</span></code>). Kuiper 1 does not. This file is the quickest
-way to tell the two apart:</p>
-<ul class="simple">
-<li><p><strong>A</strong> <code class="docutils literal notranslate"><span class="pre">/config</span></code> <strong>file exists</strong> → the card holds <strong>Kuiper 2</strong>. As a bonus,
-this file records exactly which options the image was built with.</p></li>
-<li><p><strong>No</strong> <code class="docutils literal notranslate"><span class="pre">/config</span></code> <strong>file</strong> → the card holds <strong>Kuiper 1</strong> (deprecated).</p></li>
-</ul>
-<p>You can check either on the running system or directly from the SD card.</p>
-<section id="on-a-booted-system">
-<h4>On a Booted System<a class="headerlink" href="#on-a-booted-system" title="Link to this heading"></a></h4>
-<p>If the device is running, list the file from a console or SSH session:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w"> </span>/config
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p>If the file is present, you are on Kuiper 2. You can also inspect it to see the
-build configuration:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/config
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div></section>
-<section id="from-the-sd-card">
-<h4>From the SD Card<a class="headerlink" href="#from-the-sd-card" title="Link to this heading"></a></h4>
-<p>If the device is not booted, inspect the card directly. Insert it into your
-computer and mount the root filesystem partition (the second, ext4 partition),
-exactly as described in <a class="reference internal" href="#login-change-on-disk"><span class="std std-ref">Change the password on disk</span></a>:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/rootfs
-</pre></div>
-</div>
-<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>mount<span class="w"> </span>/dev/mmcblk0p2<span class="w"> </span>/mnt/rootfs
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p>Replace <code class="docutils literal notranslate"><span class="pre">/dev/mmcblk0p2</span></code> with your card’s root partition (use <code class="docutils literal notranslate"><span class="pre">lsblk</span></code> to
-identify it). Then check for the file:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-l<span class="w"> </span>/mnt/rootfs/config
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p>When you are done, unmount the partition:</p>
-<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>umount<span class="w"> </span>/mnt/rootfs
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div></section>
-</section>
 <section id="the-image-identity-manifest">
 <h3>The Image Identity Manifest<a class="headerlink" href="#the-image-identity-manifest" title="Link to this heading"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">/config</span></code> file above is a convenient <em>manual</em> check, but it lives on the
-ext4 root filesystem, which Windows and macOS cannot read without extra drivers.
-So every Kuiper 2 image also carries a small machine-readable manifest,
+<p>Every Kuiper 2 image carries a small machine-readable manifest,
 <code class="docutils literal notranslate"><span class="pre">kuiper-release.json</span></code>, on the <strong>BOOT</strong> (FAT32) partition — readable on every
 operating system and parseable straight out of an <code class="docutils literal notranslate"><span class="pre">.img</span></code> file. This is what
 tooling such as Kuiper Imager uses to recognize an image and the build it came
@@ -326,8 +256,7 @@ than it understands; new fields are added without bumping it. <code class="docut
 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">describe</span></code> of the Kuiper repository the image was built from, and
 <code class="docutils literal notranslate"><span class="pre">build_date</span></code> gives a temporal ordering for images that have no release tag.</p>
 <p>The same facts are also written on the root filesystem in os-release format at
-<code class="docutils literal notranslate"><span class="pre">/etc/kuiper-release</span></code> (source it from a script with <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">/etc/kuiper-release</span></code>),
-for on-device detection:</p>
+<code class="docutils literal notranslate"><span class="pre">/etc/kuiper-release</span></code>, for on-device detection:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
