@@ -6,19 +6,17 @@
 # Copyright (c) 2026 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 #
-# image-customize.sh - Loop-mount a pre-built Kuiper .img, apply changes to its
-# boot and rootfs partitions, then cleanup, unmount and detach
+# image-customize.sh - Open a pre-built Kuiper .img with libguestfs, apply
+# changes to its boot and rootfs partitions, then cleanup
 #
 # This is a POST-BUILD maintenance tool: run it against a finished image, e.g.
 # one downloaded from CI or a release. It edits the image
-# in place via a loop device - no filesystem is rebuilt, so partition sizes,
-# PARTUUIDs, permissions, symlinks and xattrs are all preserved.
-# It supports Ubuntu and Debian on an x86_64 host
+# in place, partition sizes, PARTUUIDs, permissions, symlinks and xattrs are
+# preserved. Runs on an x86_64 host.
 #
 # Usage:
-#   sudo ./image-customize.sh <image.img> <script>
-#   sudo GROW=5G ./image-customize.sh <image.img> <script>
-#   sudo BIND_DIR=./kernel-output ./image-customize.sh <image.img> <script>
+#   ./image-customize.sh <image.img> <script>
+#   GROW=5G ./image-customize.sh <image.img> <script>
 #
 #   <script>  A host-side script run inside the target rootfs. It is copied in,
 #             executed, then removed
@@ -27,13 +25,8 @@
 #                partition by <size> (e.g. GROW=5G) before customizing, so large
 #                installs fit. Unset = no resize
 #
-#   BIND_DIR=<dir>  Optional env var. Bind-mount <dir> at /mnt inside the rootfs
-#                before the script runs, so it can read host files (e.g. a
-#                cross-built kernel) from /mnt. Unmounted on exit - the files are
-#                only viewed, never copied into the image. Unset = no bind
-#
 # Prerequisites:
-#   sudo apt install qemu-user-static binfmt-support
+#   sudo apt install libguestfs-tools qemu-user-static linux-image-generic
 
 # Pretty print
 log()  { echo "$*"; }
@@ -46,61 +39,39 @@ usage() {
 image-customize.sh - customize a pre-built Kuiper .img in place.
 
 Usage:
-  sudo $0 <image.img> <script>
-  sudo GROW=<size> $0 <image.img> <script>
-  sudo BIND_DIR=<dir> $0 <image.img> <script>
+  $0 <image.img> <script>
+  GROW=<size> $0 <image.img> <script>
 
 Arguments:
-  <image.img>   Kuiper image to modify (edited in place via a loop device).
+  <image.img>   Kuiper image to modify (edited in place).
   <script>      Host-side script run inside the image's rootfs as root (/ = rootfs).
                 Copied in, executed, then removed.
   GROW=<size>   Enlarge the image + rootfs before customizing (e.g. GROW=5G) so
                 large installs fit. Kept change (bigger image). Unset = no resize.
-  BIND_DIR=<dir>  Bind-mount <dir> at /mnt inside the rootfs so the script can
-                read host files (e.g. a cross-built kernel) from /mnt.
-                Temporary - unmounted on exit, never copied into the image.
 
 Requirements:
-  Run as root, with qemu-user-static + binfmt-support installed:
-    sudo apt install qemu-user-static binfmt-support
+  libguestfs-tools and qemu-user-static installed:
+    sudo apt install libguestfs-tools qemu-user-static
 EOF
 }
 
-# Variables for the cleanup
-LOOP_DEV=""    # loop device attached
-MOUNT_DIR=""   # location of the mounted rootfs
+# libguestfs session and temporary directory inside the image, for the cleanup
+GUESTFISH_PID=""
+STAGE=""
+TMP_FILE=""
 
-# Run a command inside the target rootfs. Wraps chroot so every call goes through
-# one place; LC_ALL=C silences the host-locale warnings
-in_target() {
-	chroot "${MOUNT_DIR}" env LC_ALL=C "$@"
+# Send a command to the libguestfs session
+g() {
+	guestfish --remote="${GUESTFISH_PID}" -- "$@"
 }
 
-# Run an external customization script inside the target rootfs
-# It is copied in, executed, then removed
-run_hook() {
-	# Save the image's resolver and drop in a working one so apt-based hooks can
-	# reach the network;
-	mv "${MOUNT_DIR}/etc/resolv.conf" "${MOUNT_DIR}/etc/resolv.conf.orig"
-	echo 'nameserver 8.8.8.8' > "${MOUNT_DIR}/etc/resolv.conf"
-
-	# Copy the hook into the rootfs and run it there
-	install -m 0755 "${EXTRA_SCRIPT}" "${MOUNT_DIR}/tmp/$(basename "${EXTRA_SCRIPT}")"
-	in_target "/tmp/$(basename "${EXTRA_SCRIPT}")"
-}
-
-# Undo everything added for networking and chroot. Runs on
+# Remove the copied hook and qemu, then close the image. Runs on
 # every exit (success, error, or interrupt) as the EXIT trap.
 cleanup() {
 	rc=$?
-	rm -f "${MOUNT_DIR}/usr/bin/qemu-arm-static" "${MOUNT_DIR}/usr/bin/qemu-aarch64-static" 2>/dev/null || true
-	rm -f "${MOUNT_DIR}/tmp/$(basename "${EXTRA_SCRIPT}")" 2>/dev/null || true
-	rm -f "${MOUNT_DIR}/etc/resolv.conf" 2>/dev/null || true
-	mv "${MOUNT_DIR}/etc/resolv.conf.orig" "${MOUNT_DIR}/etc/resolv.conf" 2>/dev/null || true
-	sync 2>/dev/null || true
-	umount -R "${MOUNT_DIR}" 2>/dev/null || true
-	rmdir "${MOUNT_DIR}" 2>/dev/null || true
-	losetup -d "${LOOP_DEV}" 2>/dev/null || true
+	[ -z "${STAGE}" ] || g rm-rf "${STAGE}" || true
+	[ -z "${GUESTFISH_PID}" ] || g exit || true
+	rm -f "${TMP_FILE}"
 	exit "${rc}"
 }
 
@@ -124,89 +95,73 @@ if [ ! -f "${EXTRA_SCRIPT}" ]; then
 	err "Script not found: ${EXTRA_SCRIPT}"
 	exit 1
 fi
-if [ -n "${BIND_DIR:-}" ] && [ ! -d "${BIND_DIR}" ]; then
-	err "BIND_DIR not found or not a directory: ${BIND_DIR}"
-	exit 1
-fi
-if [ "$(id -u)" -ne 0 ]; then
-	err "This script needs root. Please re-run with sudo."
-	exit 1
-fi
 
 trap cleanup EXIT INT TERM
+TMP_FILE="$(mktemp)"
 
 # optionally grow the image so large installs fit
 if [ -n "${GROW:-}" ]; then
-	step "Growing image by ${GROW} and extending the rootfs partition"
+	step "Growing image by ${GROW}"
 	truncate -s "+${GROW}" "${IMG_FILE}"
-	parted -s "${IMG_FILE}" resizepart 2 100%
 fi
 
-# Attach the image as a partitioned loop device
-step "Attaching ${IMG_FILE} as a loop device"
-LOOP_DEV="$(losetup --show -f -P "${IMG_FILE}")"
-log "Attached at ${LOOP_DEV}"
-
-BOOT_PART="${LOOP_DEV}p1"
-ROOT_PART="${LOOP_DEV}p2"
-
-# Give udev a moment to create the partition nodes (the usual case on a desktop).
-for _ in $(seq 1 10); do
-	[ -b "${BOOT_PART}" ] && [ -b "${ROOT_PART}" ] && break
-	sleep 0.5
-done
-
-if [ ! -b "${ROOT_PART}" ]; then
-	err "Partition device ${ROOT_PART} never appeared"
-	exit 1   # cleanup() detaches the loop device
-fi
+# Start libguestfs
+step "Opening ${IMG_FILE}"
+export LIBGUESTFS_BACKEND=direct
+eval "$(guestfish --listen --network)"
+g add-drive "${IMG_FILE}" format:raw
+g run
 
 # Grow the ext4 filesystem
 if [ -n "${GROW:-}" ]; then
-	step "Resizing the rootfs filesystem"
-	e2fsck -f -y "${ROOT_PART}" || true
-	resize2fs "${ROOT_PART}"
+	step "Resizing the rootfs partition and filesystem"
+	g part-resize /dev/sda 2 "$(($(g blockdev-getsz /dev/sda) - 1))"
+	g e2fsck /dev/sda2 correct:true
+	g resize2fs /dev/sda2
 fi
 
 # Mount rootfs and boot
-MOUNT_DIR="$(mktemp -d /tmp/kuiper-img.XXXXXX)"
-step "Mounting rootfs (${ROOT_PART}) at ${MOUNT_DIR}"
-mount "${ROOT_PART}" "${MOUNT_DIR}"
-step "Mounting boot  (${BOOT_PART}) at ${MOUNT_DIR}/boot"
-mount "${BOOT_PART}" "${MOUNT_DIR}/boot"
+g mount /dev/sda2 /
+g mount /dev/sda1 /boot
 
 # Detect the image architecture
-if [ ! -f "${MOUNT_DIR}/etc/kuiper-release" ]; then
-	err "No /etc/kuiper-release in image - cannot determine architecture"
-	exit 1
-fi
-. "${MOUNT_DIR}/etc/kuiper-release"
-case "${KUIPER_ARCH:-}" in
-	armhf) QEMU=qemu-arm-static ;;
-	arm64) QEMU=qemu-aarch64-static ;;
+KUIPER_ARCH="$(g cat /etc/kuiper-release | sed -n 's/^KUIPER_ARCH="\?\([^"]*\)"\?$/\1/p')"
+case "${KUIPER_ARCH}" in
+	armhf) QEMU=qemu-arm
+	       MAGIC='\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00' ;;
+	arm64) QEMU=qemu-aarch64
+	       MAGIC='\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7\x00' ;;
 	*)     err "Unsupported KUIPER_ARCH: ${KUIPER_ARCH:-unknown}"; exit 1 ;;
 esac
+QEMU="$(command -v "${QEMU}-static" || command -v "${QEMU}")"
 step "Image architecture: ${KUIPER_ARCH} (using ${QEMU})"
-cp "/usr/bin/${QEMU}" "${MOUNT_DIR}/usr/bin/${QEMU}"
-mount -t proc   proc   "${MOUNT_DIR}/proc"
-mount -t sysfs  sys    "${MOUNT_DIR}/sys"
-mount --bind    /dev   "${MOUNT_DIR}/dev"
-mount -t devpts devpts "${MOUNT_DIR}/dev/pts"
 
-# Optionally expose a host directory at /mnt so the hook can read host files
-# (e.g. a cross-built kernel) from inside the chroot. The bind lives under
-# MOUNT_DIR, so cleanup()'s 'umount -R' tears it down automatically on exit; the
-# files are only viewed, never copied into the final image
-if [ -n "${BIND_DIR:-}" ]; then
-	step "Bind-mounting ${BIND_DIR} at ${MOUNT_DIR}/mnt"
-	mkdir -p "${MOUNT_DIR}/mnt"
-	mount --bind "${BIND_DIR}" "${MOUNT_DIR}/mnt"
+# Copy the static qemu and hook into a temporary directory in the rootfs
+STAGE="$(g mkdtemp /tmp/kuiper-customize.XXXXXX)"
+g upload "${QEMU}" "${STAGE}/qemu"
+g upload "${EXTRA_SCRIPT}" "${STAGE}/hook"
+g chmod 0755 "${STAGE}/hook"
+
+# Register qemu with binfmt_misc inside the libguestfs VM,
+# the F flag opens qemu at registration
+MASK='\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'
+printf '%s\n' "install -m 0755 /sysroot${STAGE}/qemu /tmp/qemu" \
+	"mount -t binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc" \
+	"printf '%s' ':kuiper:M::${MAGIC}:${MASK}:/tmp/qemu:F' > /proc/sys/fs/binfmt_misc/register" \
+	> "${TMP_FILE}"
+g upload "${TMP_FILE}" "${STAGE}/binfmt"
+g debug sh "sh -e /sysroot${STAGE}/binfmt"
+
+# libguestfs provides /dev, /proc, /sys and DNS for the chroot.
+step "Running ${EXTRA_SCRIPT} inside the target rootfs"
+g sh "cd / && LC_ALL=C ${STAGE}/hook > ${STAGE}/log 2>&1; echo \$? > ${STAGE}/rc"
+g download "${STAGE}/log" /dev/stdout
+RC="$(g cat "${STAGE}/rc")"
+if [ "${RC}" -ne 0 ]; then
+	err "${EXTRA_SCRIPT} failed with status ${RC}"
+	exit "${RC}"
 fi
 
-step "Running ${EXTRA_SCRIPT} inside the target rootfs"
-run_hook
-
 log "Changes written to ${IMG_FILE}"
-step "Restoring changes, unmounting and detaching"
-# cleanup() (the EXIT trap) now restores resolv.conf, removes the copied hook and
-# qemu, then unmounts and detaches
+# cleanup() (the EXIT trap) now removes the copied hook and qemu, then closes
+# the image
