@@ -50,6 +50,21 @@ system files, or perform any other customization.
 
 ----
 
+Customizing a Built Image
+-----------------------------
+
+``tools/image-customize.sh`` runs a script as root inside the rootfs of an
+built Kuiper ``.img``, editing it in place. the image is opened with libguestfs
+and the ARM binaries are run with static QEMU user emulation.
+
+.. shell::
+
+   $ sudo apt install libguestfs-tools qemu-user-static linux-image-generic
+   $ ./tools/image-customize.sh kuiper.img tools/examples/customize-example.sh
+   $ GROW=5G ./tools/image-customize.sh kuiper.img my-customization.sh
+
+----
+
 Building from Source
 --------------------
 
