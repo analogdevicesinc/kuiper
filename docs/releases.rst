@@ -347,375 +347,726 @@ options.
 Supported Projects
 ------------------
 
-The table below lists all ADI evaluation board and carrier board combinations
-supported in the current release. The **Architecture** column shows which
-Kuiper image variant (32-bit or 64-bit) is required.
+The table below lists every ADI evaluation board and carrier combination
+supported in the current release, together with the FPGA vendor platform, the
+boot-file Debian package it needs, and the Kuiper image architecture to use:
+
+- **Eval Board** — the ADI evaluation board project.
+- **Carrier** — the carrier or development board it is built for.
+- **Platform** — the FPGA vendor toolchain, ``xilinx`` or ``intel``.
+- **Debian Package** — the boot-file platform, which selects the matching
+  ``adi-<platform>-boot`` package (for example ``zynq`` is installed from
+  ``adi-zynq-boot``). See :doc:`Package Management <package-management>`.
+- **Architecture** — the Kuiper image variant required: ``armhf`` (32-bit) or
+  ``arm64`` (64-bit).
 
 .. list-table::
    :header-rows: 1
    :class: bold-header
-   :widths: 40 25 20
+   :widths: 30 22 12 18 15
 
-   * - Project
+   * - Eval Board
      - Carrier
+     - Platform
+     - Debian Package
      - Architecture
-   * - ad353xr
-     - coraz7s
-     - zynq
-   * - ad353xr
-     - de10nano
-     - cyclone5
-   * - ad353xr
+   * - ad4000
      - zed
+     - xilinx
      - zynq
-   * - ad35xxr_evb
+     - armhf
+   * - ad4001
      - zed
+     - xilinx
      - zynq
-   * - ad4052_ardz
-     - coraz7s
-     - zynq
-   * - ad4052_ardz
-     - de10nano
-     - cyclone5
-   * - ad4062_ardz
-     - coraz7s
-     - zynq
-   * - ad4062_ardz
-     - de10nano
-     - cyclone5
-   * - ad4080_fmc_evb
+     - armhf
+   * - ad4002
      - zed
+     - xilinx
      - zynq
-   * - ad4110
+     - armhf
+   * - ad4003
      - zed
+     - xilinx
      - zynq
-   * - ad411x_ad717x
-     - de10nano
-     - cyclone5
-   * - ad4134_fmc
+     - armhf
+   * - ad4020
      - zed
+     - xilinx
      - zynq
-   * - ad4170_asdz
-     - coraz7s
+     - armhf
+   * - ad403x
+     - zed
+     - xilinx
      - zynq
-   * - ad4170_asdz
-     - de10nano
-     - cyclone5
+     - armhf
    * - ad4630_fmc
      - zed
+     - xilinx
      - zynq
-   * - ad469x_evb
-     - coraz7s
-     - zynq
-   * - ad469x_evb
-     - de10nano
-     - cyclone5
+     - armhf
    * - ad469x_evb
      - zed
+     - xilinx
      - zynq
-   * - ad485x_fmcz
-     - zed
-     - zynq
-   * - ad4880_fmc_evb
-     - zed
-     - zynq
-   * - ad5758_sdz
-     - zed
-     - zynq
-   * - ad5766_sdz
-     - zed
-     - zynq
-   * - ad57xx_ardz
-     - coraz7s
-     - zynq
-   * - ad57xx_ardz
-     - de10nano
-     - cyclone5
+     - armhf
    * - ad6676evb
      - zc706
+     - xilinx
      - zynq
-   * - ad7124_asdz
-     - de10nano
-     - cyclone5
-   * - ad7134_fmc
+     - armhf
+   * - ad7383_4
      - zed
+     - xilinx
      - zynq
-   * - ad719x_asdz
-     - coraz7s
-     - zynq
-   * - ad719x_asdz
-     - de10nano
-     - cyclone5
+     - armhf
    * - ad738x_fmc
      - zed
+     - xilinx
      - zynq
-   * - ad7405_fmc
+     - armhf
+   * - ad7768
      - zed
+     - xilinx
      - zynq
-   * - ad7606x_fmc
+     - armhf
+   * - ad7768-4
      - zed
+     - xilinx
      - zynq
-   * - ad7616_sdz
+     - armhf
+   * - ad77681_evb
      - zed
+     - xilinx
      - zynq
-   * - ad77681evb
-     - zed
+     - armhf
+   * - ad7984
+     - coraz7s
+     - xilinx
      - zynq
-   * - ad7768evb
-     - zed
-     - zynq
-   * - ad777x_fmcz
-     - zed
-     - zynq
-   * - ad9081_fmca_ebz
-     - a10soc
-     - arria10
-   * - ad9081_fmca_ebz
-     - fm87
-     - versal
-   * - ad9081_fmca_ebz
-     - s10soc
-     - stratix10
-   * - ad9081_fmca_ebz
-     - vck190
-     - versal
-   * - ad9081_fmca_ebz
-     - vpk180
-     - versal
-   * - ad9081_fmca_ebz
+     - armhf
+   * - ad9081
      - zc706
+     - xilinx
      - zynq
-   * - ad9081_fmca_ebz
-     - zcu102
-     - zynqmp
-   * - ad9081_fmca_ebz_x_band
-     - zcu102
-     - zynqmp
-   * - ad9082_fmca_ebz
-     - vck190
-     - versal
-   * - ad9082_fmca_ebz
-     - vpk180
-     - versal
-   * - ad9082_fmca_ebz
+     - armhf
+   * - ad9081_np12
      - zc706
+     - xilinx
      - zynq
-   * - ad9082_fmca_ebz
-     - zcu102
-     - zynqmp
-   * - ad9083_evb
-     - a10soc
-     - arria10
-   * - ad9083_evb
-     - zcu102
-     - zynqmp
-   * - ad9084_ebz
-     - fm87
-     - versal
-   * - ad9084_ebz
-     - vck190
-     - versal
-   * - ad9084_ebz
-     - vpk180
-     - versal
-   * - ad916x_fmc
-     - zcu102
-     - zynqmp
-   * - ad9208_dual_ebz
-     - s10soc
-     - stratix10
-   * - ad9209_fmca_ebz
-     - vck190
-     - versal
-   * - ad9213_dual_ebz
-     - s10soc
-     - stratix10
-   * - ad9265_fmc
+     - armhf
+   * - ad9082
      - zc706
+     - xilinx
      - zynq
-   * - ad9265_fmc
-     - zed
-     - zynq
-   * - ad9434_fmc
+     - armhf
+   * - ad9172_fmc
      - zc706
+     - xilinx
      - zynq
-   * - ad9434_fmc
+     - armhf
+   * - ad9265-fmc-125ebz
      - zed
+     - xilinx
      - zynq
-   * - ad9467_fmc
-     - zcu102
-     - zynqmp
-   * - ad9467_fmc
+     - armhf
+   * - ad9434-fmc
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - ad9434-fmc
      - zed
+     - xilinx
      - zynq
-   * - ad9656_fmc
-     - zcu102
-     - zynqmp
-   * - ad9694_fmc
-     - zcu102
-     - zynqmp
-   * - ad9695_fmc
-     - zcu102
-     - zynqmp
-   * - ad9783_ebz
-     - zcu102
-     - zynqmp
-   * - ad_gmsl2eth_sl
-     - k26
-     - zynqmp
-   * - ad_quadmxfe1_ebz
-     - s10soc
-     - stratix10
-   * - ada4355_fmc
+     - armhf
+   * - ad9467-fmc
      - zed
+     - xilinx
      - zynq
-   * - adaq23875
+     - armhf
+   * - adaq4003
+     - coraz7s
+     - xilinx
+     - zynq
+     - armhf
+   * - adaq4003
      - zed
+     - xilinx
      - zynq
-   * - adaq7980_sdz
+     - armhf
+   * - adaq4224-24
      - zed
+     - xilinx
      - zynq
-   * - adaq8092_fmc
+     - armhf
+   * - adaq8092
      - zed
+     - xilinx
      - zynq
-   * - admx100x_evb
-     - zcu102
-     - zynqmp
-   * - admx6001_ebz
-     - zcu102
-     - zynqmp
-   * - adrv9001
-     - a10soc
-     - arria10
-   * - adrv9001
-     - zcu102
-     - zynqmp
-   * - adrv9001
+     - armhf
+   * - adrv9002
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - adrv9002
      - zed
+     - xilinx
      - zynq
-   * - adrv9001_dual
-     - zcu102
-     - zynqmp
-   * - adrv9009
-     - a10soc
-     - arria10
+     - armhf
+   * - adrv9002_rx2tx2
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - adrv9002_rx2tx2
+     - zed
+     - xilinx
+     - zynq
+     - armhf
+   * - adrv9008-1
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - adrv9008-2
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
    * - adrv9009
      - zc706
+     - xilinx
      - zynq
-   * - adrv9009
-     - zcu102
-     - zynqmp
-   * - adrv9026
-     - zcu102
-     - zynqmp
-   * - adrv903x
-     - vck190
-     - versal
-   * - adrv903x
-     - zcu102
-     - zynqmp
-   * - adrv904x
-     - vck190
-     - versal
-   * - adrv904x
-     - zcu102
-     - zynqmp
-   * - adrv9371x
-     - a10soc
-     - arria10
-   * - adrv9371x
+     - armhf
+   * - adrv9361z7035_cmos
+     - ccbob
+     - xilinx
+     - zynq
+     - armhf
+   * - adrv9361z7035_lvds
+     - ccbob
+     - xilinx
+     - zynq
+     - armhf
+   * - adrv9361z7035_lvds
+     - ccfmc
+     - xilinx
+     - zynq
+     - armhf
+   * - adrv9364z7020_cmos
+     - ccbob
+     - xilinx
+     - zynq
+     - armhf
+   * - adrv9364z7020_lvds
+     - ccbob
+     - xilinx
+     - zynq
+     - armhf
+   * - adrv9371
      - zc706
+     - xilinx
      - zynq
-   * - adrv9371x
-     - zcu102
-     - zynqmp
+     - armhf
+   * - adrv9375
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
    * - adv7511
      - zc702
+     - xilinx
      - zynq
+     - armhf
    * - adv7511
      - zc706
+     - xilinx
      - zynq
+     - armhf
    * - adv7511
      - zed
+     - xilinx
      - zynq
-   * - adv7513
-     - de10nano
-     - cyclone5
-   * - arradio
-     - c5soc
-     - cyclone5
+     - armhf
+   * - adv7511_without_bitstream
+     - zed
+     - xilinx
+     - zynq
+     - armhf
    * - cn0363
      - zed
+     - xilinx
      - zynq
+     - armhf
    * - cn0506
-     - zed
+     - socdk
+     - intel
+     - arria10
+     - armhf
+   * - cn0506_mii
+     - zc706
+     - xilinx
      - zynq
+     - armhf
+   * - cn0506_mii
+     - zed
+     - xilinx
+     - zynq
+     - armhf
+   * - cn0506_rgmii
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - cn0506_rgmii
+     - zed
+     - xilinx
+     - zynq
+     - armhf
+   * - cn0506_rmii
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - cn0506_rmii
+     - zed
+     - xilinx
+     - zynq
+     - armhf
    * - cn0540
      - coraz7s
+     - xilinx
      - zynq
+     - armhf
    * - cn0540
      - de10nano
+     - intel
      - cyclone5
-   * - cn0561
-     - de10nano
-     - cyclone5
+     - armhf
    * - cn0577
      - zed
+     - xilinx
      - zynq
+     - armhf
    * - cn0579
-     - zed
+     - coraz7s
+     - xilinx
      - zynq
-   * - cn0585
-     - zed
-     - zynq
-   * - dac_fmc_ebz
-     - a10soc
-     - arria10
-   * - dac_fmc_ebz
-     - zc706
-     - zynq
-   * - dac_fmc_ebz
-     - zcu102
-     - zynqmp
-   * - daq2
-     - a10soc
-     - arria10
+     - armhf
+   * - cn0579
+     - de10nano
+     - intel
+     - cyclone5
+     - armhf
    * - daq2
      - zc706
+     - xilinx
      - zynq
-   * - daq2
-     - zcu102
-     - zynqmp
+     - armhf
    * - daq3
      - zc706
+     - xilinx
      - zynq
-   * - daq3
-     - zcu102
-     - zynqmp
-   * - dc2677a
-     - zed
-     - zynq
+     - armhf
    * - fmcomms11
      - zc706
+     - xilinx
      - zynq
+     - armhf
+   * - fmcomms2
+     - zc702
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms2
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms2
+     - zed
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms3
+     - zc702
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms3
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms3
+     - zed
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms4
+     - zc702
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms4
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms4
+     - zed
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms5
+     - zc702
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms5
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms5-ext-lo-adf5355
+     - zc706
+     - xilinx
+     - zynq
+     - armhf
+   * - fmcomms8
+     - socdk
+     - intel
+     - arria10
+     - armhf
+   * - sockit_arradio
+     - sockit
+     - intel
+     - cyclone5
+     - armhf
+   * - sockit_dc2677a
+     - sockit
+     - intel
+     - cyclone5
+     - armhf
+   * - ad9081
+     - vck190
+     - xilinx
+     - versal
+     - arm64
+   * - ad9081
+     - vpk180
+     - xilinx
+     - versal
+     - arm64
+   * - ad9081_204b_txmode9_rxmode4
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9081_204c_txmode0_rxmode1
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9081_204c_txmode22_rxmode23
+     - vck190
+     - xilinx
+     - versal
+     - arm64
+   * - ad9081_204c_txmode23_rxmode25
+     - vck190
+     - xilinx
+     - versal
+     - arm64
+   * - ad9081_m4_l8
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9081_m8_l4
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9081_m8_l4_overlay
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9081_m8_l4_qpllrx
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9081_m8_l4_tdd
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9081_m8_l4_vcxo122p88
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9082
+     - vck190
+     - xilinx
+     - versal
+     - arm64
+   * - ad9082
+     - vpk180
+     - xilinx
+     - versal
+     - arm64
+   * - ad9082_204c_txmode22_rxmode23
+     - vck190
+     - xilinx
+     - versal
+     - arm64
+   * - ad9082_m1_l8
+     - vpk180
+     - xilinx
+     - versal
+     - arm64
+   * - ad9082_m4_l8
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9083
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9084
+     - vck190
+     - xilinx
+     - versal
+     - arm64
+   * - ad9084
+     - vpk180
+     - xilinx
+     - versal
+     - arm64
+   * - ad9084_m4_l1
+     - vpk180
+     - xilinx
+     - versal
+     - arm64
+   * - ad9144
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9154
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9172_mode4
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9209
+     - vck190
+     - xilinx
+     - versal
+     - arm64
+   * - ad9467_fmc
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9695
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - ad9783
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9002_cmos
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9002_lvds
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9002_rx2tx2_cmos
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9002_rx2tx2_lvds
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9008-1
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9008-2
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9009
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9009zu11eg_adrv2crr
+     - adrv9009zu11eg_adrv2crr
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9025
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9025_jesd204c
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9025_nls
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9371
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - adrv9375
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - cn0506_mii
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - cn0506_rgmii
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - cn0506_rmii
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - daq2
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - daq2_m4_l4
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - daq3
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - fmcomms2
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - fmcomms3
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - fmcomms4
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - fmcomms5
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - fmcomms5_ext_lo_adf5355
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - fmcomms8
+     - adrv9009zu11eg_adrv2crr
+     - xilinx
+     - zynqmp
+     - arm64
    * - fmcomms8
      - zcu102
+     - xilinx
      - zynqmp
+     - arm64
+   * - fmcomms8_multisom_primary
+     - adrv9009zu11eg_adrv2crr
+     - xilinx
+     - zynqmp
+     - arm64
+   * - fmcomms8_multisom_secondary
+     - adrv9009zu11eg_adrv2crr
+     - xilinx
+     - zynqmp
+     - arm64
    * - jupiter_sdr
-     - zcu102
+     - jupiter_sdr
+     - xilinx
      - zynqmp
-   * - max96724
-     - zed
-     - zynq
-   * - pulsar_adc
-     - coraz7s
-     - zynq
-   * - pulsar_adc
-     - de10nano
-     - cyclone5
-   * - pulsar_adc
-     - zed
-     - zynq
-   * - pulsar_lvds_adc
-     - zed
-     - zynq
+     - arm64
+   * - jupiter_sdr_rx2tx2
+     - jupiter_sdr
+     - xilinx
+     - zynqmp
+     - arm64
+   * - multisom-primary
+     - adrv9009zu11eg_adrv2crr
+     - xilinx
+     - zynqmp
+     - arm64
+   * - multisom-secondary
+     - adrv9009zu11eg_adrv2crr
+     - xilinx
+     - zynqmp
+     - arm64
+   * - stingray
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - stingray_direct_clk
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - stingray_vcxo100
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
+   * - stingray_vcxo100_direct_clk
+     - zcu102
+     - xilinx
+     - zynqmp
+     - arm64
