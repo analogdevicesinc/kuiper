@@ -23,4 +23,9 @@ chroot "${BUILD_DIR}" << EOF
 
 	# Add an ANSI reset code at the begining of /etc/issue to clear any text formatting from boot messages
 	sed -i '1s|^|\\\e[0m|' /etc/issue
+
+	# Configure serial-getty for ttyPS0
+	mkdir -p /etc/systemd/system/serial-getty@ttyPS0.service.d
+	printf '[Service]\nType=simple\n' \
+	> /etc/systemd/system/serial-getty@ttyPS0.service.d/override.conf
 EOF
