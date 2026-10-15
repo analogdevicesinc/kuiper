@@ -559,502 +559,876 @@ options.</p>
 </section>
 <section id="supported-projects">
 <span id="id2"></span><h2>Supported Projects<a class="headerlink" href="#supported-projects" title="Link to this heading"></a></h2>
-<p>The table below lists all ADI evaluation board and carrier board combinations
-supported in the current release. The <strong>Architecture</strong> column shows which
-Kuiper image variant (32-bit or 64-bit) is required.</p>
+<p>The table below lists every ADI evaluation board and carrier combination
+supported in the current release, together with the FPGA vendor platform, the
+boot-file Debian package it needs, and the Kuiper image architecture to use:</p>
+<ul class="simple">
+<li><p><strong>Eval Board</strong> — the ADI evaluation board project.</p></li>
+<li><p><strong>Carrier</strong> — the carrier or development board it is built for.</p></li>
+<li><p><strong>Platform</strong> — the FPGA vendor toolchain, <code class="docutils literal notranslate"><span class="pre">xilinx</span></code> or <code class="docutils literal notranslate"><span class="pre">intel</span></code>.</p></li>
+<li><p><strong>Debian Package</strong> — the boot-file platform, which selects the matching
+<code class="docutils literal notranslate"><span class="pre">adi-&lt;platform&gt;-boot</span></code> package (for example <code class="docutils literal notranslate"><span class="pre">zynq</span></code> is installed from
+<code class="docutils literal notranslate"><span class="pre">adi-zynq-boot</span></code>). See <a class="reference internal" href="../package-management/"><span class="doc">Package Management</span></a>.</p></li>
+<li><p><strong>Architecture</strong> — the Kuiper image variant required: <code class="docutils literal notranslate"><span class="pre">armhf</span></code> (32-bit) or
+<code class="docutils literal notranslate"><span class="pre">arm64</span></code> (64-bit).</p></li>
+</ul>
 <div class="table-wrapper colwidths-given bold-header docutils container">
 <table class="bold-header docutils align-default">
 <colgroup>
-<col style="width: 47.1%" />
-<col style="width: 29.4%" />
-<col style="width: 23.5%" />
+<col style="width: 30.9%" />
+<col style="width: 22.7%" />
+<col style="width: 12.4%" />
+<col style="width: 18.6%" />
+<col style="width: 15.5%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Project</p></th>
+<tr class="row-odd"><th class="head"><p>Eval Board</p></th>
 <th class="head"><p>Carrier</p></th>
+<th class="head"><p>Platform</p></th>
+<th class="head"><p>Debian Package</p></th>
 <th class="head"><p>Architecture</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>ad353xr</p></td>
-<td><p>coraz7s</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad353xr</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
-</tr>
-<tr class="row-even"><td><p>ad353xr</p></td>
+<tr class="row-even"><td><p>ad4000</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>ad35xxr_evb</p></td>
+<tr class="row-odd"><td><p>ad4001</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>ad4052_ardz</p></td>
-<td><p>coraz7s</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad4052_ardz</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
-</tr>
-<tr class="row-even"><td><p>ad4062_ardz</p></td>
-<td><p>coraz7s</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad4062_ardz</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
-</tr>
-<tr class="row-even"><td><p>ad4080_fmc_evb</p></td>
+<tr class="row-even"><td><p>ad4002</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>ad4110</p></td>
+<tr class="row-odd"><td><p>ad4003</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>ad411x_ad717x</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad4134_fmc</p></td>
+<tr class="row-even"><td><p>ad4020</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>ad4170_asdz</p></td>
-<td><p>coraz7s</p></td>
+<tr class="row-odd"><td><p>ad403x</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad4170_asdz</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-even"><td><p>ad4630_fmc</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad469x_evb</p></td>
-<td><p>coraz7s</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>ad469x_evb</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-odd"><td><p>ad469x_evb</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>ad485x_fmcz</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad4880_fmc_evb</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>ad5758_sdz</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad5766_sdz</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>ad57xx_ardz</p></td>
-<td><p>coraz7s</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad57xx_ardz</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-even"><td><p>ad6676evb</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>ad7124_asdz</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
-</tr>
-<tr class="row-even"><td><p>ad7134_fmc</p></td>
+<tr class="row-odd"><td><p>ad7383_4</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>ad719x_asdz</p></td>
+<tr class="row-even"><td><p>ad738x_fmc</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad7768</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>ad7768-4</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad77681_evb</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>ad7984</p></td>
 <td><p>coraz7s</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>ad719x_asdz</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad738x_fmc</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>ad7405_fmc</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad7606x_fmc</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>ad7616_sdz</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad77681evb</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>ad7768evb</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad777x_fmcz</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9081_fmca_ebz</p></td>
-<td><p>a10soc</p></td>
-<td><p>arria10</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9081_fmca_ebz</p></td>
-<td><p>fm87</p></td>
-<td><p>versal</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9081_fmca_ebz</p></td>
-<td><p>s10soc</p></td>
-<td><p>stratix10</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9081_fmca_ebz</p></td>
-<td><p>vck190</p></td>
-<td><p>versal</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9081_fmca_ebz</p></td>
-<td><p>vpk180</p></td>
-<td><p>versal</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9081_fmca_ebz</p></td>
+<tr class="row-odd"><td><p>ad9081</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>ad9081_fmca_ebz</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9081_fmca_ebz_x_band</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9082_fmca_ebz</p></td>
-<td><p>vck190</p></td>
-<td><p>versal</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9082_fmca_ebz</p></td>
-<td><p>vpk180</p></td>
-<td><p>versal</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9082_fmca_ebz</p></td>
+<tr class="row-even"><td><p>ad9081_np12</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>ad9082_fmca_ebz</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9083_evb</p></td>
-<td><p>a10soc</p></td>
-<td><p>arria10</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9083_evb</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9084_ebz</p></td>
-<td><p>fm87</p></td>
-<td><p>versal</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9084_ebz</p></td>
-<td><p>vck190</p></td>
-<td><p>versal</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9084_ebz</p></td>
-<td><p>vpk180</p></td>
-<td><p>versal</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad916x_fmc</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9208_dual_ebz</p></td>
-<td><p>s10soc</p></td>
-<td><p>stratix10</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9209_fmca_ebz</p></td>
-<td><p>vck190</p></td>
-<td><p>versal</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9213_dual_ebz</p></td>
-<td><p>s10soc</p></td>
-<td><p>stratix10</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9265_fmc</p></td>
+<tr class="row-odd"><td><p>ad9082</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>ad9265_fmc</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9434_fmc</p></td>
+<tr class="row-even"><td><p>ad9172_fmc</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>ad9434_fmc</p></td>
+<tr class="row-odd"><td><p>ad9265-fmc-125ebz</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>ad9467_fmc</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
+<tr class="row-even"><td><p>ad9434-fmc</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>ad9467_fmc</p></td>
+<tr class="row-odd"><td><p>ad9434-fmc</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>ad9656_fmc</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9694_fmc</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad9695_fmc</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-even"><td><p>ad9783_ebz</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-odd"><td><p>ad_gmsl2eth_sl</p></td>
-<td><p>k26</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-even"><td><p>ad_quadmxfe1_ebz</p></td>
-<td><p>s10soc</p></td>
-<td><p>stratix10</p></td>
-</tr>
-<tr class="row-odd"><td><p>ada4355_fmc</p></td>
+<tr class="row-even"><td><p>ad9467-fmc</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>adaq23875</p></td>
+<tr class="row-odd"><td><p>adaq4003</p></td>
+<td><p>coraz7s</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>adaq4003</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>adaq7980_sdz</p></td>
+<tr class="row-odd"><td><p>adaq4224-24</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>adaq8092_fmc</p></td>
+<tr class="row-even"><td><p>adaq8092</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>admx100x_evb</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
+<tr class="row-odd"><td><p>adrv9002</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>admx6001_ebz</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-odd"><td><p>adrv9001</p></td>
-<td><p>a10soc</p></td>
-<td><p>arria10</p></td>
-</tr>
-<tr class="row-even"><td><p>adrv9001</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-odd"><td><p>adrv9001</p></td>
+<tr class="row-even"><td><p>adrv9002</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>adrv9001_dual</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
+<tr class="row-odd"><td><p>adrv9002_rx2tx2</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>adrv9002_rx2tx2</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>adrv9008-1</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>adrv9008-2</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-odd"><td><p>adrv9009</p></td>
-<td><p>a10soc</p></td>
-<td><p>arria10</p></td>
-</tr>
-<tr class="row-even"><td><p>adrv9009</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>adrv9009</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
+<tr class="row-even"><td><p>adrv9361z7035_cmos</p></td>
+<td><p>ccbob</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>adrv9026</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
+<tr class="row-odd"><td><p>adrv9361z7035_lvds</p></td>
+<td><p>ccbob</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>adrv903x</p></td>
-<td><p>vck190</p></td>
-<td><p>versal</p></td>
+<tr class="row-even"><td><p>adrv9361z7035_lvds</p></td>
+<td><p>ccfmc</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>adrv903x</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
+<tr class="row-odd"><td><p>adrv9364z7020_cmos</p></td>
+<td><p>ccbob</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>adrv904x</p></td>
-<td><p>vck190</p></td>
-<td><p>versal</p></td>
+<tr class="row-even"><td><p>adrv9364z7020_lvds</p></td>
+<td><p>ccbob</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>adrv904x</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-odd"><td><p>adrv9371x</p></td>
-<td><p>a10soc</p></td>
-<td><p>arria10</p></td>
-</tr>
-<tr class="row-even"><td><p>adrv9371x</p></td>
+<tr class="row-odd"><td><p>adrv9371</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>adrv9371x</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-even"><td><p>adv7511</p></td>
-<td><p>zc702</p></td>
+<tr class="row-even"><td><p>adrv9375</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-odd"><td><p>adv7511</p></td>
-<td><p>zc706</p></td>
+<td><p>zc702</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-even"><td><p>adv7511</p></td>
-<td><p>zed</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>adv7513</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
+<tr class="row-odd"><td><p>adv7511</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-even"><td><p>arradio</p></td>
-<td><p>c5soc</p></td>
-<td><p>cyclone5</p></td>
+<tr class="row-even"><td><p>adv7511_without_bitstream</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-odd"><td><p>cn0363</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-even"><td><p>cn0506</p></td>
-<td><p>zed</p></td>
+<td><p>socdk</p></td>
+<td><p>intel</p></td>
+<td><p>arria10</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>cn0506_mii</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>cn0506_mii</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>cn0506_rgmii</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>cn0506_rgmii</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>cn0506_rmii</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>cn0506_rmii</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-odd"><td><p>cn0540</p></td>
 <td><p>coraz7s</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-even"><td><p>cn0540</p></td>
 <td><p>de10nano</p></td>
+<td><p>intel</p></td>
 <td><p>cyclone5</p></td>
+<td><p>armhf</p></td>
 </tr>
-<tr class="row-odd"><td><p>cn0561</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
-</tr>
-<tr class="row-even"><td><p>cn0577</p></td>
+<tr class="row-odd"><td><p>cn0577</p></td>
 <td><p>zed</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>cn0579</p></td>
+<td><p>coraz7s</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-odd"><td><p>cn0579</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>cn0585</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>dac_fmc_ebz</p></td>
-<td><p>a10soc</p></td>
-<td><p>arria10</p></td>
-</tr>
-<tr class="row-even"><td><p>dac_fmc_ebz</p></td>
-<td><p>zc706</p></td>
-<td><p>zynq</p></td>
-</tr>
-<tr class="row-odd"><td><p>dac_fmc_ebz</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
+<td><p>de10nano</p></td>
+<td><p>intel</p></td>
+<td><p>cyclone5</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-even"><td><p>daq2</p></td>
-<td><p>a10soc</p></td>
-<td><p>arria10</p></td>
-</tr>
-<tr class="row-odd"><td><p>daq2</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>daq2</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-odd"><td><p>daq3</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
-</tr>
-<tr class="row-even"><td><p>daq3</p></td>
-<td><p>zcu102</p></td>
-<td><p>zynqmp</p></td>
-</tr>
-<tr class="row-odd"><td><p>dc2677a</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
+<td><p>armhf</p></td>
 </tr>
 <tr class="row-even"><td><p>fmcomms11</p></td>
 <td><p>zc706</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms2</p></td>
+<td><p>zc702</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms2</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms2</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms3</p></td>
+<td><p>zc702</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms3</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms3</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms4</p></td>
+<td><p>zc702</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms4</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms4</p></td>
+<td><p>zed</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms5</p></td>
+<td><p>zc702</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms5</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms5-ext-lo-adf5355</p></td>
+<td><p>zc706</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynq</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms8</p></td>
+<td><p>socdk</p></td>
+<td><p>intel</p></td>
+<td><p>arria10</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>sockit_arradio</p></td>
+<td><p>sockit</p></td>
+<td><p>intel</p></td>
+<td><p>cyclone5</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-odd"><td><p>sockit_dc2677a</p></td>
+<td><p>sockit</p></td>
+<td><p>intel</p></td>
+<td><p>cyclone5</p></td>
+<td><p>armhf</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9081</p></td>
+<td><p>vck190</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9081</p></td>
+<td><p>vpk180</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9081_204b_txmode9_rxmode4</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9081_204c_txmode0_rxmode1</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9081_204c_txmode22_rxmode23</p></td>
+<td><p>vck190</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9081_204c_txmode23_rxmode25</p></td>
+<td><p>vck190</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9081_m4_l8</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9081_m8_l4</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9081_m8_l4_overlay</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9081_m8_l4_qpllrx</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9081_m8_l4_tdd</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9081_m8_l4_vcxo122p88</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9082</p></td>
+<td><p>vck190</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9082</p></td>
+<td><p>vpk180</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9082_204c_txmode22_rxmode23</p></td>
+<td><p>vck190</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9082_m1_l8</p></td>
+<td><p>vpk180</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9082_m4_l8</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9083</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9084</p></td>
+<td><p>vck190</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9084</p></td>
+<td><p>vpk180</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9084_m4_l1</p></td>
+<td><p>vpk180</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9144</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9154</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9172_mode4</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9209</p></td>
+<td><p>vck190</p></td>
+<td><p>xilinx</p></td>
+<td><p>versal</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9467_fmc</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>ad9695</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>ad9783</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>adrv9002_cmos</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>adrv9002_lvds</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>adrv9002_rx2tx2_cmos</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>adrv9002_rx2tx2_lvds</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>adrv9008-1</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>adrv9008-2</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>adrv9009</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>adrv9009zu11eg_adrv2crr</p></td>
+<td><p>adrv9009zu11eg_adrv2crr</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>adrv9025</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>adrv9025_jesd204c</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>adrv9025_nls</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>adrv9371</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>adrv9375</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>cn0506_mii</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>cn0506_rgmii</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>cn0506_rmii</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>daq2</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>daq2_m4_l4</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>daq3</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms2</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms3</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms4</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms5</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms5_ext_lo_adf5355</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms8</p></td>
+<td><p>adrv9009zu11eg_adrv2crr</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
 </tr>
 <tr class="row-odd"><td><p>fmcomms8</p></td>
 <td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>fmcomms8_multisom_primary</p></td>
+<td><p>adrv9009zu11eg_adrv2crr</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>fmcomms8_multisom_secondary</p></td>
+<td><p>adrv9009zu11eg_adrv2crr</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
 </tr>
 <tr class="row-even"><td><p>jupiter_sdr</p></td>
-<td><p>zcu102</p></td>
+<td><p>jupiter_sdr</p></td>
+<td><p>xilinx</p></td>
 <td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
 </tr>
-<tr class="row-odd"><td><p>max96724</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
+<tr class="row-odd"><td><p>jupiter_sdr_rx2tx2</p></td>
+<td><p>jupiter_sdr</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
 </tr>
-<tr class="row-even"><td><p>pulsar_adc</p></td>
-<td><p>coraz7s</p></td>
-<td><p>zynq</p></td>
+<tr class="row-even"><td><p>multisom-primary</p></td>
+<td><p>adrv9009zu11eg_adrv2crr</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
 </tr>
-<tr class="row-odd"><td><p>pulsar_adc</p></td>
-<td><p>de10nano</p></td>
-<td><p>cyclone5</p></td>
+<tr class="row-odd"><td><p>multisom-secondary</p></td>
+<td><p>adrv9009zu11eg_adrv2crr</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
 </tr>
-<tr class="row-even"><td><p>pulsar_adc</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
+<tr class="row-even"><td><p>stingray</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
 </tr>
-<tr class="row-odd"><td><p>pulsar_lvds_adc</p></td>
-<td><p>zed</p></td>
-<td><p>zynq</p></td>
+<tr class="row-odd"><td><p>stingray_direct_clk</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-even"><td><p>stingray_vcxo100</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
+</tr>
+<tr class="row-odd"><td><p>stingray_vcxo100_direct_clk</p></td>
+<td><p>zcu102</p></td>
+<td><p>xilinx</p></td>
+<td><p>zynqmp</p></td>
+<td><p>arm64</p></td>
 </tr>
 </tbody>
 </table>
