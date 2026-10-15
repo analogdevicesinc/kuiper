@@ -1,0 +1,26 @@
+# Copyright (c) 2026 Analog Devices, Inc. All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+name: Copyright & License Check
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  copyright-license-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan for copyright/license headers
+        uses: analogdevicesinc/shared-actions/copyright-license-check@main
+        with:
+          full-scan: ${{ github.event_name == 'workflow_dispatch' }}
+          fail-on-missing: true
+          file-extensions: 'sh,py,yml'
