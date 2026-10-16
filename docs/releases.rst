@@ -19,6 +19,10 @@ you want to check the list of supported projects, see
    Kuiper 1 is the previous generation. It is **deprecated** and no longer
    maintained. New releases are Kuiper 2 only.
 
+.. note::
+
+   If you are having problems make sure to check :ref:`common-issues`.
+
 ----
 
 .. _releases-downloads:
@@ -1070,3 +1074,71 @@ boot-file Debian package it needs, and the Kuiper image architecture to use:
      - xilinx
      - zynqmp
      - arm64
+
+----
+
+.. _common-issues:
+
+Common Issues
+-------------
+
+Issues that are known to occur the current release, together with their
+status and a workaround.
+
+.. _common-issues-serial-console:
+
+Serial Console Stops Responding (ADRV9009-ZU11EG, Jupiter SDR)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Affected hardware:** ADRV9009-ZU11EG (``adrv9009zu11eg_adrv2crr``) and
+Jupiter SDR / Jupiter-EBZ (``jupiter_sdr``). Both are ZynqMP targets and use
+the ``arm64`` image.
+
+**Symptom:** the board boots and the early boot output is printed over the
+serial port as expected, but the serial console then stops responding.
+Keystrokes are no longer echoed and no further output appears, so the login
+prompt cannot be reached over UART. Only the serial console is affected — the
+board itself keeps running and stays reachable over the network.
+
+**Cause:** the fan-control service that runs on these boards halts the UART
+that carries the serial console. Once that service has started, the console is
+no longer accessible for the rest of the session.
+
+**Status:** a patch is underway and will be included in a future release. Until
+it ships, apply the fix below or connect via network.
+
+Fix
+^^^
+
+Once the patch is released, using the latest image is enough.
+No manual step is required after that.
+
+In the meantime, the serial console can be recovered by manually setting the
+serial service as "simple" which will keep it always running:
+
+.. shell::
+
+    mkdir -p /etc/systemd/system/serial-getty@ttyPS0.service.d
+    nano /etc/systemd/system/serial-getty@ttyPS0.service.d/override.conf
+
+Then, once the file is created you have to insert the following:
+
+.. shell::
+
+    [Service]
+    Type=simple
+
+Save and exit the file using Ctrl+S and Ctrl+X and then reload the daemon to
+load the change:
+
+.. shell::
+
+   systemctl daemon-reload
+
+The serial console becomes usable again immediately, and stays usable across
+reboots.
+
+If the problem persists after applying the fix, or you see it on hardware not
+listed above, please report it on the :git-kuiper:`GitHub Issues <issues+>`
+page.
+
