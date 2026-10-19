@@ -65,8 +65,8 @@ for Intel platforms.
 
    For PC users: The script is located at ``/usr/local/bin/configure-setup.sh``
    on your Kuiper image. Access it by mounting the SD card's rootfs partition,
-   or download it from :git-kuiper:`here
-   <blob/main/stages/08.export-stage/04.export-image/files/configure-setup.sh+>`.
+   or download it from `here
+   <https://github.com/analogdevicesinc/linux_image_ADI-scripts/blob/v0.1.0/configure-setup.sh>`__.
 
 Discovering Available Hardware
 ++++++++++++++++++++++++++++++
