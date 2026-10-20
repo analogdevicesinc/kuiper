@@ -113,6 +113,13 @@
 </li>
 <li><a class="reference internal" href="#building-beyond-the-releases">Building Beyond the Releases</a></li>
 <li><a class="reference internal" href="#supported-projects">Supported Projects</a></li>
+<li><a class="reference internal" href="#common-issues">Common Issues</a><ul>
+<li><a class="reference internal" href="#serial-console-stops-responding-adrv9009-zu11eg-jupiter-sdr">Serial Console Stops Responding (ADRV9009-ZU11EG, Jupiter SDR)</a><ul>
+<li><a class="reference internal" href="#fix">Fix</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -205,6 +212,10 @@ you want to check the list of supported projects, see
 <p class="admonition-title">Note</p>
 <p>Kuiper 1 is the previous generation. It is <strong>deprecated</strong> and no longer
 maintained. New releases are Kuiper 2 only.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are having problems make sure to check <a class="reference internal" href="#common-issues"><span class="std std-ref">Common Issues</span></a>.</p>
 </div>
 <hr class="docutils" />
 <section id="downloads">
@@ -1433,6 +1444,58 @@ boot-file Debian package it needs, and the Kuiper image architecture to use:</p>
 </tbody>
 </table>
 </div>
+<hr class="docutils" />
+</section>
+<section id="common-issues">
+<span id="id3"></span><h2>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h2>
+<p>Issues that are known to occur the current release, together with their
+status and a workaround.</p>
+<section id="serial-console-stops-responding-adrv9009-zu11eg-jupiter-sdr">
+<span id="common-issues-serial-console"></span><h3>Serial Console Stops Responding (ADRV9009-ZU11EG, Jupiter SDR)<a class="headerlink" href="#serial-console-stops-responding-adrv9009-zu11eg-jupiter-sdr" title="Link to this heading"></a></h3>
+<p><strong>Affected hardware:</strong> ADRV9009-ZU11EG (<code class="docutils literal notranslate"><span class="pre">adrv9009zu11eg_adrv2crr</span></code>) and
+Jupiter SDR / Jupiter-EBZ (<code class="docutils literal notranslate"><span class="pre">jupiter_sdr</span></code>). Both are ZynqMP targets and use
+the <code class="docutils literal notranslate"><span class="pre">arm64</span></code> image.</p>
+<p><strong>Symptom:</strong> the board boots and the early boot output is printed over the
+serial port as expected, but the serial console then stops responding.
+Keystrokes are no longer echoed and no further output appears, so the login
+prompt cannot be reached over UART. Only the serial console is affected — the
+board itself keeps running and stays reachable over the network.</p>
+<p><strong>Cause:</strong> the fan-control service that runs on these boards halts the UART
+that carries the serial console. Once that service has started, the console is
+no longer accessible for the rest of the session.</p>
+<p><strong>Status:</strong> a patch is underway and will be included in a future release. Until
+it ships, apply the fix below or connect via network.</p>
+<section id="fix">
+<h4>Fix<a class="headerlink" href="#fix" title="Link to this heading"></a></h4>
+<p>Once the patch is released, using the latest image is enough.
+No manual step is required after that.</p>
+<p>In the meantime, the serial console can be recovered by manually setting the
+serial service as “simple” which will keep it always running:</p>
+<div class="code-shell"><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>mkdir -p /etc/systemd/system/serial-getty@ttyPS0.service.d
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>nano /etc/systemd/system/serial-getty@ttyPS0.service.d/override.conf
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Then, once the file is created you have to insert the following:</p>
+<div class="code-shell"><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>[Service]
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>Type=simple
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Save and exit the file using Ctrl+S and Ctrl+X and then reload the daemon to
+load the change:</p>
+<div class="code-shell"><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>systemctl daemon-reload
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>The serial console becomes usable again immediately, and stays usable across
+reboots.</p>
+<p>If the problem persists after applying the fix, or you see it on hardware not
+listed above, please report it on the <a class="icon git reference external" href="https://github.com/analogdevicesinc/kuiper/issues" target="_blank">GitHub Issues</a>
+page.</p>
+</section>
+</section>
 </section>
 </section>
 
