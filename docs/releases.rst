@@ -30,11 +30,16 @@ you want to check the list of supported projects, see
 Downloads
 ---------
 
-The current release is **Kuiper 2026.1.0**. Each variant ships as an
-**image** (the SD-card image, write it with :doc:`these steps
-<use-kuiper-image>`) and a **metadata** archive. The Full editions are
-recommended for most users; the Basic editions are available below under
-*Advanced*.
+The current release is **Kuiper 2026_R1**. The 64-bit (``arm64``) images
+include **Patch 1 (2026.1.1)**, which fixes the ZynqMP :ref:`serial-console
+issue <common-issues-serial-console>`; the 32-bit (``armhf``) images are
+unaffected and remain at **2026.1.0**. The exact version of each download is
+shown in the **Version** column below.
+
+Each variant ships as an **image** (the SD-card image, write it with
+:doc:`these steps <use-kuiper-image>`) and a **metadata** archive. The Full
+editions are recommended for most users; the Basic editions are available below
+under *Advanced*.
 
 Full editions (recommended):
 
@@ -43,14 +48,17 @@ Full editions (recommended):
    :class: bold-header
 
    * - Variant
+     - Version
      - Image
      - Metadata
    * - ARM 32-bit Full (``armhf``)
+     - 2026.1.0
      - `Image <https://packages.analog.com/public/raw/files/kuiper_full_32_image_2026.1.0.zip>`__
      - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_32_meta_2026.1.0.zip>`__
    * - ARM 64-bit Full (``arm64``)
-     - `Image <https://packages.analog.com/public/raw/files/kuiper_full_64_image_2026.1.0.zip>`__
-     - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_64_meta_2026.1.0.zip>`__
+     - 2026.1.1
+     - `Image <https://packages.analog.com/public/raw/files/kuiper_full_64_image_2026.1.1.zip>`__
+     - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_64_meta_2026.1.1.zip>`__
 
 .. collapsible:: Advanced: Basic editions
 
@@ -63,12 +71,39 @@ Full editions (recommended):
       :class: bold-header
 
       * - Variant
+        - Version
         - Image
         - Metadata
       * - ARM 32-bit Basic (``armhf``)
+        - 2026.1.0
         - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_32_image_2026.1.0.zip>`__
         - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_32_meta_2026.1.0.zip>`__
       * - ARM 64-bit Basic (``arm64``)
+        - 2026.1.1
+        - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_64_image_2026.1.1.zip>`__
+        - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_64_meta_2026.1.1.zip>`__
+
+.. collapsible:: Archived releases
+
+   Superseded images, kept for reproducibility and rollback. **Not recommended
+   for new installs** — the ``arm64`` 2026.1.0 images carry the
+   :ref:`serial-console issue <common-issues-serial-console>` that Patch 1
+   fixes; use the 2026.1.1 images above instead.
+
+   .. list-table::
+      :header-rows: 1
+      :class: bold-header
+
+      * - Variant
+        - Version
+        - Image
+        - Metadata
+      * - ARM 64-bit Full (``arm64``)
+        - 2026.1.0
+        - `Image <https://packages.analog.com/public/raw/files/kuiper_full_64_image_2026.1.0.zip>`__
+        - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_64_meta_2026.1.0.zip>`__
+      * - ARM 64-bit Basic (``arm64``)
+        - 2026.1.0
         - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_64_image_2026.1.0.zip>`__
         - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_64_meta_2026.1.0.zip>`__
 
@@ -1082,8 +1117,8 @@ boot-file Debian package it needs, and the Kuiper image architecture to use:
 Common Issues
 -------------
 
-Issues that are known to occur the current release, together with their
-status and a workaround.
+Issues that are known to occur in a release, together with their status and a
+workaround or fix.
 
 .. _common-issues-serial-console:
 
@@ -1104,17 +1139,21 @@ board itself keeps running and stays reachable over the network.
 that carries the serial console. Once that service has started, the console is
 no longer accessible for the rest of the session.
 
-**Status:** a patch is underway and will be included in a future release. Until
-it ships, apply the fix below or connect via network.
+**Status:** **Fixed in Kuiper 2026.1.1** (2026_R1 Patch 1) for ``arm64``. The
+fix is built into the image, so writing the 2026.1.1 ``arm64`` release resolves
+it with no manual step. The manual fix below remains for boards already running
+2026.1.0 that you do not want to re-flash.
 
 Fix
 ^^^
 
-Once the patch is released, using the latest image is enough.
-No manual step is required after that.
+The fix ships in the 2026.1.1 ``arm64`` images. :ref:`Download Patch 1
+<releases-downloads>` and write it to your card — no manual step is required
+afterwards.
 
-In the meantime, the serial console can be recovered by manually setting the
-serial service as "simple" which will keep it always running:
+If you prefer to keep an existing 2026.1.0 card, the serial console can be
+recovered by manually setting the serial service as "simple" so it stays
+running:
 
 .. shell::
 
