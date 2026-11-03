@@ -45,7 +45,7 @@ editions are recommended for most users; the Basic editions are available below
 under *Advanced*.
 
 After downloading an image, its integrity can be verified using the
-corresponding **checksum** from the **Images Checksums** table below.
+corresponding **SHA-256 checksum** from the **Images Checksums** table below.
 
 Full editions (recommended):
 
