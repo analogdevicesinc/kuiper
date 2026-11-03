@@ -44,6 +44,9 @@ Each variant ships as an **image** (the SD-card image, write it with
 editions are recommended for most users; the Basic editions are available below
 under *Advanced*.
 
+After downloading an image, its integrity can be verified using the
+corresponding **SHA-256 checksum** from the **Images Checksums** table below.
+
 Full editions (recommended):
 
 .. list-table::
@@ -104,6 +107,39 @@ Full editions (recommended):
         - 2026.1.0
         - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_64_image_2026.1.0.zip>`__
         - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_64_meta_2026.1.0.zip>`__
+
+.. collapsible:: Images Checksums
+
+   .. list-table::
+      :header-rows: 1
+      :class: bold-header
+
+      * - Image
+        - Checksum
+      * - kuiper_full_32_image_2026.1.0.zip
+        - .. code-block:: text
+
+            8afedf5d53d96f2ff3be564354fbce7b72fb2f086c333d3dc9d5fbf500fa7255
+      * - kuiper_full_64_image_2026.1.1.zip
+        - .. code-block:: text
+
+            26ac95a6fbb977c94d35d325db52dbc819be68c0256eae318737ff3dcb6cb27a
+      * - kuiper_basic_32_image_2026.1.0.zip
+        - .. code-block:: text
+
+            a31592534f4605331dcc4b3aee73c5bf29001a3653fca58ac44bea201a6e8d9d
+      * - kuiper_basic_64_image_2026.1.1.zip
+        - .. code-block:: text
+
+            a28504cdc86e40549b979a0e6dc623903bb91703ffdd144db4383aa52ae694a5
+      * - kuiper_full_64_image_2026.1.0.zip
+        - .. code-block:: text
+
+            92b0b3e48c52f144e1ade369b41aee48c053979770a7cca473d09ef6578aae36
+      * - kuiper_basic_64_image_2026.1.0.zip
+        - .. code-block:: text
+
+            43a0acaa09eefb09930a67bdad51db421eeaed1a702e760fd2d14dcac0b7ab7f
 
 ----
 
