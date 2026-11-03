@@ -96,7 +96,10 @@
         <nav>
           <ul>
 <li><a class="reference internal" href="#">Releases</a><ul>
-<li><a class="reference internal" href="#downloads">Downloads</a></li>
+<li><a class="reference internal" href="#downloads">Downloads</a><ul>
+<li><a class="reference internal" href="#r1-image-release">2026_r1 Image Release</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#release-variants">Release Variants</a></li>
 <li><a class="reference internal" href="#choosing-an-architecture">Choosing an Architecture</a></li>
 <li><a class="reference internal" href="#choosing-an-edition">Choosing an Edition</a><ul>
@@ -220,6 +223,8 @@ maintained. New releases are Kuiper 2 only.</p>
 <hr class="docutils" />
 <section id="downloads">
 <span id="releases-downloads"></span><h2>Downloads<a class="headerlink" href="#downloads" title="Link to this heading"></a></h2>
+<section id="r1-image-release">
+<h3>2026_r1 Image Release<a class="headerlink" href="#r1-image-release" title="Link to this heading"></a></h3>
 <p>The current release is <strong>Kuiper 2026_R1</strong>. The 64-bit (<code class="docutils literal notranslate"><span class="pre">arm64</span></code>) images
 include <strong>Patch 1 (2026.1.1)</strong>, which fixes the ZynqMP <a class="reference internal" href="#common-issues-serial-console"><span class="std std-ref">serial-console
 issue</span></a>; the 32-bit (<code class="docutils literal notranslate"><span class="pre">armhf</span></code>) images are
@@ -285,12 +290,8 @@ details.</p>
 </div>
 </div>
 </div><div><div class="collapsible docutils container">
-<input class="collapsible_input" id="c5adba121232118eba894e3cae2116515ca95293" name="c5adba121232118eba894e3cae2116515ca95293" type="checkbox"></input><label for="c5adba121232118eba894e3cae2116515ca95293"><p>Archived releases</p>
+<input class="collapsible_input" id="9f3b2a6d5d640d166b687bc8980eb5c79be43aa1" name="9f3b2a6d5d640d166b687bc8980eb5c79be43aa1" type="checkbox"></input><label for="9f3b2a6d5d640d166b687bc8980eb5c79be43aa1"><p>Previous releases</p>
 <div class="icon"></div></label><div class="collapsible_content docutils container">
-<p>Superseded images, kept for reproducibility and rollback. <strong>Not recommended
-for new installs</strong> — the <code class="docutils literal notranslate"><span class="pre">arm64</span></code> 2026.1.0 images carry the
-<a class="reference internal" href="#common-issues-serial-console"><span class="std std-ref">serial-console issue</span></a> that Patch 1
-fixes; use the 2026.1.1 images above instead.</p>
 <div class="table-wrapper bold-header docutils container">
 <table class="bold-header docutils align-default">
 <thead>
@@ -317,6 +318,7 @@ fixes; use the 2026.1.1 images above instead.</p>
 </div>
 </div>
 </div></section>
+</section>
 <hr class="docutils" />
 <section id="release-variants">
 <h2>Release Variants<a class="headerlink" href="#release-variants" title="Link to this heading"></a></h2>
@@ -1495,6 +1497,7 @@ boot-file Debian package it needs, and the Kuiper image architecture to use:</p>
 workaround or fix.</p>
 <section id="serial-console-stops-responding-adrv9009-zu11eg-jupiter-sdr">
 <span id="common-issues-serial-console"></span><h3>Serial Console Stops Responding (ADRV9009-ZU11EG, Jupiter SDR)<a class="headerlink" href="#serial-console-stops-responding-adrv9009-zu11eg-jupiter-sdr" title="Link to this heading"></a></h3>
+<p><strong>Affected releases:</strong> 2026.1.0 <code class="docutils literal notranslate"><span class="pre">arm64</span></code> images.</p>
 <p><strong>Affected hardware:</strong> ADRV9009-ZU11EG (<code class="docutils literal notranslate"><span class="pre">adrv9009zu11eg_adrv2crr</span></code>) and
 Jupiter SDR / Jupiter-EBZ (<code class="docutils literal notranslate"><span class="pre">jupiter_sdr</span></code>). Both are ZynqMP targets and use
 the <code class="docutils literal notranslate"><span class="pre">arm64</span></code> image.</p>

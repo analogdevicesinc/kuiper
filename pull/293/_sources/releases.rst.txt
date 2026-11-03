@@ -30,6 +30,9 @@ you want to check the list of supported projects, see
 Downloads
 ---------
 
+2026_r1 Image Release
+~~~~~~~~~~~~~~~~~~~~~
+
 The current release is **Kuiper 2026_R1**. The 64-bit (``arm64``) images
 include **Patch 1 (2026.1.1)**, which fixes the ZynqMP :ref:`serial-console
 issue <common-issues-serial-console>`; the 32-bit (``armhf``) images are
@@ -83,12 +86,7 @@ Full editions (recommended):
         - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_64_image_2026.1.1.zip>`__
         - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_64_meta_2026.1.1.zip>`__
 
-.. collapsible:: Archived releases
-
-   Superseded images, kept for reproducibility and rollback. **Not recommended
-   for new installs** — the ``arm64`` 2026.1.0 images carry the
-   :ref:`serial-console issue <common-issues-serial-console>` that Patch 1
-   fixes; use the 2026.1.1 images above instead.
+.. collapsible:: Previous releases
 
    .. list-table::
       :header-rows: 1
@@ -1124,6 +1122,8 @@ workaround or fix.
 
 Serial Console Stops Responding (ADRV9009-ZU11EG, Jupiter SDR)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Affected releases:** 2026.1.0 ``arm64`` images.
 
 **Affected hardware:** ADRV9009-ZU11EG (``adrv9009zu11eg_adrv2crr``) and
 Jupiter SDR / Jupiter-EBZ (``jupiter_sdr``). Both are ZynqMP targets and use
