@@ -30,11 +30,22 @@ you want to check the list of supported projects, see
 Downloads
 ---------
 
-The current release is **Kuiper 2026.1.0**. Each variant ships as an
-**image** (the SD-card image, write it with :doc:`these steps
-<use-kuiper-image>`) and a **metadata** archive. The Full editions are
-recommended for most users; the Basic editions are available below under
-*Advanced*.
+2026_r1 Image Release
+~~~~~~~~~~~~~~~~~~~~~
+
+The current release is **Kuiper 2026_R1**. The 64-bit (``arm64``) images
+include **Patch 1 (2026.1.1)**, which fixes the ZynqMP :ref:`serial-console
+issue <common-issues-serial-console>`; the 32-bit (``armhf``) images are
+unaffected and remain at **2026.1.0**. The exact version of each download is
+shown in the **Version** column below.
+
+Each variant ships as an **image** (the SD-card image, write it with
+:doc:`these steps <use-kuiper-image>`) and a **metadata** archive. The Full
+editions are recommended for most users; the Basic editions are available below
+under *Advanced*.
+
+After downloading an image, its integrity can be verified using the
+corresponding **SHA-256 checksum** from the **Images Checksums** table below.
 
 Full editions (recommended):
 
@@ -43,14 +54,17 @@ Full editions (recommended):
    :class: bold-header
 
    * - Variant
+     - Version
      - Image
      - Metadata
    * - ARM 32-bit Full (``armhf``)
+     - 2026.1.0
      - `Image <https://packages.analog.com/public/raw/files/kuiper_full_32_image_2026.1.0.zip>`__
      - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_32_meta_2026.1.0.zip>`__
    * - ARM 64-bit Full (``arm64``)
-     - `Image <https://packages.analog.com/public/raw/files/kuiper_full_64_image_2026.1.0.zip>`__
-     - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_64_meta_2026.1.0.zip>`__
+     - 2026.1.1
+     - `Image <https://packages.analog.com/public/raw/files/kuiper_full_64_image_2026.1.1.zip>`__
+     - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_64_meta_2026.1.1.zip>`__
 
 .. collapsible:: Advanced: Basic editions
 
@@ -63,14 +77,69 @@ Full editions (recommended):
       :class: bold-header
 
       * - Variant
+        - Version
         - Image
         - Metadata
       * - ARM 32-bit Basic (``armhf``)
+        - 2026.1.0
         - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_32_image_2026.1.0.zip>`__
         - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_32_meta_2026.1.0.zip>`__
       * - ARM 64-bit Basic (``arm64``)
+        - 2026.1.1
+        - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_64_image_2026.1.1.zip>`__
+        - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_64_meta_2026.1.1.zip>`__
+
+.. collapsible:: Previous releases
+
+   .. list-table::
+      :header-rows: 1
+      :class: bold-header
+
+      * - Variant
+        - Version
+        - Image
+        - Metadata
+      * - ARM 64-bit Full (``arm64``)
+        - 2026.1.0
+        - `Image <https://packages.analog.com/public/raw/files/kuiper_full_64_image_2026.1.0.zip>`__
+        - `Metadata <https://packages.analog.com/public/raw/files/kuiper_full_64_meta_2026.1.0.zip>`__
+      * - ARM 64-bit Basic (``arm64``)
+        - 2026.1.0
         - `Image <https://packages.analog.com/public/raw/files/kuiper_basic_64_image_2026.1.0.zip>`__
         - `Metadata <https://packages.analog.com/public/raw/files/kuiper_basic_64_meta_2026.1.0.zip>`__
+
+.. collapsible:: Images Checksums
+
+   .. list-table::
+      :header-rows: 1
+      :class: bold-header
+
+      * - Image
+        - Checksum
+      * - kuiper_full_32_image_2026.1.0.zip
+        - .. code-block:: text
+
+            8afedf5d53d96f2ff3be564354fbce7b72fb2f086c333d3dc9d5fbf500fa7255
+      * - kuiper_full_64_image_2026.1.1.zip
+        - .. code-block:: text
+
+            26ac95a6fbb977c94d35d325db52dbc819be68c0256eae318737ff3dcb6cb27a
+      * - kuiper_basic_32_image_2026.1.0.zip
+        - .. code-block:: text
+
+            a31592534f4605331dcc4b3aee73c5bf29001a3653fca58ac44bea201a6e8d9d
+      * - kuiper_basic_64_image_2026.1.1.zip
+        - .. code-block:: text
+
+            a28504cdc86e40549b979a0e6dc623903bb91703ffdd144db4383aa52ae694a5
+      * - kuiper_full_64_image_2026.1.0.zip
+        - .. code-block:: text
+
+            92b0b3e48c52f144e1ade369b41aee48c053979770a7cca473d09ef6578aae36
+      * - kuiper_basic_64_image_2026.1.0.zip
+        - .. code-block:: text
+
+            43a0acaa09eefb09930a67bdad51db421eeaed1a702e760fd2d14dcac0b7ab7f
 
 ----
 
@@ -1082,13 +1151,15 @@ boot-file Debian package it needs, and the Kuiper image architecture to use:
 Common Issues
 -------------
 
-Issues that are known to occur the current release, together with their
-status and a workaround.
+Issues that are known to occur in a release, together with their status and a
+workaround or fix.
 
 .. _common-issues-serial-console:
 
 Serial Console Stops Responding (ADRV9009-ZU11EG, Jupiter SDR)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Affected releases:** 2026.1.0 ``arm64`` images.
 
 **Affected hardware:** ADRV9009-ZU11EG (``adrv9009zu11eg_adrv2crr``) and
 Jupiter SDR / Jupiter-EBZ (``jupiter_sdr``). Both are ZynqMP targets and use
@@ -1104,17 +1175,21 @@ board itself keeps running and stays reachable over the network.
 that carries the serial console. Once that service has started, the console is
 no longer accessible for the rest of the session.
 
-**Status:** a patch is underway and will be included in a future release. Until
-it ships, apply the fix below or connect via network.
+**Status:** **Fixed in Kuiper 2026.1.1** (2026_R1 Patch 1) for ``arm64``. The
+fix is built into the image, so writing the 2026.1.1 ``arm64`` release resolves
+it with no manual step. The manual fix below remains for boards already running
+2026.1.0 that you do not want to re-flash.
 
 Fix
 ^^^
 
-Once the patch is released, using the latest image is enough.
-No manual step is required after that.
+The fix ships in the 2026.1.1 ``arm64`` images. :ref:`Download Patch 1
+<releases-downloads>` and write it to your card — no manual step is required
+afterwards.
 
-In the meantime, the serial console can be recovered by manually setting the
-serial service as "simple" which will keep it always running:
+If you prefer to keep an existing 2026.1.0 card, the serial console can be
+recovered by manually setting the serial service as "simple" so it stays
+running:
 
 .. shell::
 

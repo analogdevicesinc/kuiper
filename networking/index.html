@@ -8,7 +8,7 @@
 
     <title>Networking &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=b1d7a81a" />
+    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=a3ee7af8" />
     <script async="async" src="../_static/app.umd.js?v=048c1170"></script>
     <link rel="icon" href="../_static/icon.png"/>
     <link rel="index" title="Index" href="../genindex/" />
@@ -264,8 +264,8 @@ itself over mDNS using its hostname. See <a class="reference internal" href="#ne
 <p>Wi-Fi is not part of this default configuration. Only the Ethernet port is
 preconfigured — see <a class="reference internal" href="#networking-wifi"><span class="std std-ref">Connecting to Wi-Fi</span></a> to connect wirelessly.</p>
 </div>
-<hr class="docutils" />
 </section>
+<hr class="docutils" />
 <section id="connecting-to-a-network-with-dhcp">
 <span id="networking-dhcp"></span><h2>Connecting to a Network with DHCP<a class="headerlink" href="#connecting-to-a-network-with-dhcp" title="Link to this heading"></a></h2>
 <p>This is the default. Connect the board’s Ethernet port to a router or switch
@@ -317,9 +317,9 @@ different network, for example — bring the connection down and back up:</p>
 <p>Older ADI documentation suggests <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dhclient</span> <span class="pre">-r</span> <span class="pre">eth0</span></code> for this.
 Kuiper does not use <code class="docutils literal notranslate"><span class="pre">dhclient</span></code>; use the <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> commands above.</p>
 </div>
+</section>
+</section>
 <hr class="docutils" />
-</section>
-</section>
 <section id="connecting-directly-to-a-pc">
 <span id="networking-direct"></span><h2>Connecting Directly to a PC<a class="headerlink" href="#connecting-directly-to-a-pc" title="Link to this heading"></a></h2>
 <p>To connect the board straight to a computer with a single Ethernet cable, with
@@ -358,8 +358,8 @@ it will not join the link-local network.</p>
 </div>
 <p>Setting a static IP address on both ends, as required by earlier Kuiper
 versions, is no longer necessary for a direct connection.</p>
-<hr class="docutils" />
 </section>
+<hr class="docutils" />
 <section id="setting-a-static-ip-address">
 <span id="networking-static-ip"></span><h2>Setting a Static IP Address<a class="headerlink" href="#setting-a-static-ip-address" title="Link to this heading"></a></h2>
 <p>A fixed address is useful when a board must stay reachable at a known location
@@ -459,9 +459,9 @@ shipped profiles — the DHCP and link-local fallback described in
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> instead when you need a gateway, DNS servers, a netmask other
 than <code class="docutils literal notranslate"><span class="pre">/24</span></code>, or want to keep the shipped profiles in charge of the interface.</p>
+</section>
+</section>
 <hr class="docutils" />
-</section>
-</section>
 <section id="connecting-to-wi-fi">
 <span id="networking-wifi"></span><h2>Connecting to Wi-Fi<a class="headerlink" href="#connecting-to-wi-fi" title="Link to this heading"></a></h2>
 <p>Wi-Fi is not configured by default and support depends on your build:</p>
@@ -508,8 +508,8 @@ available channels. Kuiper does not set one. If networks are missing from
 the scan, set your country code with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">iw</span> <span class="pre">reg</span> <span class="pre">set</span> <span class="pre">&lt;code&gt;</span></code> (for
 example <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">iw</span> <span class="pre">reg</span> <span class="pre">set</span> <span class="pre">US</span></code>).</p>
 </div>
-<hr class="docutils" />
 </section>
+<hr class="docutils" />
 <section id="hostname-and-network-discovery">
 <span id="networking-hostname"></span><h2>Hostname and Network Discovery<a class="headerlink" href="#hostname-and-network-discovery" title="Link to this heading"></a></h2>
 <p>Every Kuiper image uses the hostname <code class="docutils literal notranslate"><span class="pre">analog</span></code> unless you change it, and
@@ -557,9 +557,9 @@ when provisioning several boards at once.</p>
 able to set it through <code class="docutils literal notranslate"><span class="pre">/boot/uEnv.txt</span></code> by adding
 <code class="docutils literal notranslate"><span class="pre">ethaddr=&lt;new-mac-address&gt;</span></code>. Check the carrier vendor documentation for full
 instructions.</p>
+</section>
+</section>
 <hr class="docutils" />
-</section>
-</section>
 <section id="accessing-iio-devices-over-the-network">
 <span id="networking-iio"></span><h2>Accessing IIO Devices over the Network<a class="headerlink" href="#accessing-iio-devices-over-the-network" title="Link to this heading"></a></h2>
 <p>Images built with <code class="docutils literal notranslate"><span class="pre">CONFIG_LIBIIO=y</span></code> include <code class="docutils literal notranslate"><span class="pre">iiod</span></code>, the IIO daemon. It
@@ -607,8 +607,8 @@ ip:analog.local
 <p><code class="docutils literal notranslate"><span class="pre">iiod</span></code> accepts connections from anywhere on the network without
 authentication. Keep boards serving IIO devices on trusted networks.</p>
 </div>
-<hr class="docutils" />
 </section>
+<hr class="docutils" />
 <section id="securing-network-access">
 <span id="networking-security"></span><h2>Securing Network Access<a class="headerlink" href="#securing-network-access" title="Link to this heading"></a></h2>
 <p>Kuiper’s defaults favor getting a board reachable quickly, which is the right
