@@ -79,15 +79,15 @@ You can also customize the git branch and CMake arguments:
 
 .. code-block:: bash
 
-   BRANCH_LIBIIO=libiio-v0
+   # Build v0 (legacy api/abi)
+   BRANCH_LIBIIO=v0.26
    CONFIG_LIBIIO_CMAKE_ARGS="-DWITH_HWMON=ON \
                              -DWITH_SERIAL_BACKEND=ON \
                              -DWITH_MAN=ON \
                              -DWITH_EXAMPLES=ON \
                              -DPYTHON_BINDINGS=ON \
                              -DCMAKE_BUILD_TYPE=Release \
-                             -DCMAKE_COLOR_MAKEFILE=OFF \
-                             -Bbuild -H."
+                             -DCMAKE_COLOR_MAKEFILE=OFF"
 
 The same pattern applies to other libraries (``libm2k``, ``libad9361-iio``,
 ``libad9166-iio``, etc.) and applications (``iio-oscilloscope``,
