@@ -39,13 +39,15 @@ jobs:
           sparse-checkout-cone-mode: false
 
       - name: Download image
-        uses: dawidd6/action-download-artifact@v5
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: kuiper2_0-build.yml
-          branch: main
-          name: ${{ matrix.kuiper_artifact }}_image.zip
-          repo: analogdevicesinc/kuiper
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          run_id=$(gh run list --repo analogdevicesinc/kuiper \
+            --workflow kuiper2_0-build.yml --branch main --limit 20 \
+            --json databaseId,conclusion,createdAt \
+            --jq 'map(select(.conclusion=="success")) | max_by(.createdAt) | .databaseId')
+          gh run download "$run_id" --repo analogdevicesinc/kuiper \
+            --name ${{ matrix.kuiper_artifact }}_image.zip
 
       - name: Create .tar file
         run: |
