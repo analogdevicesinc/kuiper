@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --sourcedirectory=source
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DENABLE_MANUAL_PAGE=off

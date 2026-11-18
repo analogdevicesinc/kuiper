@@ -1,0 +1,5 @@
+The packaging of gt (USB Gadget Tool, linux-usb-gadgets/gt), which adi-scripts
+depends on (gt >= 1.0). The ADI Kuiper repository has a gt 1.0 package, whose
+packaging is not public: this one makes the same package (name, version,
+libusbgx3 and libconfig11 dependencies). build-adi-packages.sh builds it like the others,
+with this debian/ and VERSION in place of the packaging of the repository.

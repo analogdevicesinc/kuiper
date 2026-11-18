@@ -1,0 +1,5 @@
+gt (@VERSION@) unstable; urgency=low
+
+  * Build of linux-usb-gadgets/gt for the ADI Kuiper images.
+
+ -- EngineerZone <https://ez.analog.com/sw-interface-tools>  @DATE@

@@ -1,0 +1,9 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: gt
+Source: https://github.com/linux-usb-gadgets/gt
+
+Files: *
+Copyright: Samsung Electronics Co., Ltd. and the gt contributors
+License: Apache-2.0
+ On Debian systems, the complete text of the Apache License 2.0 can be
+ found in "/usr/share/common-licenses/Apache-2.0".
