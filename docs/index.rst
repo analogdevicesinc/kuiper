@@ -163,6 +163,7 @@ Documentation
    package-management
    customization
    stage-reference
+   polarfire-soc
 
 .. toctree::
    :maxdepth: 2

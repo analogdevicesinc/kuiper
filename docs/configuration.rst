@@ -42,7 +42,8 @@ These options control the fundamental aspects of your Kuiper image:
      - Description
    * - ``TARGET_ARCHITECTURE``
      - ``armhf``
-     - Target architecture: ``armhf`` (32-bit) or ``arm64`` (64-bit)
+     - Target architecture: ``armhf`` (32-bit), ``arm64`` (64-bit) or
+       ``riscv64`` (Microchip PolarFire SoC, see :ref:`polarfire-soc`)
    * - ``DEBIAN_VERSION``
      - ``trixie``
      - Debian version to use (e.g., ``trixie``, ``bookworm``, ``bullseye``).
@@ -100,7 +101,25 @@ ADI Libraries and Tools
 -----------------------
 
 These options control which ADI libraries and tools are included in the image.
-Libraries are installed from Analog Devices' package repository.
+Libraries are installed from Analog Devices' package repository, and from
+the local package repository of ``ADI_LOCAL_REPO`` when set:
+
+.. list-table::
+   :header-rows: 1
+   :class: bold-header
+
+   * - Option
+     - Default
+     - Description
+   * - ``ADI_LOCAL_REPO``
+     - (empty)
+     - A local package repository: a directory with ``.deb`` packages and
+       their ``Packages`` index, relative to the ``kuiper`` folder, which
+       the image build copies into its container (e.g.
+       ``kuiper-build-temp/adi-local-repo``, the one of ``.dockerignore``),
+       preferred to the ADI package repository and
+       removed from the image at the end. Needed for ``riscv64``, which the
+       ADI package repository has no packages for (see :ref:`polarfire-soc`)
 
 .. list-table::
    :header-rows: 1
@@ -212,6 +231,10 @@ These options control which boot files are included in your image:
    * - ``CONFIG_ARCH_VERSAL``
      - ``n``
      - Install Versal architecture boot files (``y``/``n``).
+   * - ``CONFIG_ARCH_MPFS``
+     - ``n``
+     - Install PolarFire SoC architecture boot files (``y``/``n``). riscv64
+       only, see :ref:`polarfire-soc`.
 
 **Architecture to Hardware Mapping:**
 
@@ -231,6 +254,8 @@ These options control which boot files are included in your image:
      - ZCU102, ADRV9009-ZU11EG, Jupiter SDR
    * - ``versal``
      - VCK190, VPK180, VHK158
+   * - ``mpfs``
+     - PolarFire SoC Video Kit
 
 ----
 

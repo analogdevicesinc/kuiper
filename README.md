@@ -45,7 +45,8 @@ Whether you're prototyping with an ADI evaluation board, developing embedded app
 - **Core System**: Debian Trixie optimized for ARM devices
 - **ADI Libraries**: libiio, pyadi-iio, libm2k, libad9361, libad9166 (optional)
 - **Development Tools**: IIO Oscilloscope, Scopy, GNU Radio (optional)
-- **Hardware Support**: Boot files for Raspberry Pi, Xilinx, and Intel platforms
+- **Hardware Support**: Boot files for Raspberry Pi, Xilinx, and Intel platforms,
+  and the Microchip PolarFire SoC (riscv64, see `docs/polarfire-soc.rst`)
 - **Desktop Environment**: XFCE with VNC access (optional)
 
 All optional components are configurable - build exactly what you need for your project.
