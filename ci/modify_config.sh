@@ -25,7 +25,9 @@ do
     if [[ $value != "" ]]; then
         # extract line number from the value returned by the grep command and replace it with the new argument
         IFS=':' read -ra line_value <<< "$value"
-        sed -i "${line_value[0]}s/.*/$argument/" $config_file
+        # (the characters special in the replacement of sed escaped, e.g. the / of a path)
+        replacement=$(printf '%s' "$argument" | sed -e 's/[\/&]/\\&/g')
+        sed -i "${line_value[0]}s/.*/$replacement/" $config_file
     else
         echo "This configuration ${config[0]} was not found in the config file"
     fi
