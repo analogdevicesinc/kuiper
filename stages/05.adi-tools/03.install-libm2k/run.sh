@@ -18,7 +18,13 @@ BRANCH_LIBM2K=main
 if [ "${CONFIG_LIBM2K}" = y ]; then
 
 	if [ "${USE_ADI_REPO}" = y ]; then
-		chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y libm2k libm2k-csharp libm2k-dev libm2k-tools python3-libm2k
+		# The C# bindings need Mono, which Debian has no riscv64 runtime of
+		if [ "${TARGET_ARCHITECTURE}" = riscv64 ]; then
+			LIBM2K_CSHARP=""
+		else
+			LIBM2K_CSHARP="libm2k-csharp"
+		fi
+		chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y libm2k ${LIBM2K_CSHARP} libm2k-dev libm2k-tools python3-libm2k
 
 	elif [ "${CONFIG_LIBIIO}" = y ]; then
 		install_packages "${BASH_SOURCE%/run.sh}"

@@ -4,7 +4,8 @@
 # Contains only mandatory packages for minimum functionality.
 # This image can be customized by adding one or more of the following libraries and tools.
 #
-# Set the architecture for Kuiper. Options: armhf (for 32 bits), arm64 (for 64 bits).
+# Set the architecture for Kuiper. Options: armhf (for 32 bits), arm64 (for 64 bits),
+# riscv64 (for the Microchip PolarFire SoC, see docs/polarfire-soc.rst).
 TARGET_ARCHITECTURE=armhf
 #
 # Set the Debian version for Kuiper. Options: bullseye, bookworm, trixie.
@@ -146,6 +147,14 @@ CONFIG_ARCH_VERSAL=n
 #
 #
 #
+# [MICROCHIP BOOT FILES]
+# Contains boot files for the Microchip PolarFire SoC (adi-mpfs-boot package).
+#
+# For riscv64:
+CONFIG_ARCH_MPFS=n
+#
+#
+#
 # [PREPARE BOOT FILES]*
 # Prepare boot partition with carriers boot files at build time by setting the
 # ADI_EVAL_BOARD and the CARRIER. Corresponding boot file package must be
@@ -159,6 +168,18 @@ CARRIER=
 # Install the following RaspberryPi specific packages: raspi-config, GPIO related (pigpio, python3-gpio, raspi-gpio, python3-rpi.gpio),
 # VideoCore debugging related (vcdbg), sense-hat, sense-emu.
 INSTALL_RPI_PACKAGES=n
+#
+#
+#
+# [LOCAL ADI PACKAGE REPOSITORY]
+# Install the ADI packages from a local package repository in addition to the
+# ADI Package Repository, preferred to it: a directory with the .deb packages
+# and their Packages index, relative to 'kuiper' folder, which the image build
+# copies into its container (e.g. kuiper-build-temp/adi-local-repo, the one
+# of .dockerignore). Needed for riscv64, which the ADI Package Repository has
+# no packages for: tools/riscv64/build-adi-packages.sh builds them.
+# Example: ADI_LOCAL_REPO=kuiper-build-temp/adi-local-repo
+ADI_LOCAL_REPO=
 #
 #
 #

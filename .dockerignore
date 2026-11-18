@@ -1,4 +1,6 @@
 output/
 kuiper-volume/
+kuiper-build-temp/*
+!kuiper-build-temp/adi-local-repo
 apt-cacher-ng/
 .git/objects/*

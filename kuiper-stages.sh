@@ -72,15 +72,41 @@ export CONFIG_ARCH_ZYNQMP=${CONFIG_ARCH_ZYNQMP:-n}
 export CONFIG_ARCH_VERSAL=${CONFIG_ARCH_VERSAL:-n}
 export CONFIG_ARCH_ARRIA10=${CONFIG_ARCH_ARRIA10:-n}
 export CONFIG_ARCH_CYCLONE5=${CONFIG_ARCH_CYCLONE5:-n}
+export CONFIG_ARCH_MPFS=${CONFIG_ARCH_MPFS:-n}
 
 export ADI_EVAL_BOARD=${ADI_EVAL_BOARD:-""}
 export CARRIER=${CARRIER:-""}
 export EXTRA_SCRIPT=${EXTRA_SCRIPT:-""}
 export INSTALL_RPI_PACKAGES=${INSTALL_RPI_PACKAGES:-n}
+export ADI_LOCAL_REPO=${ADI_LOCAL_REPO:-""}
+
+# Packages of the package lists that Debian has no build of for the target
+# architecture, and what is installed instead (<package>=<substitute>)
+if [ "${TARGET_ARCHITECTURE}" = riscv64 ]; then
+	export PACKAGE_SUBSTITUTES=${PACKAGE_SUBSTITUTES:-"chromium=firefox-esr"}
+else
+	export PACKAGE_SUBSTITUTES=${PACKAGE_SUBSTITUTES:-""}
+fi
 
 # Check if architecture is supported
-if [[ ! ${TARGET_ARCHITECTURE} = armhf && ! ${TARGET_ARCHITECTURE} = arm64 ]]; then
+if [[ ! ${TARGET_ARCHITECTURE} = armhf && ! ${TARGET_ARCHITECTURE} = arm64 && ! ${TARGET_ARCHITECTURE} = riscv64 ]]; then
 	echo "Unsupported architecture ${TARGET_ARCHITECTURE}"
+	exit 1
+fi
+
+# Check that the boot files match the architecture: riscv64 (PolarFire SoC)
+# has none of the Raspberry Pi, Intel and Xilinx ones, and the PolarFire SoC
+# ones are riscv64 only
+if [ "${TARGET_ARCHITECTURE}" = riscv64 ]; then
+	for boot_files in CONFIG_RPI_BOOT_FILES CONFIG_ARCH_ZYNQ CONFIG_ARCH_ZYNQMP \
+		CONFIG_ARCH_VERSAL CONFIG_ARCH_ARRIA10 CONFIG_ARCH_CYCLONE5; do
+		if [ "${!boot_files}" = y ]; then
+			echo "${boot_files}=y is not supported on riscv64"
+			exit 1
+		fi
+	done
+elif [ "${CONFIG_ARCH_MPFS}" = y ]; then
+	echo "CONFIG_ARCH_MPFS=y needs TARGET_ARCHITECTURE=riscv64"
 	exit 1
 fi
 
@@ -98,20 +124,37 @@ exec > >(TZ=UTC-3 ts '[%b %d %H:%M:%S]' | tee -ia "${LOG_FILE}") 2>&1
 
 echo "${LIGHT_BLUE}Building Kuiper with Debian ${DEBIAN_VERSION} for architecture ${TARGET_ARCHITECTURE}${RESET}"
 
+# Print a package list with PACKAGE_SUBSTITUTES applied
+# Usage: package_list <list>
+package_list() {
+	local substitute sed_args=(-e '')
+
+	for substitute in ${PACKAGE_SUBSTITUTES}; do
+		sed_args+=(-e "s/^${substitute%%=*}\$/${substitute#*=}/")
+	done
+	sed "${sed_args[@]}" "$1"
+}
+export -f package_list
+
 # Install packages for a stage
 # Usage: install_packages <script_dir>
 # Looks for 'packages' and 'packages-with-recommends' in <script_dir>/00.install-packages/
+# The package lists go to apt-get in the chroot on its standard input, nothing
+# is written into the chroot for them
 install_packages() {
 	local script_dir="$1"
 	local packages_dir="${script_dir}/00.install-packages"
+	local packages
 
 	if [ -e "${packages_dir}/packages" ]; then
-		chroot "${BUILD_DIR}" xargs -a "${packages_dir}/packages" \
+		packages=$(package_list "${packages_dir}/packages")
+		printf '%s\n' "${packages}" | chroot "${BUILD_DIR}" xargs \
 			apt-get install --no-install-recommends -y
 	fi
 
 	if [ -e "${packages_dir}/packages-with-recommends" ]; then
-		chroot "${BUILD_DIR}" xargs -a "${packages_dir}/packages-with-recommends" \
+		packages=$(package_list "${packages_dir}/packages-with-recommends")
+		printf '%s\n' "${packages}" | chroot "${BUILD_DIR}" xargs \
 			apt-get install -y
 	fi
 }

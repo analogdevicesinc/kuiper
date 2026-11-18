@@ -12,7 +12,10 @@ export SCOPY_ARCHIVE=Scopy-${SCOPY_RELEASE}-Linux-${TARGET_ARCHITECTURE}-AppImag
 export SCOPY_PATH=https://github.com/analogdevicesinc/scopy/releases/download/${SCOPY_RELEASE}/${SCOPY_ARCHIVE}
 export SCOPY=Scopy-${SCOPY_RELEASE}-Linux-${TARGET_ARCHITECTURE}
 
-if [ "${CONFIG_SCOPY}" = y ]; then
+if [[ "${CONFIG_SCOPY}" = y && "${TARGET_ARCHITECTURE}" = riscv64 ]]; then
+	echo "Scopy won't be installed: it is an AppImage, which has no riscv64 build."
+
+elif [ "${CONFIG_SCOPY}" = y ]; then
 
 	if [ "${USE_ADI_REPO}" = y ]; then
 		chroot "${BUILD_DIR}" apt-get install --no-install-recommends -y scopy

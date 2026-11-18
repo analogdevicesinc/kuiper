@@ -29,7 +29,9 @@ chroot "${BUILD_DIR}" << EOF
 	# Create only one workspace
 	sed -i "s/^workspace_count=.*$/workspace_count=1/g" /usr/share/xfwm4/defaults
 	
-	echo "export CHROMIUM_FLAGS=\"\$CHROMIUM_FLAGS --password-store=basic\"" >> /etc/chromium.d/default-flags
+	if [ -d /etc/chromium.d ]; then
+		echo "export CHROMIUM_FLAGS=\"\$CHROMIUM_FLAGS --password-store=basic\"" >> /etc/chromium.d/default-flags
+	fi
 EOF
 
 else

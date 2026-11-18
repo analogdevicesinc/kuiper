@@ -14,6 +14,14 @@ if [ -n "${DEBIAN_SNAPSHOT}" ]; then
 		"${BUILD_DIR}/etc/apt/sources.list"
 fi
 
+# Remove the local ADI package repository (01.bootstrap)
+if [ -n "${ADI_LOCAL_REPO}" ]; then
+	rm -rf "${BUILD_DIR}/var/local/adi-local-repo" \
+		"${BUILD_DIR}/etc/apt/sources.list.d/adi-local-repo.list" \
+		"${BUILD_DIR}/etc/apt/preferences.d/adi-local-repo" \
+		"${BUILD_DIR}"/var/lib/apt/lists/_var_local_adi-local-repo_*
+fi
+
 EXPORT_ROOTFS_DIR="export_rootfs_dir"
 
 BOOTLOADER_SIZE="$((8 * 1024 * 1024))"

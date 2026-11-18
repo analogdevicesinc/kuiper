@@ -1,4 +1,5 @@
 kuiper-volume/*
+kuiper-build-temp/
 .pc
 *-pc
 apt-cacher-ng/

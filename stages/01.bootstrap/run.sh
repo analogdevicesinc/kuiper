@@ -9,6 +9,9 @@
 if [[ "$(uname -m)" != "aarch64" && "$(uname -m)" != "arm*" ]]; then
 	update-binfmts --enable qemu-arm
 fi
+if [[ "${TARGET_ARCHITECTURE}" = riscv64 && "$(uname -m)" != "riscv64" ]]; then
+	update-binfmts --enable qemu-riscv64
+fi
 
 mkdir "${BUILD_DIR}"
 
@@ -55,6 +58,23 @@ chroot "${BUILD_DIR}" << EOF
 	# Add adi-kuiper package repository
 	wget -qO- https://dl.cloudsmith.io/public/adi/kuiper/setup.deb.sh | bash
 EOF
+
+# Add the local ADI package repository (ADI_LOCAL_REPO), preferred to the ADI
+# Package Repository as prefer-adi does; 08.export-stage/04.export-image
+# removes it, the board has no such directory
+if [ -n "${ADI_LOCAL_REPO}" ]; then
+	if [ ! -f "${ADI_LOCAL_REPO}/Packages" ]; then
+		echo "No ${ADI_LOCAL_REPO}/Packages: ADI_LOCAL_REPO is not a package repository - Aborting."
+		exit 1
+	fi
+	mkdir -p "${BUILD_DIR}/var/local/adi-local-repo"
+	cp -r "${ADI_LOCAL_REPO}/." "${BUILD_DIR}/var/local/adi-local-repo/"
+	echo "deb [trusted=yes] file:/var/local/adi-local-repo ./" \
+		> "${BUILD_DIR}/etc/apt/sources.list.d/adi-local-repo.list"
+	printf 'Package: *\nPin: origin ""\nPin-Priority: 991\n' \
+		> "${BUILD_DIR}/etc/apt/preferences.d/adi-local-repo"
+	chroot "${BUILD_DIR}" apt-get update
+fi
 
 mkdir "${BUILD_DIR}"/stages
 cp -r /stages "${BUILD_DIR}"/
