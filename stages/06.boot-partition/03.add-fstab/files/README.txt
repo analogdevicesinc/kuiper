@@ -69,6 +69,20 @@ Write the preloader (replace mmcblkXp3 with your actual device):
     'sudo dd if=<target>/u-boot-with-spl.sfp of=/dev/mmcblk0p3 status=progress'
     
 
+Microchip Platforms
+
+For PolarFire SoC projects, copy these files to the root of the BOOT FAT32
+partition:
+    <target>/<specific_folder>/mss.dtb - Device tree for your specific
+    project
+    <board>/boot.scr - U-Boot script for the PolarFire SoC boot sequence
+    <board>/uboot.env - U-Boot environment of the board
+    mpfs-common/Image - Kernel image for PolarFire SoC platforms
+The HSS of the board boots U-Boot from the bootloader partition (the third
+partition, of the BIOS boot type); <board>/payload.bin is that U-Boot. To
+write it again (replace mmcblkXp3 with your actual device):
+    'sudo dd if=<board>/payload.bin of=/dev/mmcblk0p3 status=progress'
+
 RaspberryPi
 
 For loading RPI overlays the are 2 methods:

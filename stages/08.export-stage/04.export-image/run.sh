@@ -40,13 +40,27 @@ ROOT_PART_START=$((BOOT_PART_START + BOOT_PART_SIZE))
 ROOT_PART_SIZE=$(((ROOT_SIZE + ROOT_MARGIN + ALIGN  - 1) / ALIGN * ALIGN))
 
 IMG_SIZE=$((BOOT_PART_START + BOOT_PART_SIZE + ROOT_PART_SIZE + BOOTLOADER_PART_SIZE))
+
+# The PolarFire SoC (CONFIG_ARCH_MPFS) boots from a GPT: the HSS of the board
+# loads its payload (U-Boot) from the partition of the BIOS boot type, here the
+# bootloader partition. The GPT has a backup at the end of the image.
+if [ "${CONFIG_ARCH_MPFS}" = y ]; then
+	PARTITION_TABLE=gpt
+	IMG_SIZE=$((IMG_SIZE + ALIGN))
+else
+	PARTITION_TABLE=msdos
+fi
 truncate -s "${IMG_SIZE}" "${IMG_FILE}"
 
-parted --script "${IMG_FILE}" mklabel msdos
+parted --script "${IMG_FILE}" mklabel ${PARTITION_TABLE}
 parted --script "${IMG_FILE}" unit B mkpart primary fat32 "${BOOT_PART_START}" "$((BOOT_PART_START + BOOT_PART_SIZE - 1))"
 parted --script "${IMG_FILE}" unit B mkpart primary ext4 "${ROOT_PART_START}" "$((ROOT_PART_START + ROOT_PART_SIZE - 1))"
 parted --script "${IMG_FILE}" unit B mkpart primary ext4 "${BOOTLOADER_PART_START}" "$((BOOTLOADER_PART_START + BOOTLOADER_PART_SIZE - 1))"
 
+if [ "${PARTITION_TABLE}" = gpt ]; then
+	# The bootloader partition of the BIOS boot type (21686148-6449-6E6F-744E-656564454649)
+	parted --script "${IMG_FILE}" set 3 bios_grub on
+else
 # Change the format of the third partition in the image using fdisk. The sed command is used to format the inputs provided to fdisk.
 sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${IMG_FILE}
 	t	#change partition type
@@ -55,6 +69,7 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${IMG_FILE}
 	w	#write partition table
 	q	#quit
 EOF
+fi
 
 PARTED_OUT=$(parted -sm "${IMG_FILE}" unit b print)
 BOOT_OFFSET=$(echo "${PARTED_OUT}" | grep -e '^1:' | cut -d':' -f 2 | tr -d B)
@@ -121,11 +136,16 @@ mount -v "${ROOT_DEV}" "${EXPORT_ROOTFS_DIR}" -t ext4
 mkdir -p "${EXPORT_ROOTFS_DIR}/boot"
 mount -v "${BOOT_DEV}" "${EXPORT_ROOTFS_DIR}/boot" -t vfat
 
+if [ "${PARTITION_TABLE}" = gpt ]; then
+	BOOT_PARTUUID="$(sfdisk --part-uuid "${IMG_FILE}" 1 | tr 'A-Z' 'a-z')"
+	ROOT_PARTUUID="$(sfdisk --part-uuid "${IMG_FILE}" 2 | tr 'A-Z' 'a-z')"
+else
 # Extract UUID of the image
 IMGID="$(dd if="${IMG_FILE}" skip=440 bs=1 count=4 2>/dev/null | xxd -e | cut -f 2 -d' ')"
 
 BOOT_PARTUUID="${IMGID}-01"
 ROOT_PARTUUID="${IMGID}-02"
+fi
 
 sed -i "s/BOOTDEV/PARTUUID=${BOOT_PARTUUID}/" "${BUILD_DIR}/etc/fstab"
 sed -i "s/ROOTDEV/PARTUUID=${ROOT_PARTUUID}/" "${BUILD_DIR}/etc/fstab"
@@ -142,6 +162,27 @@ EOF
 
 else
 	echo "Setup won't be configured because setup variables are null."
+fi
+
+# The PolarFire SoC payload (U-Boot) on the bootloader partition, which the HSS
+# of the board boots: the preloader of the PolarFire SoC projects in the
+# kuiper.json of the boot files (adi-mpfs-boot), the one of CARRIER if set. It
+# is the same for all the projects of a board. Boot files without projects
+# (no kernel): the payload of the only board.
+if [ "${CONFIG_ARCH_MPFS}" = y ]; then
+	MPFS_PAYLOAD=$(find "${BUILD_DIR}/boot" -name '*.json' -exec jq -r \
+		'.projects[]? | select(.platform == "microchip" and (env.CARRIER == "" or .board == env.CARRIER)) | .preloader // empty' {} + \
+		| sort -u | head -n 1 | sed "s|^/boot|${BUILD_DIR}/boot|")
+	if [[ -z "${MPFS_PAYLOAD}" && -z "${CARRIER}" ]]; then
+		MPFS_PAYLOAD=$(find "${BUILD_DIR}/boot" -mindepth 2 -maxdepth 2 -name payload.bin)
+		[ "$(echo "${MPFS_PAYLOAD}" | wc -l)" = 1 ] || MPFS_PAYLOAD=""
+	fi
+	if [ ! -f "${MPFS_PAYLOAD}" ]; then
+		echo "No PolarFire SoC payload in the boot files (CONFIG_ARCH_MPFS) - Aborting."
+		exit 1
+	fi
+	echo "PolarFire SoC payload: ${MPFS_PAYLOAD#${BUILD_DIR}}"
+	dd if="${MPFS_PAYLOAD}" of="${BOOTLOADER_DEV}" bs=512 conv=fsync status=none
 fi
 
 rsync -aHAXx --exclude /var/cache/apt/archives --inplace --exclude /boot "${BUILD_DIR}/" "${EXPORT_ROOTFS_DIR}/"
