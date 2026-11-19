@@ -154,6 +154,12 @@ with the board configuration fragment) and the HSS
 reproducibly. The root file system is on partition 2, as on the other
 Kuiper images (the ``rootpart`` of ``uboot.env``).
 
+The licenses of these sources (the kernel, U-Boot, ``meta-mchp``, the HSS and
+Kuiper) go into the package as they are in the sources:
+``tools/collect-licenses.sh`` copies their license files into
+``/usr/share/doc/adi-mpfs-boot/licenses`` and writes the copyright file of the
+package from them, which the license of the image lists.
+
 The image
 ~~~~~~~~~
 

@@ -13,6 +13,7 @@ The tools that build the Kuiper image of the Microchip PolarFire SoC boards
 |---|---|
 | `build-image.sh` | Everything in one go: the kernel, the ADI packages (`../riscv64/build-adi-packages.sh`), the boot files, the settings of `mpfs.config` in `config`, and `sudo bash build-docker.sh` |
 | `build-boot-files.sh` | The boot files of the boards (kernel, devicetrees, U-Boot payload, boot script, U-Boot environment, `kuiper.json`) as the `adi-mpfs-boot` package, into the local package repository |
+| `../collect-licenses.sh` | The licenses of the outside sources of `adi-mpfs-boot` (the kernel, U-Boot, `meta-mchp`, the HSS, Kuiper): copies their license files into the package as they are, and writes its copyright file from them. Generic, for any package built from outside sources |
 | `mpfs.config` | The Kuiper settings of the PolarFire SoC images |
 | `boards/<board>/board.conf` | A board: its names in `kuiper.json`, its projects and devicetrees, the `meta-mchp`, U-Boot and HSS settings |
 | `boards/<board>/boot.cmd` | The boot script of the board (`boot.scr`) |

@@ -31,6 +31,9 @@
 # folder, in .gitignore), emptied at the start of each run. The
 # kernel and the devicetrees come from an ADI Linux build:
 #   make O=<build> ARCH=riscv CROSS_COMPILE=riscv64-linux-gnu- adi_mpfs_defconfig Image dtbs
+# The licenses of these sources (the kernel, U-Boot, meta-mchp, the HSS and
+# Kuiper) go into the package as tools/collect-licenses.sh collects them from
+# the sources: their license files and the copyright file.
 #
 # Usage: tools/mpfs/build-boot-files.sh -k <ADI Linux build> | -n
 #   -k  the ADI Linux build (O=) of the kernel Image and the devicetrees
@@ -86,8 +89,12 @@ rm -rf "${WORK}"
 mkdir -p "${WORK}" "${BOOT}" "${APT_DIR}"
 sources=${WORK}/sources.txt
 projects_json=${WORK}/projects.json
+licenses=${WORK}/licenses.list
 : > "${sources}"
 : > "${projects_json}"
+# The sources of the package for tools/collect-licenses.sh:
+# <name>|<source dir>|<URL>|<commit>|<files in the package>|<license files>
+echo "kuiper|${KUIPER_DIR}|https://github.com/analogdevicesinc/kuiper|$(git -C "${KUIPER_DIR}" rev-parse HEAD 2> /dev/null || true)|boot/*/boot.scr boot/kuiper.json|LICENSE" > "${licenses}"
 
 if [ -n "${kernel_build}" ]; then
 	mkdir -p "${BOOT}/mpfs-common"
@@ -96,8 +103,11 @@ if [ -n "${kernel_build}" ]; then
 	if [ -n "${src}" ] && git -C "${src}" rev-parse -q --verify HEAD > /dev/null 2>&1; then
 		echo "linux: $(git -C "${src}" remote get-url origin 2> /dev/null || echo "${src}")" \
 			"$(git -C "${src}" rev-parse --abbrev-ref HEAD) $(git -C "${src}" rev-parse HEAD) (${kernel_release})" >> "${sources}"
+		echo "linux|${src}|$(git -C "${src}" remote get-url origin 2> /dev/null || echo "${src}")|$(git -C "${src}" rev-parse HEAD)|boot/mpfs-common/Image boot/*/*/mss.dtb|COPYING LICENSES/preferred/GPL-2.0 LICENSES/exceptions/Linux-syscall-note" >> "${licenses}"
 	else
 		echo "linux: ${kernel_build} (${kernel_release})" >> "${sources}"
+		# an in-tree build: the source is the build
+		echo "linux|${src:-${kernel_build}}|${kernel_build}||boot/mpfs-common/Image boot/*/*/mss.dtb|COPYING LICENSES/preferred/GPL-2.0 LICENSES/exceptions/Linux-syscall-note" >> "${licenses}"
 	fi
 fi
 
@@ -156,6 +166,11 @@ for board_dir in "${HERE}"/boards/*/; do
 		${board}: u-boot ${UBOOT_URL} ${uboot_commit} (${UBOOT_DEFCONFIG} + ${MCHP_BOARD}.cfg, rootpart=${UBOOT_ENV_ROOTPART})
 		${board}: hss ${HSS_URL} ${HSS_COMMIT} (hss-payload-generator)
 		EOF
+		cat >> "${licenses}" <<- EOF
+		${board}/u-boot|${work}/u-boot|${UBOOT_URL}|${uboot_commit}|boot/${BOARD_FOLDER}/payload.bin|${UBOOT_LICENSE_FILES}
+		${board}/hss|${work}/hss|${HSS_URL}|${HSS_COMMIT}|boot/${BOARD_FOLDER}/payload.bin|${HSS_LICENSE_FILES}
+		${board}/meta-mchp|${work}/meta-mchp|${META_MCHP_URL}|${META_MCHP_COMMIT}|boot/${BOARD_FOLDER}/uboot.env|${META_MCHP_LICENSE_FILES}
+		EOF
 
 		# the projects: the devicetrees, and their entries of kuiper.json
 		[ -z "${no_kernel}" ] || exit 0
@@ -207,67 +222,9 @@ if [ -n "${kernel_build}" ]; then
 fi
 mkdir -p "${PKG}/DEBIAN" "${PKG}/usr/share/doc/adi-mpfs-boot"
 cp "${sources}" "${PKG}/usr/share/doc/adi-mpfs-boot/sources.txt"
-# copyright, in the Debian format: 08.export-stage/03.generate-license lists
-# the package with its License and Source
-cat > "${PKG}/usr/share/doc/adi-mpfs-boot/copyright" << 'EOF'
-Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: adi-mpfs-boot
-Source: https://github.com/analogdevicesinc/kuiper
- https://github.com/analogdevicesinc/linux
- https://github.com/linux4microchip/u-boot-mchp
- https://github.com/linux4microchip/meta-mchp
- https://github.com/polarfire-soc/hart-software-services
-Comment: Built by tools/mpfs/build-boot-files.sh of the Kuiper repository; the
- repositories and the commits of the files are in
- /usr/share/doc/adi-mpfs-boot/sources.txt.
-
-Files: boot/mpfs-common/Image boot/*/*/mss.dtb
-Copyright: The Linux kernel contributors, Analog Devices, Inc.
-License: GPL-2.0
-Comment: The kernel and the devicetrees of ADI Linux.
-
-Files: boot/*/payload.bin
-Copyright: The U-Boot contributors, Microchip Technology Inc.
-License: GPL-2.0 and MIT
-Comment: U-Boot of u-boot-mchp (GPL-2.0) in the HSS payload format of the
- hss-payload-generator of the Hart Software Services (MIT).
-
-Files: boot/*/uboot.env
-Copyright: Microchip Technology Inc.
-License: MIT
-Comment: The U-Boot environment of the board in meta-mchp.
-
-Files: boot/*/boot.scr boot/kuiper.json
-Copyright: Analog Devices, Inc.
-License: BSD-3-Clause
-
-License: GPL-2.0
- On Debian systems, the complete text of the GNU General Public License
- version 2 can be found in /usr/share/common-licenses/GPL-2.
-
-License: MIT
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- .
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
- .
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
-
-License: BSD-3-Clause
- On Debian systems, the complete text of the BSD 3-clause license can be
- found in /usr/share/common-licenses/BSD.
-EOF
+# copyright and the license files of the sources, from the sources
+"${KUIPER_DIR}/tools/collect-licenses.sh" -p adi-mpfs-boot \
+	-o "${PKG}/usr/share/doc/adi-mpfs-boot" "${licenses}"
 cat > "${PKG}/DEBIAN/control" << EOF
 Package: adi-mpfs-boot
 Version: ${version}-1
