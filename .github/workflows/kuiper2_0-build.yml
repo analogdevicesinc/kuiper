@@ -1,15 +1,15 @@
-name: Kuiper2.0
+name: Workshop Sales 2026
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - workshop/sales_2026
     paths-ignore:
       - 'docs/**'
       - 'README.md'
   pull_request:
     branches:
-      - main
+      - workshop/sales_2026
     paths-ignore:
       - 'docs/**'
       - 'README.md'
@@ -21,8 +21,7 @@ jobs:
     runs-on: ubuntu-24.04-arm
     strategy:
       matrix:
-        arch: [32, 64]
-        build_type: [basic, full]
+        build_type: [rpi5]
       fail-fast: false
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7
@@ -37,12 +36,12 @@ jobs:
           fi
           branch_name=$(echo $BRANCH | tr 'a-z' 'A-Z' | sed 's/[^[:alnum:]]/_/g')
           type=$( echo ${{ matrix.build_type }} | tr 'a-z' 'A-Z')
-          echo ARTIFACT_NAME=kuiper_"${{ matrix.build_type }}"_"${{ matrix.arch }}" >> $GITHUB_ENV
-          echo BRANCH_NAME="$branch_name"_"$type"_"${{ matrix.arch }}" >> $GITHUB_ENV
+          echo ARTIFACT_NAME=sales_2026_"${{ matrix.build_type }}" >> $GITHUB_ENV
+          echo BRANCH_NAME="$branch_name"_"$type" >> $GITHUB_ENV
       - name: Build image
         run: |
-          ci/modify_config.sh ./config "${{ vars[format('{0}', env.BRANCH_NAME )] }}"
-          sudo KUIPER_VARIANT="${{ matrix.build_type }}" bash build-docker.sh
+          rm config && mv config-${{matrix.build_type}} config
+          sudo KUIPER_VARIANT=custom_"${{ matrix.build_type }}" bash build-docker.sh
           ls kuiper-volume/*.zip >/dev/null 2>&1 || exit 2
           sudo mv kuiper-volume/*.zip "kuiper-volume/${ARTIFACT_NAME}_image.zip"
       - name: Upload image
@@ -66,42 +65,3 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}_sources.zip
           path:
             ${{ github.workspace }}/kuiper-volume/sources
-
-  Build_with_qemu:
-    if: ${{ github.event_name == 'pull_request' }}
-    permissions: 
-      contents: read
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: [32, 64]
-        build_type: [basic]
-      fail-fast: false
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7
-        with:
-          fetch-depth: 0
-      - name: Set env variabiles
-        run: |
-          BRANCH=$GITHUB_BASE_REF
-          branch_name=$(echo $BRANCH | tr 'a-z' 'A-Z' | sed 's/[^[:alnum:]]/_/g')
-          type=$( echo ${{ matrix.build_type }} | tr 'a-z' 'A-Z')
-          echo BRANCH_NAME="$branch_name"_"$type"_"${{ matrix.arch }}" >> $GITHUB_ENV
-      - name: Build image
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qemu-user-static
-          ci/modify_config.sh ./config "${{ vars[format('{0}', env.BRANCH_NAME )] }}"
-          sudo KUIPER_VARIANT="${{ matrix.build_type }}" bash build-docker.sh
-          ls kuiper-volume/*.zip >/dev/null 2>&1 && exit 0 || exit 2
-
-  Trigger_workflow:
-    needs: Build
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7
-      - name: Trigger docker build
-        run: gh workflow run docker-image-build.yml --ref main
-        env:
-          GH_TOKEN: ${{ github.token }}

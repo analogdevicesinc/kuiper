@@ -23,6 +23,9 @@ arm_64bit=1
 # Disable compensation for displays with overscan
 disable_overscan=1
 
+# Need 4kB pagination for arm32 build compatibility
+kernel=kernel8.img
+
 [pi4]
 # Run as fast as firmware / board allows
 arm_boost=1
