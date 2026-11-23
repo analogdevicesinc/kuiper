@@ -138,7 +138,7 @@ development packages are provided:
 
 See :external+linux:ref:`kernel_modules` for how to compile out-of-tree kernel
 modules, replacing the "raw S3" steps with the files already provided by the
-``-linux-devel`` Debian package.
+``-devel`` Debian package.
 
 Discovering Packages
 ~~~~~~~~~~~~~~~~~~~~
