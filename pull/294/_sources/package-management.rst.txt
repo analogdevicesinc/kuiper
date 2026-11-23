@@ -107,8 +107,7 @@ Boot files are organized by processor architecture:
      - armhf, arm64
 
 The boot files packages encompass devicetrees, FPGA bitstreams, das U-boot,
-Linux Kernel Image, and any other collateral required to boot the board to boot
-Linux.
+Linux Kernel Image, and any other collateral required to boot Linux.
 
 Packages updates are provided to resolve vulnerabilities and issues,
 uninstalling the packages removes the file system structure (e.g.,
