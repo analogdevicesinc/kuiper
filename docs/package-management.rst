@@ -99,11 +99,8 @@ Boot files are organized by processor architecture:
    * - VCK190, VPK180, VHK158
      - ``adi-versal-boot``
      - arm64
-   * - Arria10 SoC Development Kit
-     - ``adi-arria10-boot``
-     - armhf
-   * - Cyclone 5 SoC Kit, DE10-Nano, Arradio board
-     - ``adi-cyclone5-boot``
+   * - Arria10 SoC Development Kit, Cyclone 5 SoC Kit, DE10-Nano, Arradio board
+     - ``adi-socfpga-boot``
      - armhf
    * - Raspberry Pi
      - ``adi-rpi-boot``
