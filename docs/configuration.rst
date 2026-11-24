@@ -209,6 +209,10 @@ These options control which boot files are included in your image:
    * - ``CONFIG_ARCH_VERSAL``
      - ``n``
      - Install Versal architecture boot files (``y``/``n``).
+   * - ``CONFIG_FIRMWARE``
+     - ``y``
+     - Install firmware for the ADI device (``adi-firmware``) to
+       ``/usr/lib/firmware`` (``y``/``n``).
 
 **Architecture to Hardware Mapping:**
 
