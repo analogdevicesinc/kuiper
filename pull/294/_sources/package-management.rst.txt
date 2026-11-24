@@ -125,16 +125,6 @@ checked against the file system structure.
 
    This guard exists to accommodate the use case of users using their own boot files.
 
-Firmware Files
-++++++++++++++
-
-The ``adi-firmware`` package provides the firmware for some ADI parts; those
-files usually contain a device profile, the initial configuration data for
-a device.
-
-The files are installed under */lib/firmware* and the driver defers to probe if
-its requested firmware file is missing.
-
 Linux Development
 +++++++++++++++++
 
