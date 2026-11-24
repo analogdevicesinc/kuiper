@@ -101,6 +101,7 @@
 <li><a class="reference internal" href="#adi-libraries">ADI Libraries</a></li>
 <li><a class="reference internal" href="#adi-applications">ADI Applications</a></li>
 <li><a class="reference internal" href="#boot-files">Boot Files</a></li>
+<li><a class="reference internal" href="#firmware-files">Firmware Files</a></li>
 <li><a class="reference internal" href="#linux-development">Linux Development</a></li>
 </ul>
 </li>
@@ -330,6 +331,14 @@ requiring to manually copy the updated version after the update
 (e.g., <em>boot/zynqmp-common/Image</em> -&gt; <em>boot/Image</em>).</p>
 <p>This guard exists to accommodate the use case of users using their own boot files.</p>
 </div>
+</section>
+<section id="firmware-files">
+<h4>Firmware Files<a class="headerlink" href="#firmware-files" title="Link to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">adi-firmware</span></code> package provides the firmware for some ADI parts; those
+files usually contain a device profile, the initial configuration data for
+a device.</p>
+<p>The files are installed under <em>/lib/firmware</em> and the driver defers to probe if
+its requested firmware file is missing.</p>
 </section>
 <section id="linux-development">
 <h4>Linux Development<a class="headerlink" href="#linux-development" title="Link to this heading"></a></h4>
