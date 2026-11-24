@@ -111,6 +111,7 @@ Stage 06: Boot Partition
 
 - Adds Intel and Xilinx boot binaries (if configured)
 - Adds Raspberry Pi boot files (if configured)
+- Installs firmware for the ADI Linux drivers (if configured)
 - Creates and configures fstab for mounting partitions
 - Sets up default boot configuration for Raspberry Pi
 
@@ -121,6 +122,7 @@ Stage 06: Boot Partition
   Include Intel and Xilinx boot files for 32-bit architectures (armhf)
 - ``CONFIG_ARCH_ZYNQMP``, ``CONFIG_ARCH_VERSAL`` - Include Intel and Xilinx
   boot files for 64-bit architectures (arm64)
+- ``CONFIG_FIRMWARE`` - Install ``adi-firmware``
 
 ----
 
