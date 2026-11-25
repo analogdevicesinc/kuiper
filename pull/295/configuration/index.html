@@ -426,23 +426,19 @@ Libad9166_IIO, and Libad9361_IIO</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
 <td><p>Install Zynq architecture boot files (<code class="docutils literal notranslate"><span class="pre">y</span></code>/<code class="docutils literal notranslate"><span class="pre">n</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_ARCH_ARRIA10</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_ARCH_SOCFPGA</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
-<td><p>Install Arria10 architecture boot files (<code class="docutils literal notranslate"><span class="pre">y</span></code>/<code class="docutils literal notranslate"><span class="pre">n</span></code>).</p></td>
+<td><p>Install Arria10 and Cyclone5 architecture boot files (<code class="docutils literal notranslate"><span class="pre">y</span></code>/<code class="docutils literal notranslate"><span class="pre">n</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_ARCH_CYCLONE5</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
-<td><p>Install Cyclone5 architecture boot files (<code class="docutils literal notranslate"><span class="pre">y</span></code>/<code class="docutils literal notranslate"><span class="pre">n</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_ARCH_ZYNQMP</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_ARCH_ZYNQMP</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">n</span></code></p></td>
 <td><p>Install ZynqMP architecture boot files (<code class="docutils literal notranslate"><span class="pre">y</span></code>/<code class="docutils literal notranslate"><span class="pre">n</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_ARCH_VERSAL</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_ARCH_VERSAL</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">n</span></code></p></td>
 <td><p>Install Versal architecture boot files (<code class="docutils literal notranslate"><span class="pre">y</span></code>/<code class="docutils literal notranslate"><span class="pre">n</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_FIRMWARE</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CONFIG_FIRMWARE</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
 <td><p>Install firmware for the ADI device (<code class="docutils literal notranslate"><span class="pre">adi-firmware</span></code>) to
 <code class="docutils literal notranslate"><span class="pre">/usr/lib/firmware</span></code> (<code class="docutils literal notranslate"><span class="pre">y</span></code>/<code class="docutils literal notranslate"><span class="pre">n</span></code>).</p></td>
@@ -462,16 +458,13 @@ Libad9166_IIO, and Libad9361_IIO</p></td>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">zynq</span></code></p></td>
 <td><p>ZedBoard, ZC702, ZC706, Cora Z7s, ADRV9361-Z7035, ADRV9364-Z7020</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">arria10</span></code></p></td>
-<td><p>Arria10 SoC Development Kit</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">socfpga</span></code></p></td>
+<td><p>Arria10 SoC Development Kit, Cyclone 5 SoC Kit, DE10-Nano, Arradio board</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cyclone5</span></code></p></td>
-<td><p>Cyclone 5 SoC Kit, DE10-Nano, Arradio board</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">zynqmp</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">zynqmp</span></code></p></td>
 <td><p>ZCU102, ADRV9009-ZU11EG, Jupiter SDR</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">versal</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">versal</span></code></p></td>
 <td><p>VCK190, VPK180, VHK158</p></td>
 </tr>
 </tbody>
@@ -592,8 +585,7 @@ during build for additional customization</p></td>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-number">Listing 5 </span><span class="caption-text">config file settings</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONFIG_ARCH_ZYNQ</span><span class="o">=</span>n
-<span class="nv">CONFIG_ARCH_ARRIA10</span><span class="o">=</span>n
-<span class="nv">CONFIG_ARCH_CYCLONE5</span><span class="o">=</span>n
+<span class="nv">CONFIG_ARCH_SOCFPGA</span><span class="o">=</span>n
 
 <span class="nv">CONFIG_ARCH_ZYNQMP</span><span class="o">=</span>y
 <span class="nv">CONFIG_ARCH_VERSAL</span><span class="o">=</span>y
