@@ -117,7 +117,7 @@ Stage 06: Boot Partition
 **Related config options**:
 
 - ``CONFIG_RPI_BOOT_FILES`` - Include Raspberry Pi boot files
-- ``CONFIG_ARCH_ZYNQ``, ``CONFIG_ARCH_ARRIA10``, ``CONFIG_ARCH_CYCLONE5`` -
+- ``CONFIG_ARCH_ZYNQ``, ``CONFIG_ARCH_SOCFPGA`` -
   Include Intel and Xilinx boot files for 32-bit architectures (armhf)
 - ``CONFIG_ARCH_ZYNQMP``, ``CONFIG_ARCH_VERSAL`` - Include Intel and Xilinx
   boot files for 64-bit architectures (arm64)

@@ -200,12 +200,9 @@ These options control which boot files are included in your image:
    * - ``CONFIG_ARCH_ZYNQ``
      - ``y``
      - Install Zynq architecture boot files (``y``/``n``).
-   * - ``CONFIG_ARCH_ARRIA10``
+   * - ``CONFIG_ARCH_SOCFPGA``
      - ``y``
-     - Install Arria10 architecture boot files (``y``/``n``).
-   * - ``CONFIG_ARCH_CYCLONE5``
-     - ``y``
-     - Install Cyclone5 architecture boot files (``y``/``n``).
+     - Install Arria10 and Cyclone5 architecture boot files (``y``/``n``).
    * - ``CONFIG_ARCH_ZYNQMP``
      - ``n``
      - Install ZynqMP architecture boot files (``y``/``n``).
@@ -223,10 +220,8 @@ These options control which boot files are included in your image:
      - Hardware Platform Examples
    * - ``zynq``
      - ZedBoard, ZC702, ZC706, Cora Z7s, ADRV9361-Z7035, ADRV9364-Z7020
-   * - ``arria10``
-     - Arria10 SoC Development Kit
-   * - ``cyclone5``
-     - Cyclone 5 SoC Kit, DE10-Nano, Arradio board
+   * - ``socfpga``
+     - Arria10 SoC Development Kit, Cyclone 5 SoC Kit, DE10-Nano, Arradio board
    * - ``zynqmp``
      - ZCU102, ADRV9009-ZU11EG, Jupiter SDR
    * - ``versal``
@@ -340,8 +335,7 @@ Building only 64-bit boot files
    :caption: config file settings
 
    CONFIG_ARCH_ZYNQ=n
-   CONFIG_ARCH_ARRIA10=n
-   CONFIG_ARCH_CYCLONE5=n
+   CONFIG_ARCH_SOCFPGA=n
 
    CONFIG_ARCH_ZYNQMP=y
    CONFIG_ARCH_VERSAL=y
