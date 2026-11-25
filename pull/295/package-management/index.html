@@ -8,7 +8,7 @@
 
     <title>Package Management &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=6cfc7fee" />
+    <link rel="stylesheet" type="text/css" href="../_static/app.min.css?v=7db40558" />
     <script async="async" src="../_static/app.umd.js?v=2fe15c61"></script>
     <link rel="icon" href="../_static/icon.png"/>
     <link rel="index" title="Index" href="../genindex/" />
@@ -306,7 +306,7 @@ for Kuiper.</p>
 <td><p>arm64</p></td>
 </tr>
 <tr class="row-odd"><td><p>Arria10 SoC Development Kit, Cyclone 5 SoC Kit, DE10-Nano, Arradio board</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">adi-socfppga-boot</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adi-socfpga-boot</span></code></p></td>
 <td><p>armhf</p></td>
 </tr>
 <tr class="row-even"><td><p>Raspberry Pi</p></td>
@@ -345,13 +345,14 @@ its requested firmware file is missing.</p>
 <p>Beyond the boot packages from the previous section, the following Linux
 development packages are provided:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-&lt;defconfig&gt;-devel</span></code>: Development files for out of tree modules
+<li><p><code class="docutils literal notranslate"><span class="pre">adi-&lt;config&gt;-devel</span></code>: Development files for out of tree modules
 compilation.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-&lt;defconfig&gt;-headers</span></code>: Header files, for user space (UAPI).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adi-&lt;config&gt;-headers</span></code>: Header files, for user space (UAPI).</p></li>
 </ul>
 <p>See <a class="icon link reference external" href="https://analogdevicesinc.github.io/linux/kernel_modules/#kernel-modules" target="_blank" title="(in Linux Drivers)"><span>Kernel modules</span></a> for how to compile out-of-tree kernel
 modules, replacing the “raw S3” steps with the files already provided by the
-<code class="docutils literal notranslate"><span class="pre">-devel</span></code> Debian package.</p>
+<code class="docutils literal notranslate"><span class="pre">-devel</span></code> Debian package. Example package names: <code class="docutils literal notranslate"><span class="pre">adi-zynq-devel</span></code>,
+<code class="docutils literal notranslate"><span class="pre">adi-socfpga-headers</span></code></p>
 </section>
 </section>
 <section id="discovering-packages">
