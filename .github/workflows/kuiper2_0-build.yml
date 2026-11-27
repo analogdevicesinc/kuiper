@@ -1,3 +1,7 @@
+# Copyright (c) 2024-2026 Analog Devices, Inc. All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 name: Kuiper2.0
 on:
   workflow_dispatch:
