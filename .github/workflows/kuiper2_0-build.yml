@@ -90,7 +90,7 @@ jobs:
       - name: Build image
         run: |
           sudo apt-get update
-          sudo apt-get install -y qemu-user-static
+          sudo apt-get install -y qemu-user-binfmt
           ci/modify_config.sh ./config "${{ vars[format('{0}', env.BRANCH_NAME )] }}"
           sudo KUIPER_VARIANT="${{ matrix.build_type }}" bash build-docker.sh
           ls kuiper-volume/*.zip >/dev/null 2>&1 && exit 0 || exit 2
