@@ -39,7 +39,9 @@ numfig_format = {
 
 # -- External docs configuration ----------------------------------------------
 
-interref_repos = []
+interref_repos = [
+    'linux',
+]
 
 # -- Custom extensions configuration ------------------------------------------
 

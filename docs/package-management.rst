@@ -99,15 +99,46 @@ Boot files are organized by processor architecture:
    * - VCK190, VPK180, VHK158
      - ``adi-versal-boot``
      - arm64
-   * - Arria10 SoC Development Kit
-     - ``adi-arria10-boot``
-     - armhf
-   * - Cyclone 5 SoC Kit, DE10-Nano, Arradio board
-     - ``adi-cyclone5-boot``
+   * - Arria10 SoC Development Kit, Cyclone 5 SoC Kit, DE10-Nano, Arradio board
+     - ``adi-socfpga-boot``
      - armhf
    * - Raspberry Pi
      - ``adi-rpi-boot``
      - armhf, arm64
+
+The boot files packages encompass devicetrees, FPGA bitstreams, das U-boot,
+Linux Kernel Image, and any other collateral required to boot Linux.
+
+Packages updates are provided to resolve vulnerabilities and issues,
+uninstalling the packages removes the file system structure (e.g.,
+*boot/zynqmp-common/Image*) but not the active boot files (e.g.,
+*boot/Image*).
+
+During the packages updates, the active files (e.g., ``uImage``) hashes are
+checked against the file system structure.
+
+.. caution::
+
+   Overwriting the active boot files with custom builds blocks updating them,
+   requiring to manually copy the updated version after the update
+   (e.g., *boot/zynqmp-common/Image* -> *boot/Image*).
+
+   This guard exists to accommodate the use case of users using their own boot files.
+
+Linux Development
++++++++++++++++++
+
+Beyond the boot packages from the previous section, the following Linux
+development packages are provided:
+
+- ``adi-<config>-devel``: Development files for out of tree modules
+  compilation.
+- ``adi-<config>-headers``: Header files, for user space (UAPI).
+
+See :external+linux:ref:`kernel_modules` for how to compile out-of-tree kernel
+modules, replacing the "raw S3" steps with the files already provided by the
+``-devel`` Debian package. Example package names: ``adi-zynq-devel``,
+``adi-socfpga-headers``
 
 Discovering Packages
 ~~~~~~~~~~~~~~~~~~~~
