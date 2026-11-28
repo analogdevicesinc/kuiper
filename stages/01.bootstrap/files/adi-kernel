@@ -1,0 +1,5 @@
+# Disallow Debian or Rasperry Pi kernel packages.
+
+Package: linux-image-*
+Pin: release *
+Pin-Priority: -1

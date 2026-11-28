@@ -36,6 +36,7 @@ fi
 # Add adi-repo.list to sources.list
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/prefer-adi "${BUILD_DIR}/etc/apt/preferences.d/prefer-adi"
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/adi-libraries "${BUILD_DIR}/etc/apt/preferences.d/adi-libraries"
+install -m 644 "${BASH_SOURCE%%/run.sh}"/files/adi-kernel "${BUILD_DIR}/etc/apt/preferences.d/adi-kernel"
 
 if [ "${CONFIG_RPI_BOOT_FILES}" = y ]; then
 	# Add raspi.list to sources.list

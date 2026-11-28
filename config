@@ -145,6 +145,12 @@ CONFIG_ARCH_VERSAL=n
 #
 #
 #
+# [FIRMWARE]
+# Firmware for the ADI Linux drivers, installed to /usr/lib/firmware from the ADI Package Repository.
+CONFIG_FIRMWARE=y
+#
+#
+#
 # [PREPARE BOOT FILES]*
 # Prepare boot partition with carriers boot files at build time by setting the
 # ADI_EVAL_BOARD and the CARRIER. Corresponding boot file package must be
